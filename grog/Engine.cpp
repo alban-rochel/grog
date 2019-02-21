@@ -4,6 +4,7 @@ using namespace grog;
 
 #include <new>          // std::nothrow
 #include <string.h>
+#include <iostream>
 
 Engine::Engine() noexcept
 {
@@ -17,6 +18,9 @@ Engine::~Engine() noexcept
 
   if(transformStack)
     delete[] transformStack;
+
+  if(triangleStack)
+    delete[] triangleStack;
 }
 
 void Engine::init(uint32_t maxVerticesPerMesh,
@@ -24,20 +28,24 @@ void Engine::init(uint32_t maxVerticesPerMesh,
                   uint32_t maxTransforms) noexcept
 {
   if(transformedVertexBuffer)
-  {
     delete[] transformedVertexBuffer;
-  }
 
   transformedVertexBuffer = new (std::nothrow) coord[maxVerticesPerMesh*3];
 
   if(transformStack)
-  {
     delete[] transformStack;
-  }
 
   transformStack = new (std::nothrow) TransformMatrix[maxTransforms];
   nextTransformIndex = 0;
-  transformCount = 0;
+  transformCount = maxTransforms;
+
+  if(triangleStack)
+    delete[] triangleStack;
+
+  triangleStack = new (std::nothrow) Triangle[maxTriangles];
+  triangleStackHead = nullptr;
+  triangleCount = 0;
+  this->maxTriangles = maxTriangles;
 }
 
 void Engine::pushTransform(const TransformMatrix &transform) noexcept
@@ -93,13 +101,16 @@ void Engine::projectScene(const SceneNode *node) noexcept
 
       (*outTransformedVertexBuffer++) = transform[0] * inX
                                         +  transform[1] * inY
-                                        +  transform[2] * inZ;
+                                        +  transform[2] * inZ
+                                        +  transform[3];
       (*outTransformedVertexBuffer++) = transform[4] * inX
                                         +  transform[5] * inY
-                                        +  transform[6] * inZ;
+                                        +  transform[6] * inZ
+                                        +  transform[7];
       (*outTransformedVertexBuffer++) = transform[8] * inX
                                         +  transform[9] * inY
-                                        +  transform[10] * inZ;
+                                        +  transform[10] * inZ
+                                        +  transform[11];
     }
   }
   // end project all the coordinates in transformedVertexBuffer
@@ -151,7 +162,37 @@ void Engine::projectScene(const SceneNode *node) noexcept
   popTransform();
 }
 
+void Engine::render(bufferType* frameBuffer) noexcept
+{
+  const Triangle* currentTriangle = triangleStack;
+  for(uint32_t triangleIndex = triangleCount; triangleIndex; --triangleIndex, ++currentTriangle)
+  {
+    rasterizeTriangle(*currentTriangle, frameBuffer);
+  }
+std::cout << "new" << std::endl;
+  newFrame();
+}
+
 void Engine::pushTriangle(Triangle& in) noexcept
 {
+  std::cout << "push " << in.p1x << "," << in.p1y << "  - "
+               << in.p2x << "," << in.p2y << "  - "
+                  << in.p3x << "," << in.p3y << "\n";
+  if(triangleCount == maxTriangles)
+  {
+    // replace triangles
+  }
+  else
+  {
+    // standard insertion
+    triangleStack[triangleCount] = in;
+    ++triangleCount;
+  }
+}
 
+void Engine::newFrame()
+{
+  triangleCount = 0;
+  triangleStackHead = nullptr;
+  nextTransformIndex = 0;
 }

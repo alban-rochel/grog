@@ -19,6 +19,7 @@ class MainWindow : public QMainWindow
     QPixmap drawImage(grog::bufferType* buffer) noexcept;
 
   protected slots:
+    void animate();
     void fastInteger() noexcept;
 
   private:

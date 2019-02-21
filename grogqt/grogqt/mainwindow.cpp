@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "Engine.h"
 
 #include <iostream>
 #include <QPainter>
+#include <thread>
 
 // Triangle ABC is large, rectangle
 
@@ -62,7 +64,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
-  connect(ui->goButton, SIGNAL(clicked()), this, SLOT(fastInteger()));
+  //connect(ui->goButton, SIGNAL(clicked()), this, SLOT(fastInteger()));
+  connect(ui->goButton, SIGNAL(clicked()), this, SLOT(animate()));
 }
 
 MainWindow::~MainWindow()
@@ -96,6 +99,54 @@ QPixmap MainWindow::drawImage(grog::bufferType *buffer) noexcept
 
     pix = pix.scaled(pix.width() * 4, pix.height() * 4);
     return pix;
+}
+
+void MainWindow::animate()
+{
+  grog::Engine engine;
+  engine.init(8, 12, 2);
+
+  const grog::coord vertices[] {10, 10, 0,
+                                -10, 10, 0,
+                                -10, -10, 0,
+                                10, -10, 0};
+  const uint32_t faces[] {0, 1, 2,
+                          0, 2, 3};
+  const uint8_t colors[] {1, 2};
+
+  grog::SceneNode cube;
+  cube.mesh.vertexBuffer = vertices;
+  cube.mesh.vertexCount = 4;
+  cube.mesh.faces = faces;
+  cube.mesh.faceCount = 2;
+  cube.mesh.colors = colors;
+
+  grog::bufferType* buffer = new grog::bufferType[grog::screenWidth * grog::screenHeight];
+
+          grog::TMatrixTranslate(cube.transform, 30, 30, 0);
+
+  for(unsigned int ii = 0; ii < 100; ++ii)
+  {
+
+    memset(buffer, 0x0, grog::screenWidth * grog::screenHeight * sizeof (grog::bufferType));
+
+    //grog::TMatrixRx(cube.transform, 0.5);
+    //grog::TMatrixRy(cube.transform, 0.5);
+    grog::TMatrixRz(cube.transform, 0.02);
+
+    engine.projectScene(&cube);
+
+    engine.render(buffer);
+
+    QPixmap pix = drawImage(buffer);
+
+    ui->label->setPixmap(pix);
+
+    QApplication::processEvents();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(40));
+  }
+  delete[] buffer;
 }
 
 void MainWindow::fastInteger() noexcept

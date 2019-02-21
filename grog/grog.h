@@ -33,6 +33,7 @@ namespace grog
         int32_t p3y{0};
         int32_t z{0}; // used for ordering only
         uint8_t color{0};
+        Triangle* next {nullptr};
     } ;
 
     constexpr const int& min2(const int &t1, const int &t2) noexcept

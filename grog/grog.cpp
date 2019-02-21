@@ -79,6 +79,15 @@ void grog::rasterizeTriangle(const Triangle& triangle,
     int32_t minY = min3(triangle.p1y, triangle.p2y, triangle.p3y);
     int32_t maxY = max3(triangle.p1y, triangle.p2y, triangle.p3y);
 
+    if(maxY < 0)
+      return;
+    if(maxX < 0)
+      return;
+    if(minX > (int32_t)screenWidth - 1)
+      return;
+    if(minY > (int32_t)screenHeight - 1)
+      return;
+
     // Clip against screen bounds;
 
     minX = max2(minX, 0);
@@ -111,7 +120,7 @@ void grog::rasterizeTriangle(const Triangle& triangle,
         {
             if((w1|w2|w3) >= 0)
             {
-                *tmp = triangle.color;
+                *tmp = ((x+y)&0x1 ? triangle.color :3) ;
                wasOk = true;
             }
             else if(wasOk)

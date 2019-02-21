@@ -15,8 +15,9 @@ namespace grog
                 uint32_t maxTriangles,
                 uint32_t maxTransforms) noexcept;
 
-
       void projectScene(const SceneNode* node) noexcept;
+
+      void render(bufferType* frameBuffer) noexcept;
 
     protected:
 
@@ -26,11 +27,18 @@ namespace grog
 
       void pushTriangle(Triangle& in) noexcept;
 
-      coord* transformedVertexBuffer {};
+      void newFrame();
 
-      TransformMatrix* transformStack{};
+      coord* transformedVertexBuffer {nullptr};
+
+      TransformMatrix* transformStack{nullptr};
       uint32_t nextTransformIndex{0};
       uint32_t transformCount{0};
+
+      Triangle* triangleStack {nullptr};
+      Triangle* triangleStackHead {nullptr};
+      uint32_t triangleCount {0};
+      uint32_t maxTriangles {0};
 
   };
 }
