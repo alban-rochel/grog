@@ -104,35 +104,52 @@ QPixmap MainWindow::drawImage(grog::bufferType *buffer) noexcept
 void MainWindow::animate()
 {
   grog::Engine engine;
-  engine.init(8, 12, 2);
+  engine.init(10, 14, 3);
 
-  const grog::coord vertices[] {10, 10, 0,
-                                -10, 10, 0,
-                                -10, -10, 0,
-                                10, -10, 0};
-  const uint32_t faces[] {0, 1, 2,
-                          0, 2, 3};
-  const uint8_t colors[] {1, 2};
+  const grog::coord vertices[] {-1,  1, -1,
+                                 1,  1, -1,
+                                 1, -1, -1,
+                                -1, -1, -1,
+                                -1,  1,  1,
+                                 1,  1,  1,
+                                 1, -1,  1,
+                                -1, -1,  1};
+  const uint32_t faces[] {0, 3, 1,
+                          1, 3, 2,
+                          5, 1, 2,
+                          5, 2, 6,
+                          4, 7, 0,
+                          0, 7, 3,
+                          4, 0, 1,
+                          4, 1, 5,
+                          3, 7, 2,
+                          2, 7, 6};
+  const uint8_t colors[] {1, 1,
+                          2, 2,
+                          3, 3,
+                          4, 4,
+                          5, 5,
+                          6, 6};
 
   grog::SceneNode cube;
   cube.mesh.vertexBuffer = vertices;
-  cube.mesh.vertexCount = 4;
+  cube.mesh.vertexCount = 8;
   cube.mesh.faces = faces;
-  cube.mesh.faceCount = 2;
+  cube.mesh.faceCount = 10;
   cube.mesh.colors = colors;
 
   grog::bufferType* buffer = new grog::bufferType[grog::screenWidth * grog::screenHeight];
 
-          grog::TMatrixTranslate(cube.transform, 30, 30, 0);
-
-  for(unsigned int ii = 0; ii < 100; ++ii)
+  for(unsigned int ii = 0; ii < 1000; ++ii)
   {
 
     memset(buffer, 0x0, grog::screenWidth * grog::screenHeight * sizeof (grog::bufferType));
 
-    //grog::TMatrixRx(cube.transform, 0.5);
-    //grog::TMatrixRy(cube.transform, 0.5);
-    grog::TMatrixRz(cube.transform, 0.02);
+    cube.transform.identity()
+                  .scale(15, 15, 15)
+                  .rotateX(ii/20.f)
+                  .rotateY(ii/15.f)
+                  .translate(40, 40, 40);
 
     engine.projectScene(&cube);
 

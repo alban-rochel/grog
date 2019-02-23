@@ -57,11 +57,11 @@ void Engine::pushTransform(const TransformMatrix &transform) noexcept
 
   if(GROG_UNLIKELY(nextTransformIndex == 0))
   {
-    memcpy(transformStack, transform, sizeof(transform));
+    transformStack[0] = transform;
   }
   else
   {
-    TMatrixProduct(transformStack[nextTransformIndex-1], transform, transformStack[nextTransformIndex]);
+    TransformMatrix::Product(transformStack[nextTransformIndex-1], transform, transformStack[nextTransformIndex]);
   }
 
   ++nextTransformIndex;
@@ -99,18 +99,18 @@ void Engine::projectScene(const SceneNode *node) noexcept
       inY = (*inVertexBuffer++);
       inZ = (*inVertexBuffer++);
 
-      (*outTransformedVertexBuffer++) = transform[0] * inX
-                                        +  transform[1] * inY
-                                        +  transform[2] * inZ
-                                        +  transform[3];
-      (*outTransformedVertexBuffer++) = transform[4] * inX
-                                        +  transform[5] * inY
-                                        +  transform[6] * inZ
-                                        +  transform[7];
-      (*outTransformedVertexBuffer++) = transform[8] * inX
-                                        +  transform[9] * inY
-                                        +  transform[10] * inZ
-                                        +  transform[11];
+      (*outTransformedVertexBuffer++) = transform.data[0] * inX
+                                        +  transform.data[1] * inY
+                                        +  transform.data[2] * inZ
+                                        +  transform.data[3];
+      (*outTransformedVertexBuffer++) = transform.data[4] * inX
+                                        +  transform.data[5] * inY
+                                        +  transform.data[6] * inZ
+                                        +  transform.data[7];
+      (*outTransformedVertexBuffer++) = transform.data[8] * inX
+                                        +  transform.data[9] * inY
+                                        +  transform.data[10] * inZ
+                                        +  transform.data[11];
     }
   }
   // end project all the coordinates in transformedVertexBuffer
@@ -169,15 +169,15 @@ void Engine::render(bufferType* frameBuffer) noexcept
   {
     rasterizeTriangle(*currentTriangle, frameBuffer);
   }
-std::cout << "new" << std::endl;
+//std::cout << "new" << std::endl;
   newFrame();
 }
 
 void Engine::pushTriangle(Triangle& in) noexcept
 {
-  std::cout << "push " << in.p1x << "," << in.p1y << "  - "
-               << in.p2x << "," << in.p2y << "  - "
-                  << in.p3x << "," << in.p3y << "\n";
+//  std::cout << "push " << in.p1x << "," << in.p1y << "  - "
+//               << in.p2x << "," << in.p2y << "  - "
+//                  << in.p3x << "," << in.p3y << "\n";
   if(triangleCount == maxTriangles)
   {
     // replace triangles

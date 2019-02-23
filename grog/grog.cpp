@@ -120,7 +120,7 @@ void grog::rasterizeTriangle(const Triangle& triangle,
         {
             if((w1|w2|w3) >= 0)
             {
-                *tmp = ((x+y)&0x1 ? triangle.color :3) ;
+                *tmp = triangle.color;//((x+y)&0x1 ? triangle.color :3) ;
                wasOk = true;
             }
             else if(wasOk)

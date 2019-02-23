@@ -4,10 +4,7 @@ using namespace grog;
 
 SceneNode::SceneNode() noexcept:
   mesh(),
-  transform {1.f, 0.f, 0.f, 0.f,
-             0.f, 1.f, 0.f, 0.f,
-             0.f, 0.f, 1.f, 0.f,
-             0.f},
+  transform(),
   children(nullptr),
   childCount(0)
 {
