@@ -66,6 +66,22 @@ MainWindow::MainWindow(QWidget *parent) :
 
   //connect(ui->goButton, SIGNAL(clicked()), this, SLOT(fastInteger()));
   connect(ui->goButton, SIGNAL(clicked()), this, SLOT(animate()));
+
+//  grog::TransformMatrix plop = grog::TransformMatrix::View(300, 0, 0,
+//                                                           0, 0, 0,
+//                                                           0, 1, 0);
+//  std::cout << plop.data[0] << " - " << plop.data[1] << " - " << plop.data[2] <<  " - " << plop.data[3] << "\n"
+//                               << plop.data[4] << " - " << plop.data[5] << " - " << plop.data[6] << " - " << plop.data[7] << "\n"
+//                                  << plop.data[8] << " - " << plop.data[9] << " - " << plop.data[10] << " - " << plop.data[11] <<"\n"
+//                                     << plop.data[12] <<"\n";
+
+  //grog::Matrix pouet = grog::Matrix::Projection(10.f, 1.f, 10.f);
+  grog::TransformMatrix pouet = grog::TransformMatrix::View(300, 0, 0,
+                                                             0, 0, 0,
+                                                             0, 1, 0);
+
+  pouet.print();
+
 }
 
 MainWindow::~MainWindow()
@@ -140,16 +156,32 @@ void MainWindow::animate()
 
   grog::bufferType* buffer = new grog::bufferType[grog::screenWidth * grog::screenHeight];
 
+  engine.setView(grog::TransformMatrix::View(0, 0, 5,
+                                             0, 0, 0,
+                                             0, 1, 0));
+
+/*  grog::TransformMatrix pouet;
+
+  pouet.data[3] = 1;*/
+
+//  engine.setView(pouet);
+
+  engine.setProjection(grog::Matrix::Projection(2.f, 1, 10));
+
   for(unsigned int ii = 0; ii < 1000; ++ii)
   {
 
     memset(buffer, 0x0, grog::screenWidth * grog::screenHeight * sizeof (grog::bufferType));
 
+    engine.setView(grog::TransformMatrix::View(0, 0, 1,
+                                               0, 0, 0,
+                                               0, 1, 0));
+
     cube.transform.identity()
-                  .scale(15, 15, 15)
+                  .scale(0.5, 0.5, 0.5)
                   .rotateX(ii/20.f)
-                  .rotateY(ii/15.f)
-                  .translate(40, 40, 40);
+                  .rotateY(ii/15.f)/*
+                  .translate(40, 40, 40)*/;
 
     engine.projectScene(&cube);
 

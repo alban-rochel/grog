@@ -19,7 +19,13 @@ namespace grog
 
       void render(bufferType* frameBuffer) noexcept;
 
+      void setProjection(const Matrix& projection) noexcept;
+      void setView(const TransformMatrix& view) noexcept;
+
     protected:
+
+      void projectScene(const SceneNode* node,
+                        const Matrix& parentMvp)noexcept;
 
       void pushTransform(const TransformMatrix& transform) noexcept;
 
@@ -31,9 +37,12 @@ namespace grog
 
       coord* transformedVertexBuffer {nullptr};
 
-      TransformMatrix* transformStack{nullptr};
-      uint32_t nextTransformIndex{0};
-      uint32_t transformCount{0};
+      Matrix projection;
+      TransformMatrix view;
+
+//      TransformMatrix* transformStack{nullptr};
+//      uint32_t nextTransformIndex{0};
+//      uint32_t transformCount{0};
 
       Triangle* triangleStack {nullptr};
       Triangle* triangleStackHead {nullptr};

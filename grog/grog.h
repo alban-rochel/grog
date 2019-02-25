@@ -75,4 +75,11 @@ namespace grog
 //    void computeGeometry( const coord* __restrict vertexBuffer,
 //                          const uint32_t* __restrict faces,
 //                          const uint8_t* __restrict colors);
+
+    void normalize(float* io) noexcept;
+
+    void crossProd(float* left,
+                   float* right,
+                   float* out,
+                   bool normalize) noexcept;
 }

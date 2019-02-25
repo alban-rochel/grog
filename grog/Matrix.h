@@ -23,6 +23,9 @@ namespace grog
       TransformMatrix() noexcept;
       TransformMatrix(const TransformMatrix& other) noexcept;
 
+      //pre: no self-assignment
+      TransformMatrix& operator=(const TransformMatrix& other) noexcept;
+
       TransformMatrix& identity() noexcept;
 //      void leftMultiply(const TransformMatrix& left) noexcept;
 //      void rightMultiply(const TransformMatrix& right) noexcept;
@@ -38,8 +41,42 @@ namespace grog
                           const TransformMatrix& right,
                           TransformMatrix& out) noexcept;
 
+      static TransformMatrix View(float eyeX, float eyeY, float eyeZ,
+                                  float centerX, float centerY, float centerZ,
+                                  float upX, float upY, float upZ) noexcept;
+
+#ifdef __linux__
+      void print() noexcept;
+#endif
+
   };
 
-  using Matrix = float[16];
+  class Matrix
+  {
+    public:
+      float data[16] {1, 0, 0, 0,
+                      0, 1, 0, 0,
+                      0, 0, 1, 0,
+                      0, 0, 0, 1};
+
+      Matrix() noexcept;
+      Matrix(const Matrix& other) noexcept;
+
+      // pre no self assignment
+      Matrix& operator=(const Matrix& other) noexcept;
+
+      static void Transform(const Matrix& left,
+                            const TransformMatrix& right,
+                            Matrix& out) noexcept;
+
+      static Matrix Projection(float fov,
+                               float near,
+                               float far) noexcept;
+
+#ifdef __linux__
+      void print() noexcept;
+#endif
+  };
+
 }
 

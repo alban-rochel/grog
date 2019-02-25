@@ -131,6 +131,32 @@ void grog::rasterizeTriangle(const Triangle& triangle,
         }
     }
 }
-#endif
 
+#endif
+#include <iostream>
+void grog::normalize(float* io) noexcept
+{
+  float norm =  (io[0] * io[0]) +
+                (io[1] * io[1]) +
+                (io[2] * io[2]);
+  float invSqrt = 1.f/sqrtf(norm);
+  io[0] *= invSqrt;
+  io[1] *= invSqrt;
+  io[2] *= invSqrt;
+}
+
+void grog::crossProd(float* left,
+                     float* right,
+                     float* out,
+                     bool normalize) noexcept
+{
+  out[0] = left[1] * right[2] - right[1] * left[2];
+  out[1] = left[2] * right[0] - right[2] * left[0];
+  out[2] = left[0] * right[1] - right[0] * left[1];
+
+  if(normalize)
+  {
+    grog::normalize(out);
+  }
+}
 

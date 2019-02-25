@@ -16,8 +16,8 @@ Engine::~Engine() noexcept
   if(transformedVertexBuffer)
     delete[] transformedVertexBuffer;
 
-  if(transformStack)
-    delete[] transformStack;
+/*  if(transformStack)
+    delete[] transformStack;*/
 
   if(triangleStack)
     delete[] triangleStack;
@@ -32,12 +32,12 @@ void Engine::init(uint32_t maxVerticesPerMesh,
 
   transformedVertexBuffer = new (std::nothrow) coord[maxVerticesPerMesh*3];
 
-  if(transformStack)
+/*  if(transformStack)
     delete[] transformStack;
 
   transformStack = new (std::nothrow) TransformMatrix[maxTransforms];
   nextTransformIndex = 0;
-  transformCount = maxTransforms;
+  transformCount = maxTransforms;*/
 
   if(triangleStack)
     delete[] triangleStack;
@@ -50,7 +50,7 @@ void Engine::init(uint32_t maxVerticesPerMesh,
 
 void Engine::pushTransform(const TransformMatrix &transform) noexcept
 {
-  if(GROG_UNLIKELY(nextTransformIndex == transformCount))
+/*  if(GROG_UNLIKELY(nextTransformIndex == transformCount))
   {
     return;
   }
@@ -64,27 +64,27 @@ void Engine::pushTransform(const TransformMatrix &transform) noexcept
     TransformMatrix::Product(transformStack[nextTransformIndex-1], transform, transformStack[nextTransformIndex]);
   }
 
-  ++nextTransformIndex;
+  ++nextTransformIndex;*/
 }
 
 void Engine::popTransform() noexcept
 {
-  if(GROG_UNLIKELY(nextTransformIndex == 0))
+/*  if(GROG_UNLIKELY(nextTransformIndex == 0))
   {
     return;
   }
 
-  --nextTransformIndex;
+  --nextTransformIndex;*/
 }
 
-void Engine::projectScene(const SceneNode *node) noexcept
+void Engine::projectScene(const SceneNode* node,
+                          const Matrix& parentMvp)noexcept
 {
   if(GROG_UNLIKELY(node == nullptr))
     return;
 
-  pushTransform(node->transform);
-
-  const TransformMatrix& transform = transformStack[nextTransformIndex-1]; // TODO we should use MVP later on, rather than MV
+  Matrix mvp;
+  Matrix::Transform(parentMvp, node->transform, mvp);
 
   const Mesh& mesh = node->mesh;
 
@@ -99,18 +99,18 @@ void Engine::projectScene(const SceneNode *node) noexcept
       inY = (*inVertexBuffer++);
       inZ = (*inVertexBuffer++);
 
-      (*outTransformedVertexBuffer++) = transform.data[0] * inX
-                                        +  transform.data[1] * inY
-                                        +  transform.data[2] * inZ
-                                        +  transform.data[3];
-      (*outTransformedVertexBuffer++) = transform.data[4] * inX
-                                        +  transform.data[5] * inY
-                                        +  transform.data[6] * inZ
-                                        +  transform.data[7];
-      (*outTransformedVertexBuffer++) = transform.data[8] * inX
-                                        +  transform.data[9] * inY
-                                        +  transform.data[10] * inZ
-                                        +  transform.data[11];
+      (*outTransformedVertexBuffer++) = (mvp.data[0] * inX
+                                        +  mvp.data[1] * inY
+                                        +  mvp.data[2] * inZ
+                                        +  mvp.data[3]) * 40 + 40;
+      (*outTransformedVertexBuffer++) = (mvp.data[4] * inX
+                                        +  mvp.data[5] * inY
+                                        +  mvp.data[6] * inZ
+                                        +  mvp.data[7]) * 32 + 32;
+      (*outTransformedVertexBuffer++) = mvp.data[8] * inX
+                                        +  mvp.data[9] * inY
+                                        +  mvp.data[10] * inZ
+                                        +  mvp.data[11];
     }
   }
   // end project all the coordinates in transformedVertexBuffer
@@ -154,12 +154,20 @@ void Engine::projectScene(const SceneNode *node) noexcept
         childIndex;
         --childIndex, ++child)
     {
-      projectScene(child);
+      projectScene(child, mvp);
     }
   }
   // end recursive call
 
   popTransform();
+}
+
+void Engine::projectScene(const SceneNode *node) noexcept
+{
+  Matrix mvp;
+  Matrix::Transform(projection, view, mvp);
+
+  projectScene(node, mvp);
 }
 
 void Engine::render(bufferType* frameBuffer) noexcept
@@ -171,6 +179,16 @@ void Engine::render(bufferType* frameBuffer) noexcept
   }
 //std::cout << "new" << std::endl;
   newFrame();
+}
+
+void Engine::setProjection(const Matrix& projection) noexcept
+{
+  this->projection = projection;
+}
+
+void Engine::setView(const TransformMatrix& view) noexcept
+{
+  this->view = view;
 }
 
 void Engine::pushTriangle(Triangle& in) noexcept
@@ -194,5 +212,5 @@ void Engine::newFrame()
 {
   triangleCount = 0;
   triangleStackHead = nullptr;
-  nextTransformIndex = 0;
+  //katenextTransformIndex = 0;
 }
