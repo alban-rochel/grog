@@ -120,7 +120,7 @@ void grog::rasterizeTriangle(const Triangle& triangle,
         {
             if((w1|w2|w3) >= 0)
             {
-                *tmp = triangle.color;//((x+y)&0x1 ? triangle.color :3) ;
+                *tmp = triangle.color*100;//((x+y)&0x1 ? triangle.color*100 : 0xFFFFFF) ;
                wasOk = true;
             }
             else if(wasOk)
@@ -133,7 +133,7 @@ void grog::rasterizeTriangle(const Triangle& triangle,
 }
 
 #endif
-#include <iostream>
+
 void grog::normalize(float* io) noexcept
 {
   float norm =  (io[0] * io[0]) +
@@ -159,4 +159,3 @@ void grog::crossProd(float* left,
     grog::normalize(out);
   }
 }
-

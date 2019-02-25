@@ -2,9 +2,9 @@
 
 using namespace grog;
 
-#include <new>          // std::nothrow
+//#include <new>          // std::nothrow
 #include <string.h>
-#include <iostream>
+//#include <iostream>
 
 Engine::Engine() noexcept
 {
@@ -30,7 +30,7 @@ void Engine::init(uint32_t maxVerticesPerMesh,
   if(transformedVertexBuffer)
     delete[] transformedVertexBuffer;
 
-  transformedVertexBuffer = new (std::nothrow) coord[maxVerticesPerMesh*3];
+  transformedVertexBuffer = new /*(std::nothrow)*/ coord[maxVerticesPerMesh*3];
 
 /*  if(transformStack)
     delete[] transformStack;
@@ -42,7 +42,7 @@ void Engine::init(uint32_t maxVerticesPerMesh,
   if(triangleStack)
     delete[] triangleStack;
 
-  triangleStack = new (std::nothrow) Triangle[maxTriangles];
+  triangleStack = new /*(std::nothrow)*/ Triangle[maxTriangles];
   triangleStackHead = nullptr;
   triangleCount = 0;
   this->maxTriangles = maxTriangles;
