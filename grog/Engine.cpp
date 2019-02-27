@@ -25,7 +25,11 @@ Engine::~Engine() noexcept
 
 void Engine::init(uint32_t maxVerticesPerMesh,
                   uint32_t maxTriangles,
-                  uint32_t maxTransforms) noexcept
+                  uint32_t maxTransforms
+#ifdef __linux
+                  , QPixmap* pixmap
+#endif
+                  ) noexcept
 {
   if(transformedVertexBuffer)
     delete[] transformedVertexBuffer;
@@ -46,6 +50,8 @@ void Engine::init(uint32_t maxVerticesPerMesh,
   triangleStackHead = nullptr;
   triangleCount = 0;
   this->maxTriangles = maxTriangles;
+
+  display.pixmap = pixmap;
 }
 
 void Engine::pushTransform(const TransformMatrix &transform) noexcept
@@ -170,13 +176,16 @@ void Engine::projectScene(const SceneNode *node) noexcept
   projectScene(node, mvp);
 }
 
-void Engine::render(bufferType* frameBuffer) noexcept
+void Engine::render() noexcept
 {
   const Triangle* currentTriangle = triangleStack;
   for(uint32_t triangleIndex = triangleCount; triangleIndex; --triangleIndex, ++currentTriangle)
   {
-    rasterizeTriangle(*currentTriangle, frameBuffer);
+    rasterizeTriangle(*currentTriangle, display.buffer);
   }
+
+  display.draw();
+
 //std::cout << "new" << std::endl;
   newFrame();
 }

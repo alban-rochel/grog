@@ -32,7 +32,8 @@ SOURCES += \
     ../../grog/SceneNode.cpp \
     ../../grog/Mesh.cpp \
     ../../grog/Engine.cpp \
-    ../../grog/Matrix.cpp
+    ../../grog/Matrix.cpp \
+    ../../grog/Display.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,7 +43,8 @@ HEADERS += \
     ../../grog/Mesh.h \
     ../../grog/Engine.h \
     ../../grog/Matrix.h \
-    ../../grog/Colors.h
+    ../../grog/Colors.h \
+    ../../grog/Display.h
 
 FORMS += \
         mainwindow.ui

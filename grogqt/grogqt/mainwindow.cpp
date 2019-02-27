@@ -58,7 +58,8 @@ QPixmap MainWindow::drawImage(grog::bufferType *buffer) noexcept
 void MainWindow::animate()
 {
   grog::Engine engine;
-  engine.init(10, 14, 3);
+  QPixmap pix(80, 64);
+  engine.init(10, 14, 3, &pix);
 
   const grog::coord vertices[] {-1,  1, -1,
                                  1,  1, -1,
@@ -123,17 +124,16 @@ void MainWindow::animate()
 
     engine.projectScene(&cube);
 
-    engine.render(buffer);
+    engine.render();
 
-    QPixmap pix = drawImage(buffer);
+    QPixmap coincoin = pix.scaled(320, 256);
 
-    ui->label->setPixmap(pix);
+    ui->label->setPixmap(coincoin);
 
     QApplication::processEvents();
 
     std::this_thread::sleep_for(std::chrono::milliseconds(40));
   }
-  delete[] buffer;
 }
 
 

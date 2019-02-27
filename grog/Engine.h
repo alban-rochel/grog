@@ -1,6 +1,10 @@
 #pragma once
 
 #include "SceneNode.h"
+#include "Display.h"
+#ifdef __linux
+#include <QPixmap>
+#endif
 
 namespace grog
 {
@@ -13,11 +17,15 @@ namespace grog
 
       void init(uint32_t maxVerticesPerMesh,
                 uint32_t maxTriangles,
-                uint32_t maxTransforms) noexcept;
+                uint32_t maxTransforms
+#ifdef __linux
+                , QPixmap* pixmap
+#endif
+                ) noexcept;
 
       void projectScene(const SceneNode* node) noexcept;
 
-      void render(bufferType* frameBuffer) noexcept;
+      void render() noexcept;
 
       void setProjection(const Matrix& projection) noexcept;
       void setView(const TransformMatrix& view) noexcept;
@@ -48,6 +56,8 @@ namespace grog
       Triangle* triangleStackHead {nullptr};
       uint32_t triangleCount {0};
       uint32_t maxTriangles {0};
+
+      Display display {};
 
   };
 }
