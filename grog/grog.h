@@ -10,8 +10,6 @@ namespace grog
     constexpr unsigned int screenHeight = 64;
     using bufferType = uint16_t;//unsigned char;
 
-
-
     using vec4f = float[4];
     using mat44f = float[4*4];
     using vec4i = int[4];

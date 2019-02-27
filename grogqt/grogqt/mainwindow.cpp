@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "Engine.h"
+#include "Colors.h"
 
 #include <iostream>
 #include <QPainter>
@@ -98,16 +99,7 @@ QPixmap MainWindow::drawImage(grog::bufferType *buffer) noexcept
     {
         for(unsigned int x = 0; x < grog::screenWidth; ++x, ++buffer)
         {
-            switch(*buffer)
-            {
-                case 0: painter.setPen(QColor(0, 0, 0)); break;
-                case 1: painter.setPen(QColor(0, 255, 0)); break;
-                case 2: painter.setPen(QColor(255, 255, 0)); break;
-                case 3: painter.setPen(QColor(255, 0, 255)); break;
-                case 4: painter.setPen(QColor(255, 255, 255)); break;
-                default: painter.setPen(QColor(255, 0, 0)); break;
-            }
-
+            painter.setPen(grog::Palette[(*buffer)&0xF]);
             painter.drawPoint(x, y);
         }
     }
@@ -140,12 +132,12 @@ void MainWindow::animate()
                           4, 1, 5,
                           3, 7, 2,
                           2, 7, 6};
-  const uint8_t colors[] {1, 1,
-                          2, 2,
-                          3, 3,
-                          4, 4,
-                          5, 5,
-                          6, 6};
+  const uint8_t colors[] {grog::color(grog::Color::White), grog::color(grog::Color::White),
+                          grog::color(grog::Color::Gray), grog::color(grog::Color::Gray),
+                          grog::color(grog::Color::DarkGray), grog::color(grog::Color::DarkGray),
+                          grog::color(grog::Color::White, grog::Color::DarkBlue), grog::color(grog::Color::White, grog::Color::DarkBlue),
+                          grog::color(grog::Color::Gray, grog::Color::DarkBlue), grog::color(grog::Color::Gray, grog::Color::DarkBlue),
+                          grog::color(grog::Color::DarkGray, grog::Color::DarkBlue), grog::color(grog::Color::DarkGray, grog::Color::DarkBlue)};
 
   grog::SceneNode cube;
   cube.mesh.vertexBuffer = vertices;

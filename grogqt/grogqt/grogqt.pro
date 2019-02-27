@@ -41,7 +41,8 @@ HEADERS += \
     ../../grog/SceneNode.h \
     ../../grog/Mesh.h \
     ../../grog/Engine.h \
-    ../../grog/Matrix.h
+    ../../grog/Matrix.h \
+    ../../grog/Colors.h
 
 FORMS += \
         mainwindow.ui
