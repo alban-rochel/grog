@@ -41,10 +41,12 @@ QPixmap MainWindow::drawImage(grog::bufferType *buffer) noexcept
 
     for(unsigned int y = 0; y < grog::screenHeight; ++y)
     {
-        for(unsigned int x = 0; x < grog::screenWidth; ++x, ++buffer)
+        for(unsigned int x = 0; x < grog::screenWidth; x+=2, ++buffer)
         {
-            painter.setPen(grog::Palette[(*buffer)&0xF]);
+            painter.setPen(grog::Palette[(*buffer)&0x0F]);
             painter.drawPoint(x, y);
+            painter.setPen(grog::Palette[(*buffer) >> 4]);
+            painter.drawPoint(x+1, y);
         }
     }
     painter.end();

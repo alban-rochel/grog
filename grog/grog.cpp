@@ -41,22 +41,31 @@ void grog::rasterizeTriangle(const Triangle& triangle,
   int w3_row = orient2d(triangle.p1x, triangle.p1y, triangle.p2x, triangle.p2y, minX, minY);
 
   int w1(0), w2(0), w3(0);
-  bufferType* lineStart = frameBuffer + minY * screenWidth + minX;
-  const uint16_t& col1 = triangle.color & 0x7;
-  const uint16_t& col2 = triangle.color >> 4;
-  for(int y = maxY - minY + 1; y; --y, lineStart += screenWidth, w1_row += _B23, w2_row += _B31, w3_row += _B12)
+  bufferType* lineStart = frameBuffer + (minY * screenWidth + minX) / 2;
+  bool upperNibble = (minY * screenWidth + minX) & 0x1;
+  const uint8_t& col1 = triangle.color & 0x0F;
+  const uint8_t& col2 = triangle.color >> 4;
+  for(int y = maxY - minY + 1; y; --y, lineStart += screenWidth/2, w1_row += _B23, w2_row += _B31, w3_row += _B12)
   {
     bufferType* tmp = lineStart;
+    bool currentUpperNibble = upperNibble;
     w1 = w1_row;
     w2 = w2_row;
     w3 = w3_row;
     /*bool lineDone(false);*/
     bool wasOk(false);
-    for(int x = maxX - minX + 1; x /*&& !lineDone*/; --x, ++tmp, w1 += _A23, w2 += _A31, w3 += _A12)
+    for(int x = maxX - minX + 1; x /*&& !lineDone*/; --x, /*++tmp,*/ w1 += _A23, w2 += _A31, w3 += _A12)
     {
       if((w1|w2|w3) >= 0)
       {
-        *tmp = ((x+y)&0x1 ? col1 : col2) ;
+        if(currentUpperNibble)
+        {
+          *tmp = (*tmp & 0x0F) | (((x+y)&0x1 ? col1 : col2) << 4) ;
+        }
+        else
+        {
+          *tmp = (*tmp & 0xF0) | ((x+y)&0x1 ? col1 : col2) ;
+        }
         wasOk = true;
       }
       else if(wasOk)
@@ -64,6 +73,12 @@ void grog::rasterizeTriangle(const Triangle& triangle,
         //lineDone = true;
         break;
       }
+
+      if(currentUpperNibble)
+      {
+        ++tmp;
+      }
+      currentUpperNibble = ! currentUpperNibble;
     }
   }
 }
