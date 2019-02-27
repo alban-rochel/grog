@@ -20,7 +20,6 @@ class MainWindow : public QMainWindow
 
   protected slots:
     void animate();
-    void fastInteger() noexcept;
 
   private:
     Ui::MainWindow *ui;

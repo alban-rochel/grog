@@ -29,16 +29,6 @@ TransformMatrix& TransformMatrix::identity() noexcept
   return *this;
 }
 
-//void TransformMatrix::leftMultiply(const TransformMatrix &left) noexcept
-//{
-
-//}
-
-//void TransformMatrix::rightMultiply(const TransformMatrix &left) noexcept
-//{
-
-//}
-
 TransformMatrix& TransformMatrix::rotateX(float theta) noexcept
 {
   float c(cosf(theta)),

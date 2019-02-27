@@ -27,8 +27,6 @@ namespace grog
       TransformMatrix& operator=(const TransformMatrix& other) noexcept;
 
       TransformMatrix& identity() noexcept;
-//      void leftMultiply(const TransformMatrix& left) noexcept;
-//      void rightMultiply(const TransformMatrix& right) noexcept;
 
       TransformMatrix& rotateX(float theta) noexcept;
       TransformMatrix& rotateY(float theta) noexcept;

@@ -8,7 +8,7 @@ namespace grog
 {
     constexpr unsigned int screenWidth = 80;
     constexpr unsigned int screenHeight = 64;
-    using bufferType = uint16_t;//unsigned char;
+    using bufferType = uint8_t;
 
     using vec4f = float[4];
     using mat44f = float[4*4];
@@ -61,18 +61,10 @@ namespace grog
         return (p2x-p1x)*(p3y-p1y) - (p2y-p1y)*(p3x-p1x);
     }
 
-/*    void rasterizeTriangle( const int* __restrict v0,
-                            const int* __restrict v1,
-                            const int* __restrict v2,
-                            const bufferType& color,
-                            bufferType* __restrict frameBuffer) noexcept;*/
     void rasterizeTriangle( const Triangle& triangle,
                             bufferType* __restrict frameBuffer) noexcept;
 
     // Accumulate
-//    void computeGeometry( const coord* __restrict vertexBuffer,
-//                          const uint32_t* __restrict faces,
-//                          const uint8_t* __restrict colors);
 
     void normalize(float* io) noexcept;
 
