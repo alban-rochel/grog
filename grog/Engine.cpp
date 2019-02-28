@@ -51,7 +51,9 @@ void Engine::init(uint32_t maxVerticesPerMesh,
   triangleCount = 0;
   this->maxTriangles = maxTriangles;
 
+#ifdef __linux
   display.pixmap = pixmap;
+#endif
 }
 
 void Engine::pushTransform(const TransformMatrix &transform) noexcept

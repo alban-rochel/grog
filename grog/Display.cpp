@@ -22,7 +22,7 @@ namespace grog
   constexpr uint32_t ScreenWidth =  160;
   constexpr uint32_t ScreenHeight =  128;
   constexpr uint32_t StripHeight = 8;
-  constexpr uint32_t StripSizePix = ScreenWidth * ScreenHeight;
+  constexpr uint32_t StripSizePix = ScreenWidth * StripHeight;
   constexpr uint32_t StripSizeBytes = StripSizePix * 2;
 
 #ifndef __linux
@@ -115,10 +115,10 @@ void Display::draw() noexcept
   uint16_t* stripCursor = strip;
   uint16_t* stripCursorNextLine = stripCursor + ScreenWidth;
 
-  uint8_t* bufferCursor = buffer;
+  uint8_t* currentBuffer = buffer;
 
   uint32_t stripLine = 0;
-  for(uint32_t screenLine = 0; screenLine < ScreenHeight; screenLine += 2, stripLine += 2, ++bufferCursor)
+  for(uint32_t screenLine = 0; screenLine < ScreenHeight; screenLine += 2, stripLine += 2)
   {
     if(stripLine == StripHeight)
     {
@@ -128,18 +128,32 @@ void Display::draw() noexcept
       stripLine = 0;
     }
 
-    const uint16_t& currentColor = Palette[*bufferCursor];
-    (*stripCursor++) = currentColor;
-    (*stripCursor++) = currentColor;
-    (*stripCursorNextLine++) = currentColor;
-    (*stripCursorNextLine++) = currentColor;
+      for(unsigned int x = 0; x < 80; x+=2)
+      {
+        uint8_t colors = (*currentBuffer++);
+        uint16_t col = grog::Palette[colors & 0x0F];
+        (*stripCursor++) = col;
+        (*stripCursor++) = col;
+        (*stripCursorNextLine++) = col;
+        (*stripCursorNextLine++) = col;
+        
+        col = grog::Palette[colors >> 4];
+        (*stripCursor++) = col;
+        (*stripCursor++) = col;
+        (*stripCursorNextLine++) = col;
+        (*stripCursorNextLine++) = col;
+      }
+      stripCursor += ScreenWidth;
+      stripCursorNextLine += ScreenWidth;
+
+
 
   }
   commitStrip();
 
   endFrame();
 
-  memset(buffer, 0x0, sizeof(buffer));
+  memset(buffer, 0x0, 80*64/2);
 }
 
 uint16_t* Display::startFrame() noexcept

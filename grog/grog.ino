@@ -1,27 +1,24 @@
 #define DISPLAY_CONSTRUCTOR Image(0, 0, ColorMode::rgb565)
 #include <Gamebuino-Meta.h>
 #include "Engine.h"
+#include "Colors.h"
+
+grog::Engine engine;
 
 void setup()
 {
   gb.begin();
-  //gb.display.init(80, 64, ColorMode::index);
-  //ii = 0;
+  // We aren't using the normal screen buffer, so initialize it to 0px × 0px.
+  gb.display.init(0, 0, ColorMode::rgb565);
+
+  // Just to push things to the limit for this example, increase to 40fps.
+  gb.setFrameRate(25);
+
+  engine.init(10, 14, 3);
 }
 
 void loop()
 {
-
-  gb.display.clear();
-  //gb.display._buffer[0] = 1;
-  //gb.display._buffer[ii] = 0xFFFF;
-  //SerialUSB.printf("%i %d\n", gb.display.bufferSize, millis());
-  //++ii;
-
-
-      grog::Engine engine;
-  engine.init(10, 14, 3);
-
   const grog::coord vertices[] {-1,  1, -1,
                                  1,  1, -1,
                                  1, -1, -1,
@@ -40,12 +37,12 @@ void loop()
                           4, 1, 5,
                           3, 7, 2,
                           2, 7, 6};
-  const uint8_t colors[] {1, 1,
-                          2, 2,
-                          3, 3,
-                          4, 4,
-                          5, 5,
-                          6, 6};
+  const uint8_t colors[] {grog::color(grog::Color::White), grog::color(grog::Color::White),
+                          grog::color(grog::Color::Gray), grog::color(grog::Color::Gray),
+                          grog::color(grog::Color::DarkGray), grog::color(grog::Color::DarkGray),
+                          grog::color(grog::Color::White, grog::Color::DarkBlue), grog::color(grog::Color::White, grog::Color::DarkBlue),
+                          grog::color(grog::Color::Gray, grog::Color::DarkBlue), grog::color(grog::Color::Gray, grog::Color::DarkBlue),
+                          grog::color(grog::Color::DarkGray, grog::Color::DarkBlue), grog::color(grog::Color::DarkGray, grog::Color::DarkBlue)};
 
   grog::SceneNode cube;
   cube.mesh.vertexBuffer = vertices;
@@ -65,8 +62,6 @@ void loop()
   while(true)
   {
     while(!gb.update());
-    gb.display.clear();
-
 
     engine.setView(grog::TransformMatrix::View(0, 0, 1,
                                                0, 0, 0,
@@ -80,13 +75,11 @@ void loop()
 
     engine.projectScene(&cube);
 
-    engine.render(gb.display._buffer);
+    engine.render();
 
     ++ii;
 
-  uint8_t load = gb.getCpuLoad();
-  gb.display.print("CPU:");
-  gb.display.print(load);
-  gb.display.println("%");
+    uint8_t load = gb.getCpuLoad();
+    SerialUSB.printf("%d\n", load);
   }
 }
