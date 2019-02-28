@@ -1,4 +1,3 @@
-#define DISPLAY_CONSTRUCTOR Image(0, 0, ColorMode::rgb565)
 #include <Gamebuino-Meta.h>
 #include "Engine.h"
 #include "Colors.h"
@@ -9,7 +8,7 @@ void setup()
 {
   gb.begin();
   // We aren't using the normal screen buffer, so initialize it to 0px × 0px.
-  gb.display.init(0, 0, ColorMode::rgb565);
+  gb.display.init(0, 0, ColorMode::index);
 
   // Just to push things to the limit for this example, increase to 40fps.
   gb.setFrameRate(25);
@@ -79,7 +78,6 @@ void loop()
 
     ++ii;
 
-    uint8_t load = gb.getCpuLoad();
-    SerialUSB.printf("%d\n", load);
+    SerialUSB.printf("%d %d\n", gb.getCpuLoad(), gb.getFreeRam());
   }
 }
