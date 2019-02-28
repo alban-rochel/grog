@@ -74,7 +74,7 @@ void Display::draw() noexcept
   {
       for(unsigned int x = 0; x < 80; x+=2)
       {
-        uint8_t colors = grog::Palette[(*currentBuffer++)];
+        uint8_t colors = (*currentBuffer++);
         uint16_t col = grog::Palette[colors & 0x0F];
         uint8_t red = (uint8_t)(col & 0xF8);
         uint8_t green = (uint8_t)(((col & 0xE000) >> 13)| ((col & 7) << 5));
