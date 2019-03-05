@@ -6,6 +6,12 @@ using namespace grog;
 #include <string.h>
 //#include <iostream>
 
+
+#ifdef __linux
+#include <iostream>
+#define PRINT_TRIANGLE(t) std::cout << t->z << " - (" << t->p1x << "," << t->p1y <<") - ("<< t->p2x << "," << t->p2y <<") - ("<< t->p3x << "," << t->p3y <<") " << (t->next ? "+next\n" : "+end\n");
+#endif
+
 Engine::Engine() noexcept
 {
 
@@ -150,7 +156,10 @@ void Engine::projectScene(const SceneNode* node,
       // TODO check that triangle covers some part of the screen
 
       projection.color = (*colorIter++);
+      std::cout << "Pushing ";
+      PRINT_TRIANGLE((&projection));
       pushTriangle(projection);
+      debugTriangleStack();
     }
   }
   // end push triangles
@@ -190,6 +199,7 @@ void Engine::render() noexcept
 
 //std::cout << "new" << std::endl;
   newFrame();
+  exit(0);
 }
 
 void Engine::setProjection(const Matrix& projection) noexcept
@@ -200,6 +210,24 @@ void Engine::setProjection(const Matrix& projection) noexcept
 void Engine::setView(const TransformMatrix& view) noexcept
 {
   this->view = view;
+}
+
+void Engine::debugTriangleStack()
+{
+#ifdef __linux
+  std::cout << "Triangle count: " << triangleCount << std::endl;
+  std::cout << "Head ";
+  PRINT_TRIANGLE(triangleStackHead);
+  Triangle* current = triangleStackHead;
+  uint32_t count(0);
+  while(current)
+  {
+    std::cout << "#" <<count << " ";
+    PRINT_TRIANGLE(current);
+    current = current->next;
+    ++count;
+  }
+#endif
 }
 
 void Engine::pushTriangle(Triangle& in) noexcept
@@ -214,7 +242,47 @@ void Engine::pushTriangle(Triangle& in) noexcept
   else
   {
     // standard insertion
-    triangleStack[triangleCount] = in;
+    /*triangleStack[triangleCount] = in;
+    ++triangleCount;*/
+
+    Triangle* insertedTriangle = triangleStack + triangleCount;
+    *insertedTriangle = in;
+
+    if(GROG_UNLIKELY(triangleCount == 0))
+    {
+      insertedTriangle->next = nullptr;
+      triangleStackHead = insertedTriangle;
+    }
+    else
+    {
+      Triangle* current = triangleStackHead;
+
+      if(GROG_UNLIKELY(current->z <= insertedTriangle->z))
+      {
+        insertedTriangle->next = current;
+        triangleStackHead = insertedTriangle;
+      }
+      else
+      {
+        while(current->next && current->next->z > insertedTriangle->z)
+        {
+          current = current->next;
+        }
+
+        if(GROG_UNLIKELY(current->next == nullptr))
+        {
+          insertedTriangle->next = nullptr;
+          current->next = insertedTriangle;
+        }
+        else // current->z > insertedTriangle->z && current->next->z <= insertedTriangle->z
+        {
+          insertedTriangle->next = current->next->next;
+          current->next = insertedTriangle;
+        }
+      }
+
+    }
+
     ++triangleCount;
   }
 }

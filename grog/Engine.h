@@ -30,6 +30,8 @@ namespace grog
       void setProjection(const Matrix& projection) noexcept;
       void setView(const TransformMatrix& view) noexcept;
 
+      void debugTriangleStack();
+
     protected:
 
       void projectScene(const SceneNode* node,

@@ -61,24 +61,26 @@ void MainWindow::animate()
   QPixmap pix(80, 64);
   engine.init(10, 14, 3, &pix);
 
-  const grog::coord vertices[] {-1,  1, -1,
-                                 1,  1, -1,
-                                 1, -1, -1,
-                                -1, -1, -1,
-                                -1,  1,  1,
-                                 1,  1,  1,
-                                 1, -1,  1,
-                                -1, -1,  1};
-  const uint32_t faces[] {0, 3, 1,
-                          1, 3, 2,
-                          5, 1, 2,
-                          5, 2, 6,
-                          4, 7, 0,
-                          0, 7, 3,
-                          4, 0, 1,
-                          4, 1, 5,
-                          3, 7, 2,
-                          2, 7, 6};
+  const grog::coord vertices[] {-1,  -1, -1,
+                                -1,  -1,  1,
+                                -1,   1, -1,
+                                -1,   1,  1,
+                                 1,  -1,  -1,
+                                 1,  -1,  1,
+                                 1,   1,  -1,
+                                 1,   1,  1};
+  const uint32_t faces[] {0, 6, 4,
+                          0, 2, 6,
+                          0, 3, 2,
+                          0, 1, 3,
+                          2, 7, 6,
+                          2, 3, 7,
+                          4, 6, 7,
+                          4, 7, 5,
+                          0, 4, 5,
+                          0, 5, 1,
+                          1, 5, 7,
+                          1, 7, 3};
   const uint8_t colors[] {grog::color(grog::Color::White), grog::color(grog::Color::White),
                           grog::color(grog::Color::Gray), grog::color(grog::Color::Gray),
                           grog::color(grog::Color::DarkGray), grog::color(grog::Color::DarkGray),
@@ -90,7 +92,7 @@ void MainWindow::animate()
   cube.mesh.vertexBuffer = vertices;
   cube.mesh.vertexCount = 8;
   cube.mesh.faces = faces;
-  cube.mesh.faceCount = 10;
+  cube.mesh.faceCount = 12;
   cube.mesh.colors = colors;
 
   grog::bufferType* buffer = new grog::bufferType[grog::screenWidth * grog::screenHeight];
