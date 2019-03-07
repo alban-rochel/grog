@@ -151,7 +151,7 @@ void TransformMatrix::Product(const TransformMatrix& left,
 #undef RGT
 }
 
-#if 1
+#if 0
 TransformMatrix TransformMatrix::View(float eyeX, float eyeY, float eyeZ,
                                       float centerX, float centerY, float centerZ,
                                       float upX, float upY, float upZ) noexcept
@@ -208,16 +208,7 @@ TransformMatrix TransformMatrix::View(float eyeX, float eyeY, float eyeZ,
 
   // translate to origin
 
-  //res.translate(-eyeX, -eyeY, -eyeZ);
-  res.data[3] = - res.data[0] * eyeX
-                - res.data[1] * eyeY
-                - res.data[2] * eyeZ;
-  res.data[7] = - res.data[4] * eyeX
-                - res.data[5] * eyeY
-                - res.data[6] * eyeZ;
-  res.data[11] =  - res.data[8] * eyeX
-                  - res.data[9] * eyeY
-                  - res.data[10] * eyeZ;
+  res.translate(-eyeX, -eyeY, -eyeZ);
 
   return res;
 }
@@ -276,15 +267,15 @@ Matrix Matrix::View(float* eye,
 
 
   res.data[0] = side[0];
-  res.data[1] = side[1];
-  res.data[2] = side[2];
+  res.data[4] = side[1];
+  res.data[8] = side[2];
 
-  res.data[4] = up2[0];
+  res.data[1] = up2[0];
   res.data[5] = up2[1];
-  res.data[6] = up2[2];
+  res.data[9] = up2[2];
 
-  res.data[8] = forward[0];
-  res.data[9] = forward[1];
+  res.data[2] = forward[0];
+  res.data[6] = forward[1];
   res.data[10] = forward[2];
 
   res.data[12] = - side[0] * eye[0]
@@ -384,8 +375,8 @@ Matrix Matrix::Projection(float fov,
   res.data[0]   = GROG_INV_ASPECT * invTanHalfFov;
   res.data[5]   = invTanHalfFov;
   res.data[10]  = (far + near)/(near - far);
-  res.data[11]  = 2.f * far * near/(near - far);
-  res.data[14]  = -1;
+  res.data[11]  = -1;
+  res.data[14]  = 2.f * far * near/(near - far);
   res.data[15]  = 0.f;
 
 #undef GROG_INV_ASPECT

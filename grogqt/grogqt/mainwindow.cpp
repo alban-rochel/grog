@@ -21,9 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
   //connect(ui->goButton, SIGNAL(clicked()), this, SLOT(fastInteger()));
   connect(ui->goButton, SIGNAL(clicked()), this, SLOT(animate()));
 
-  grog::TransformMatrix pouet = grog::TransformMatrix::View(300, 0, 0,
-                                                             0, 0, 0,
-                                                             0, 1, 0);
+  /*grog::TransformMatrix pouet = grog::TransformMatrix::View(300, 40, 0,
+                                                            0, 12, 5,
+                                                            0, 1, 0.2);*/
+  grog::Matrix pouet = grog::Matrix::Projection(10.f, 1, 20);
 
   pouet.print();
 
@@ -59,7 +60,7 @@ void MainWindow::animate()
 {
   grog::Engine engine;
   QPixmap pix(80, 64);
-  engine.init(10, 14, 3, &pix);
+  engine.init(10, 100, 3, &pix);
 
   const grog::coord vertices[] {-1,  -1, -1,
                                 -1,  -1,  1,
@@ -94,8 +95,19 @@ void MainWindow::animate()
   cube.mesh.faces = faces;
   cube.mesh.faceCount = 12;
   cube.mesh.colors = colors;
+//  cube.children = nullptr;
+//  cube.childCount = 0;
+  grog::SceneNode cube2;
+  cube2.mesh.vertexBuffer = vertices;
+  cube2.mesh.vertexCount = 8;
+  cube2.mesh.faces = faces;
+  cube2.mesh.faceCount = 12;
+  cube2.mesh.colors = colors;
+  cube.children = &cube2;
+  cube.childCount = 1;
 
   grog::bufferType* buffer = new grog::bufferType[grog::screenWidth * grog::screenHeight];
+
 
   engine.setView(grog::TransformMatrix::View(0, 0, 5,
                                              0, 0, 0,
@@ -114,17 +126,24 @@ void MainWindow::animate()
 
     memset(buffer, 0x0, grog::screenWidth * grog::screenHeight * sizeof (grog::bufferType));
 
-    engine.setView(grog::TransformMatrix::View(0, 0, 1,
+
+    engine.setView(grog::TransformMatrix::View(1, 1, 1.,
                                                0, 0, 0,
                                                0, 1, 0));
 
     cube.transform.identity()
-                  .scale(0.5, 0.5, 0.5)
-                  .rotateX(ii/20.f)
-                  .rotateY(ii/15.f)/*
-                  .translate(40, 40, 40)*/;
+        .scale(0.5, 0.5, 0.5)
+        .rotateX(ii/20.f)
+        .rotateY(ii/15.f)/*
+                          .translate(40, 40, 40)*/;
+
+    cube2.transform.identity()
+                  .translate(1, 1, 1)
+                  .scale(0.4, 0.4, 0.4)
+                  ;
 
     engine.projectScene(&cube);
+//    engine.projectScene(&cube2);
 
     engine.render();
 
@@ -135,6 +154,7 @@ void MainWindow::animate()
     QApplication::processEvents();
 
     std::this_thread::sleep_for(std::chrono::milliseconds(40));
+//    exit(0);
   }
 }
 

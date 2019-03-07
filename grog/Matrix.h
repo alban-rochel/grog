@@ -38,10 +38,12 @@ namespace grog
       static void Product(const TransformMatrix& left,
                           const TransformMatrix& right,
                           TransformMatrix& out) noexcept;
-
+#if 1
       static TransformMatrix View(float eyeX, float eyeY, float eyeZ,
                                   float centerX, float centerY, float centerZ,
                                   float upX, float upY, float upZ) noexcept;
+#else
+#endif
 
 #ifdef __linux__
       void print() noexcept;
@@ -70,6 +72,13 @@ namespace grog
       static Matrix Projection(float fov,
                                float near,
                                float far) noexcept;
+
+#if 1
+#else
+      static Matrix View(float* eye,
+                         float* center,
+                         float* up) noexcept;
+#endif
 
 #ifdef __linux__
       void print() noexcept;

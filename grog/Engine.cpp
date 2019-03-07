@@ -156,17 +156,17 @@ void Engine::projectScene(const SceneNode* node,
       // TODO check that triangle covers some part of the screen
 
       projection.color = (*colorIter++);
-      std::cout << "Pushing ";
-      PRINT_TRIANGLE((&projection));
+      /*std::cout << "Pushing ";
+      PRINT_TRIANGLE((&projection));*/
       pushTriangle(projection);
-      debugTriangleStack();
+      /*debugTriangleStack();*/
     }
   }
   // end push triangles
 
   // recursive call to children
   {
-    SceneNode* child;
+    SceneNode* child = node->children;
     for(uint32_t childIndex = node->childCount;
         childIndex;
         --childIndex, ++child)
@@ -198,8 +198,9 @@ void Engine::render() noexcept
   display.draw();
 
 //std::cout << "new" << std::endl;
+//  debugTriangleStack();
   newFrame();
-  exit(0);
+//  exit(0);
 }
 
 void Engine::setProjection(const Matrix& projection) noexcept
@@ -276,7 +277,7 @@ void Engine::pushTriangle(Triangle& in) noexcept
         }
         else // current->z > insertedTriangle->z && current->next->z <= insertedTriangle->z
         {
-          insertedTriangle->next = current->next->next;
+          insertedTriangle->next= current->next;
           current->next = insertedTriangle;
         }
       }
