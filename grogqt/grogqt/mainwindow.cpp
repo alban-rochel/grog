@@ -39,6 +39,33 @@ static const uint8_t colors[] {
   grog::color(grog::Color::DarkGray, grog::Color::DarkBlue), grog::color(grog::Color::DarkGray, grog::Color::DarkBlue)
 };
 
+static const uint8_t colorsX[] {
+  grog::color(grog::Color::Red), grog::color(grog::Color::Red),
+  grog::color(grog::Color::Red), grog::color(grog::Color::Red),
+  grog::color(grog::Color::Red), grog::color(grog::Color::Red),
+  grog::color(grog::Color::Red), grog::color(grog::Color::Red),
+  grog::color(grog::Color::Red), grog::color(grog::Color::Red),
+  grog::color(grog::Color::Red), grog::color(grog::Color::Red)
+};
+
+static const uint8_t colorsY[] {
+  grog::color(grog::Color::Green), grog::color(grog::Color::Green),
+  grog::color(grog::Color::Green), grog::color(grog::Color::Green),
+  grog::color(grog::Color::Green), grog::color(grog::Color::Green),
+  grog::color(grog::Color::Green), grog::color(grog::Color::Green),
+  grog::color(grog::Color::Green), grog::color(grog::Color::Green),
+  grog::color(grog::Color::Green), grog::color(grog::Color::Green)
+};
+
+static const uint8_t colorsZ[] {
+  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue),
+  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue),
+  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue),
+  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue),
+  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue),
+  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue)
+};
+
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -54,6 +81,31 @@ MainWindow::MainWindow(QWidget *parent) :
   scene.mesh.faces = faces;
   scene.mesh.faceCount = 12;
   scene.mesh.colors = colors;
+
+  scene.children = new grog::SceneNode[3];
+  scene.childCount = 3;
+
+  scene.children[0].mesh.vertexBuffer = vertices;
+  scene.children[0].mesh.vertexCount = 8;
+  scene.children[0].mesh.faces = faces;
+  scene.children[0].mesh.faceCount = 12;
+  scene.children[0].mesh.colors = colorsX;
+
+  scene.children[1].mesh.vertexBuffer = vertices;
+  scene.children[1].mesh.vertexCount = 8;
+  scene.children[1].mesh.faces = faces;
+  scene.children[1].mesh.faceCount = 12;
+  scene.children[1].mesh.colors = colorsY;
+
+  scene.children[2].mesh.vertexBuffer = vertices;
+  scene.children[2].mesh.vertexCount = 8;
+  scene.children[2].mesh.faces = faces;
+  scene.children[2].mesh.faceCount = 12;
+  scene.children[2].mesh.colors = colorsZ;
+
+  scene.children[0].transform.identity().translate(2, 0, 0).scale(0.5, 0.5, 0.5);
+  scene.children[1].transform.identity().translate(0, 2, 0).scale(0.5, 0.5, 0.5);
+  scene.children[2].transform.identity().translate(0, 0, 2).scale(0.5, 0.5, 0.5);
 
   ui->eyeXSpinBox->setValue(eyeX);
   ui->eyeYSpinBox->setValue(eyeY);
@@ -93,6 +145,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
   delete ui;
+  delete[] scene.children;
 }
 
 QPixmap MainWindow::drawImage(grog::bufferType *buffer) noexcept
@@ -193,7 +246,7 @@ void MainWindow::draw()
 
   engine.setProjection(grog::Matrix::Projection(fov, near, far));
 
-  engine.setView(grog::TransformMatrix::View(eyeX, eyeZ, eyeZ,
+  engine.setView(grog::TransformMatrix::View(eyeX, eyeY, eyeZ,
                                              targetX, targetY, targetZ,
                                              upX, upY, upZ));
 
@@ -293,4 +346,5 @@ void MainWindow::debug()
     QApplication::processEvents();
 }
 #endif
+
 
