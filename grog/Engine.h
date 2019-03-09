@@ -32,6 +32,8 @@ namespace grog
 
       void debugTriangleStack();
 
+      void pushDebugTriangles();
+
     protected:
 
       void projectScene(const SceneNode* node,

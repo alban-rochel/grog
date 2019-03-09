@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
-  //connect(ui->goButton, SIGNAL(clicked()), this, SLOT(fastInteger()));
   connect(ui->goButton, SIGNAL(clicked()), this, SLOT(animate()));
 
   /*grog::TransformMatrix pouet = grog::TransformMatrix::View(300, 40, 0,
@@ -108,17 +107,6 @@ void MainWindow::animate()
 
   grog::bufferType* buffer = new grog::bufferType[grog::screenWidth * grog::screenHeight];
 
-
-  engine.setView(grog::TransformMatrix::View(0, 0, 5,
-                                             0, 0, 0,
-                                             0, 1, 0));
-
-/*  grog::TransformMatrix pouet;
-
-  pouet.data[3] = 1;*/
-
-//  engine.setView(pouet);
-
   engine.setProjection(grog::Matrix::Projection(2.f, 1, 10));
 
   for(unsigned int ii = 0; ii < 1000; ++ii)
@@ -145,6 +133,8 @@ void MainWindow::animate()
     engine.projectScene(&cube);
 //    engine.projectScene(&cube2);
 
+    engine.debugTriangleStack();
+
     engine.render();
 
     QPixmap coincoin = pix.scaled(320, 256);
@@ -156,6 +146,24 @@ void MainWindow::animate()
     std::this_thread::sleep_for(std::chrono::milliseconds(40));
 //    exit(0);
   }
+}
+
+void MainWindow::debug()
+{
+  grog::Engine engine;
+  QPixmap pix(80, 64);
+  engine.init(10, 100, 3, &pix);
+
+  engine.pushDebugTriangles();
+
+    engine.render();
+
+    QPixmap coincoin = pix.scaled(320, 256);
+
+    ui->label->setPixmap(coincoin);
+
+    QApplication::processEvents();
+
 }
 
 

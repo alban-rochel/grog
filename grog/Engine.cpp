@@ -121,10 +121,10 @@ void Engine::projectScene(const SceneNode* node,
                                         +  mvp.data[5] * inY
                                         +  mvp.data[6] * inZ
                                         +  mvp.data[7]) * 32 + 32;
-      (*outTransformedVertexBuffer++) = mvp.data[8] * inX
+      (*outTransformedVertexBuffer++) = (mvp.data[8] * inX
                                         +  mvp.data[9] * inY
                                         +  mvp.data[10] * inZ
-                                        +  mvp.data[11];
+                                        +  mvp.data[11])*100;
     }
   }
   // end project all the coordinates in transformedVertexBuffer
@@ -189,10 +189,17 @@ void Engine::projectScene(const SceneNode *node) noexcept
 
 void Engine::render() noexcept
 {
-  const Triangle* currentTriangle = triangleStack;
+  /*const Triangle* currentTriangle = triangleStack;
   for(uint32_t triangleIndex = triangleCount; triangleIndex; --triangleIndex, ++currentTriangle)
   {
     rasterizeTriangle(*currentTriangle, display.buffer);
+  }*/
+
+  const Triangle* currentTriangle = triangleStackHead;
+  while(currentTriangle)
+  {
+    rasterizeTriangle(*currentTriangle, display.buffer);
+    currentTriangle = currentTriangle->next;
   }
 
   display.draw();
@@ -229,6 +236,38 @@ void Engine::debugTriangleStack()
     ++count;
   }
 #endif
+}
+
+#include "Colors.h"
+#include <cstdio>
+void Engine::pushDebugTriangles()
+{
+  Triangle t1;
+  t1.p1x = 0;
+  t1.p1y = 0;
+  t1.p2x = 5;
+  t1.p2y = 0;
+  t1.p3x = 5;
+  t1.p3y = 5;
+  t1.z = 10;
+  t1.color = grog::color(grog::Color::Green);
+
+  std::printf("color %x\n", t1.color);
+
+//  Triangle t2;
+//  t2.p1x = 30;
+//  t2.p1y = 20;
+//  t2.p2x = 70;
+//  t2.p2y = 20;
+//  t2.p3x = 70;
+//  t2.p3y = 60;
+//  t2.z = 20;
+//  t2.color = grog::color(grog::Color::Blue);
+
+  pushTriangle(t1);
+//  pushTriangle(t2);
+
+  debugTriangleStack();
 }
 
 void Engine::pushTriangle(Triangle& in) noexcept

@@ -2,7 +2,7 @@
 #include "Colors.h"
 
 using namespace grog;
-
+#include <cstdio>
 void grog::rasterizeTriangle(const Triangle& triangle,
                              bufferType* __restrict frameBuffer) noexcept
 {

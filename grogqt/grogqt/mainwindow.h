@@ -20,6 +20,7 @@ class MainWindow : public QMainWindow
 
   protected slots:
     void animate();
+    void debug();
 
   private:
     Ui::MainWindow *ui;

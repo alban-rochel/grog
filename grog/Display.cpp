@@ -53,7 +53,11 @@ Display::Display() noexcept:
   buffer(new uint8_t[ScreenWidth * ScreenHeight / 8]),
   strip1(new uint16_t[StripSizePix]),
   strip2(new uint16_t[StripSizePix])
-{}
+{
+#ifdef __linux
+    memset(buffer, 0x0, 80*64/2);
+#endif
+}
 
 Display::~Display() noexcept
 {
@@ -63,7 +67,7 @@ Display::~Display() noexcept
 }
 
 #ifdef __linux
-
+#include <iostream>
 void Display::draw() noexcept
 {
   QPainter painter(pixmap);
@@ -76,16 +80,16 @@ void Display::draw() noexcept
       {
         uint8_t colors = (*currentBuffer++);
         uint16_t col = grog::Palette[colors & 0x0F];
-        uint8_t red = (uint8_t)(col & 0xF8);
-        uint8_t green = (uint8_t)(((col & 0xE000) >> 13)| ((col & 7) << 5));
-        uint8_t blue = (uint8_t)((col & 0x1F00) >> 5);
+        uint8_t red = (uint8_t)((col & 0xF800) >> 8);
+        uint8_t green = (uint8_t)((col & 0x07E0) >> 3);
+        uint8_t blue = (uint8_t)((col & 0x001F) << 3);
         painter.setPen(QColor::fromRgb(red, green, blue));
         painter.drawPoint(x, y);
 
         col = grog::Palette[colors >> 4];
-        red = (uint8_t)(col & 0xF8);
-        green = (uint8_t)(((col & 0xE000) >> 13)| ((col & 7) << 5));
-        blue = (uint8_t)((col & 0x1F00) >> 5);
+        red = (uint8_t)((col & 0xF800) >> 8);
+        green = (uint8_t)((col & 0x07E0) >> 3);
+        blue = (uint8_t)((col & 0x001F) << 3);
         painter.setPen(QColor::fromRgb(red, green, blue));
         painter.drawPoint(x+1, y);
       }
