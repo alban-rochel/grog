@@ -275,6 +275,10 @@ void Engine::pushTriangle(Triangle& in) noexcept
 //  std::cout << "push " << in.p1x << "," << in.p1y << "  - "
 //               << in.p2x << "," << in.p2y << "  - "
 //                  << in.p3x << "," << in.p3y << "\n";
+
+if(grog::orient2d(in.p1x, in.p1y, in.p2x, in.p2y, in.p3x, in.p3y) <= 0)
+  return;
+
   if(triangleCount == maxTriangles)
   {
     // replace triangles

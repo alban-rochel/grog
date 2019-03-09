@@ -136,12 +136,14 @@ void Display::draw() noexcept
       {
         uint8_t colors = (*currentBuffer++);
         uint16_t col = grog::Palette[colors & 0x0F];
+        col = (col >> 8) | (col <<8);
         (*stripCursor++) = col;
         (*stripCursor++) = col;
         (*stripCursorNextLine++) = col;
         (*stripCursorNextLine++) = col;
         
         col = grog::Palette[colors >> 4];
+        col = (col >> 8) | (col <<8);
         (*stripCursor++) = col;
         (*stripCursor++) = col;
         (*stripCursorNextLine++) = col;
