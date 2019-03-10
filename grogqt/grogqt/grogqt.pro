@@ -33,7 +33,8 @@ SOURCES += \
     ../../grog/Mesh.cpp \
     ../../grog/Engine.cpp \
     ../../grog/Matrix.cpp \
-    ../../grog/Display.cpp
+    ../../grog/Display.cpp \
+    ../../grog/FixedMatrix.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +45,8 @@ HEADERS += \
     ../../grog/Engine.h \
     ../../grog/Matrix.h \
     ../../grog/Colors.h \
-    ../../grog/Display.h
+    ../../grog/Display.h \
+    ../../grog/trigo.h
 
 FORMS += \
         mainwindow.ui

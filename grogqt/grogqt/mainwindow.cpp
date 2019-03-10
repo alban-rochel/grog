@@ -1,9 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "trigo.h"
 
 #include <iostream>
 #include <QPainter>
 #include <thread>
+#include <chrono>
 
 
 const grog::coord vertices[] {
@@ -66,12 +68,17 @@ static const uint8_t colorsZ[] {
   grog::color(grog::Color::Blue), grog::color(grog::Color::Blue)
 };
 
-
+#define FIXED(fl) ((int32_t)(fl*1024))
+#define ANGLE(fl) ((int32_t)(fl * 512. / M_PI + 0.5))
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow)
 {
+//  generateTrigo();
+  pwet();
+
+  exit(0);
   ui->setupUi(this);
 
   engine.init(10, 100, 3, &pix);
@@ -146,6 +153,115 @@ MainWindow::~MainWindow()
 {
   delete ui;
   delete[] scene.children;
+}
+
+void MainWindow::pwet()
+{
+  grog::TransformMatrix trans;
+  fixedgrog::TransformMatrix ftrans;
+
+#define PWET \
+  std::cout << "FLOAT" << std::endl;\
+  trans.print();\
+  std::cout << "FIXED" << std::endl;\
+  ftrans.print();
+
+  PWET;
+
+  trans.translate(1.234, 2.345, 4.567);
+  ftrans.translate(FIXED(1.234),
+                   FIXED(2.345),
+                   FIXED(4.567));
+
+  PWET;
+
+  trans.scale(1.4f, 5.6f, 2.7f);
+  ftrans.scale(FIXED(1.4),
+               FIXED(5.6),
+               FIXED(2.7));
+
+  PWET;
+
+  std::cout << "cos(0) " << cos(0) << " - " << ANGLE(0) << "/" << fixedgrog::Cos(ANGLE(0))/1024. << std::endl;
+  std::cout << "cos(M_PI) " << cos(M_PI) << " - " << ANGLE(M_PI) << "/" << fixedgrog::Cos(ANGLE(M_PI))/1024. << std::endl;
+  std::cout << "cos(2*M_PI) " << cos(2*M_PI) << " - " << ANGLE(2*M_PI) << "/" << fixedgrog::Cos(ANGLE(2*M_PI))/1024. << std::endl;
+  std::cout << "sin(0) " << sin(0) << " - " << ANGLE(0) << "/" << fixedgrog::Sin(ANGLE(0))/1024. << std::endl;
+  std::cout << "sin(M_PI) " << sin(M_PI) << " - " << ANGLE(M_PI) << "/" << fixedgrog::Sin(ANGLE(M_PI))/1024. << std::endl;
+  std::cout << "sin(2*M_PI) " << sin(2*M_PI) << " - " << ANGLE(2*M_PI) << "/" << fixedgrog::Sin(ANGLE(2*M_PI))/1024. << std::endl;
+  std::cout << "cos(1) " << cos(1.) << " - " << ANGLE(1.) << "/" << fixedgrog::Cos(ANGLE(1.))/1024. << std::endl;
+  std::cout << "sin(1) " << sin(1.) << " - " << ANGLE(1.) << "/" << fixedgrog::Sin(ANGLE(1.))/1024. << std::endl;
+
+  trans.rotateX(2.f);
+  ftrans.rotateX(ANGLE(2.f));
+
+  PWET;
+
+  trans.rotateY(3.f);
+  ftrans.rotateY(ANGLE(3.f));
+
+  PWET;
+
+  trans.rotateZ(5.f);
+  ftrans.rotateZ(ANGLE(5.f));
+
+  PWET
+
+  std::cout.flush();
+
+  {
+    grog::TransformMatrix trans2;
+
+    float xRot(1.), yRot(2.);
+
+    auto start = std::chrono::steady_clock::now();
+
+    for(unsigned int ii = 0; ii < 1000000; ++ii)
+    {
+      trans2.rotateX(xRot).rotateY(yRot);
+    }
+
+    auto end = std::chrono::steady_clock::now();
+
+    std::cout << "Float duration " << std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << std::endl;
+  }
+
+  {
+    fixedgrog::TransformMatrix trans2;
+
+    int32_t xRot(ANGLE(1.)), yRot(ANGLE(2.));
+
+    auto start = std::chrono::steady_clock::now();
+
+    for(unsigned int ii = 0; ii < 1000000; ++ii)
+    {
+      trans2.rotateX(xRot).rotateY(yRot);
+    }
+
+    auto end = std::chrono::steady_clock::now();
+
+    std::cout << "Fixed duration " << std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << std::endl;
+  }
+
+}
+
+void MainWindow::generateTrigo()
+{
+  std::cout << "static constexpr int32_t cosines[] = {" << std::endl;
+
+  uint32_t index = 0;
+  for(unsigned int line = 0; line < 32; ++line)
+  {
+    for(unsigned int col = 0; col < 32; ++col, ++index)
+    {
+      std::cout << (int32_t)(cos((index * 2 * M_PI)/1024.) * 1024 + 0.5);
+      if(!(col == 31 && line == 31))
+      {
+          std::cout << ",\t";
+      }
+    }
+    std::cout << "\n";
+  }
+  std::cout << "};" << std::endl;
 }
 
 QPixmap MainWindow::drawImage(grog::bufferType *buffer) noexcept

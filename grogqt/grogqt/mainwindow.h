@@ -20,6 +20,10 @@ class MainWindow : public QMainWindow
 
     QPixmap drawImage(grog::bufferType* buffer) noexcept;
 
+    void pwet();
+
+    void generateTrigo();
+
   protected slots:
     /*void animate();
     void debug();*/

@@ -4,6 +4,9 @@
 #include <cstdint>
 #include "Matrix.h"
 
+#define FIXED_POINT_OFFSET 10
+typedef int32_t Fixed;
+
 namespace grog
 {
     constexpr unsigned int screenWidth = 80;
@@ -72,4 +75,14 @@ namespace grog
                    float* right,
                    float* out,
                    bool normalize) noexcept;
+}
+
+namespace fixedgrog
+{
+  void normalize(int32_t* io) noexcept;
+
+  void crossProd(int32_t* left,
+                 int32_t* right,
+                 int32_t* out,
+                 bool normalize) noexcept;
 }
