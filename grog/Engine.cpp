@@ -121,11 +121,11 @@ void Engine::projectScene(const SceneNode* node,
       (*outTransformedVertexBuffer++) = (((mvp.data[0] * inX
                                         +  mvp.data[1] * inY
                                         +  mvp.data[2] * inZ
-                                        +  mvp.data[3] * 1024) * 40) >> 20) + 40;
+                                        +  mvp.data[3] * 1024) /** 40*/) >> 20) + 40;
       (*outTransformedVertexBuffer++) = (((mvp.data[4] * inX
                                         +  mvp.data[5] * inY
                                         +  mvp.data[6] * inZ
-                                        +  mvp.data[7] * 1024) * 32) >> 20) + 32;
+                                        +  mvp.data[7] * 1024) /** 32*/) >> 20) + 32;
       (*outTransformedVertexBuffer++) = ((mvp.data[8] * inX
                                         +  mvp.data[9] * inY
                                         +  mvp.data[10] * inZ

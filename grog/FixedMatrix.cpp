@@ -302,8 +302,8 @@ Matrix Matrix::Projection(float fov,
   #define GROG_INV_ASPECT 0.8f
   float invTanHalfFov = 1.f / tanf(fov/2.f);
 
-  res.data[0]   = grog::floatToFixed(GROG_INV_ASPECT * invTanHalfFov );
-  res.data[5]   = grog::floatToFixed(invTanHalfFov);
+  res.data[0]   = grog::floatToFixed(GROG_INV_ASPECT * invTanHalfFov * 40);
+  res.data[5]   = grog::floatToFixed(invTanHalfFov * 32);
   res.data[10]  = grog::floatToFixed((far + near)/(near - far));
   res.data[11]  = grog::floatToFixed(2.f * far * near/(near - far));
   res.data[14]  = grog::floatToFixed(-1.f);
