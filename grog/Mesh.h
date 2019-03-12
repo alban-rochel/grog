@@ -7,7 +7,7 @@ namespace grog
   class Mesh
   {
     public:
-      const coord* vertexBuffer {nullptr};
+      const int32_t* vertexBuffer {nullptr};
       uint32_t vertexCount {0};
       const uint32_t* faces {nullptr};
       const uint8_t*  colors {nullptr};

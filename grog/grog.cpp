@@ -87,7 +87,7 @@ void grog::rasterizeTriangle(const Triangle& triangle,
   }
 }
 
-void grog::normalize(float* io) noexcept
+void oldgrog::normalize(float* io) noexcept
 {
   float norm =  (io[0] * io[0]) +
       (io[1] * io[1]) +
@@ -98,7 +98,7 @@ void grog::normalize(float* io) noexcept
   io[2] *= invSqrt;
 }
 
-void grog::crossProd(float* left,
+void oldgrog::crossProd(float* left,
                      float* right,
                      float* out,
                      bool normalize) noexcept
@@ -109,32 +109,43 @@ void grog::crossProd(float* left,
 
   if(normalize)
   {
-    grog::normalize(out);
+    oldgrog::normalize(out);
   }
 }
 
-void fixedgrog::normalize(int32_t* io) noexcept
+void grog::normalize(int32_t* io) noexcept
 {
-  int32_t norm =  (io[0] * io[0]) +
+  /*int32_t norm =  (io[0] * io[0]) +
                   (io[1] * io[1]) +
                   (io[2] * io[2]);
   float invSqrt = 1.f/(1024.f * sqrtf(norm));
   io[0] *= invSqrt;
   io[1] *= invSqrt;
+  io[2] *= invSqrt;*/
+  /*float norm =  ((io[0] * io[0]) +
+                (io[1] * io[1]) +
+                (io[2] * io[2]));*/
+  float sqrtNorm = sqrtf((io[0] * io[0]) +
+                          (io[1] * io[1]) +
+                          (io[2] * io[2])); // =sqrt norm << 5
+
+  float invSqrt = (1024.f)/(sqrtNorm);
+  io[0] *= invSqrt;
+  io[1] *= invSqrt;
   io[2] *= invSqrt;
 }
 
-void fixedgrog::crossProd(int32_t* left,
+void grog::crossProd(int32_t* left,
                           int32_t* right,
                           int32_t* out,
                           bool normalize) noexcept
 {
-  out[0] = left[1] * right[2] - right[1] * left[2];
-  out[1] = left[2] * right[0] - right[2] * left[0];
-  out[2] = left[0] * right[1] - right[0] * left[1];
+  out[0] = (left[1] * right[2] - right[1] * left[2]) >> 10;
+  out[1] = (left[2] * right[0] - right[2] * left[0]) >> 10;
+  out[2] = (left[0] * right[1] - right[0] * left[1]) >> 10;
 
   if(normalize)
   {
-    fixedgrog::normalize(out);
+    grog::normalize(out);
   }
 }

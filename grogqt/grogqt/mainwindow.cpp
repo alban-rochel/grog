@@ -8,15 +8,15 @@
 #include <chrono>
 
 
-const grog::coord vertices[] {
-  -1,  -1, -1,
-  -1,  -1,  1,
-  -1,   1, -1,
-  -1,   1,  1,
-  1,  -1,  -1,
-  1,  -1,  1,
-  1,   1,  -1,
-  1,   1,  1
+const int32_t vertices[] {
+  (-1) << 10,  (-1) << 10, (-1) << 10,
+  (-1) << 10,  (-1) << 10, ( 1) << 10,
+  (-1) << 10,  ( 1) << 10, (-1) << 10,
+  (-1) << 10,  ( 1) << 10, ( 1) << 10,
+  ( 1) << 10,  (-1) << 10, (-1) << 10,
+  ( 1) << 10,  (-1) << 10, ( 1) << 10,
+  ( 1) << 10,  ( 1) << 10, (-1) << 10,
+  ( 1) << 10,  ( 1) << 10, ( 1) << 10
 };
 static const uint32_t faces[] {
   0, 6, 4,
@@ -68,7 +68,6 @@ static const uint8_t colorsZ[] {
   grog::color(grog::Color::Blue), grog::color(grog::Color::Blue)
 };
 
-#define FIXED(fl) ((int32_t)(fl*1024))
 #define ANGLE(fl) ((int32_t)(fl * 512. / M_PI + 0.5))
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -76,9 +75,9 @@ MainWindow::MainWindow(QWidget *parent) :
   ui(new Ui::MainWindow)
 {
 //  generateTrigo();
-  pwet();
+//  pwet();
 
-  exit(0);
+//  exit(0);
   ui->setupUi(this);
 
   engine.init(10, 100, 3, &pix);
@@ -110,9 +109,9 @@ MainWindow::MainWindow(QWidget *parent) :
   scene.children[2].mesh.faceCount = 12;
   scene.children[2].mesh.colors = colorsZ;
 
-  scene.children[0].transform.identity().translate(2, 0, 0).scale(0.5, 0.5, 0.5);
-  scene.children[1].transform.identity().translate(0, 2, 0).scale(0.5, 0.5, 0.5);
-  scene.children[2].transform.identity().translate(0, 0, 2).scale(0.5, 0.5, 0.5);
+  scene.children[0].transform.identity().translate(2 << 10, 0, 0).scale(grog::floatToFixed(0.5f), grog::floatToFixed(0.5f), grog::floatToFixed(0.5f));
+  scene.children[1].transform.identity().translate(0, 2 << 10, 0).scale(grog::floatToFixed(0.5f), grog::floatToFixed(0.5f), grog::floatToFixed(0.5f));
+  scene.children[2].transform.identity().translate(0, 0, 2 << 10).scale(grog::floatToFixed(0.5f), grog::floatToFixed(0.5f), grog::floatToFixed(0.5f));
 
   ui->eyeXSpinBox->setValue(eyeX);
   ui->eyeYSpinBox->setValue(eyeY);
@@ -157,8 +156,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::pwet()
 {
-  grog::TransformMatrix trans;
-  fixedgrog::TransformMatrix ftrans;
+  oldgrog::TransformMatrix trans;
+  grog::TransformMatrix ftrans;
 
 #define PWET \
   std::cout << "FLOAT" << std::endl;\
@@ -169,27 +168,27 @@ void MainWindow::pwet()
   PWET;
 
   trans.translate(1.234, 2.345, 4.567);
-  ftrans.translate(FIXED(1.234),
-                   FIXED(2.345),
-                   FIXED(4.567));
+  ftrans.translate(grog::floatToFixed(1.234),
+                   grog::floatToFixed(2.345),
+                   grog::floatToFixed(4.567));
 
   PWET;
 
   trans.scale(1.4f, 5.6f, 2.7f);
-  ftrans.scale(FIXED(1.4),
-               FIXED(5.6),
-               FIXED(2.7));
+  ftrans.scale(grog::floatToFixed(1.4),
+               grog::floatToFixed(5.6),
+               grog::floatToFixed(2.7));
 
   PWET;
 
-  std::cout << "cos(0) " << cos(0) << " - " << ANGLE(0) << "/" << fixedgrog::Cos(ANGLE(0))/1024. << std::endl;
-  std::cout << "cos(M_PI) " << cos(M_PI) << " - " << ANGLE(M_PI) << "/" << fixedgrog::Cos(ANGLE(M_PI))/1024. << std::endl;
-  std::cout << "cos(2*M_PI) " << cos(2*M_PI) << " - " << ANGLE(2*M_PI) << "/" << fixedgrog::Cos(ANGLE(2*M_PI))/1024. << std::endl;
-  std::cout << "sin(0) " << sin(0) << " - " << ANGLE(0) << "/" << fixedgrog::Sin(ANGLE(0))/1024. << std::endl;
-  std::cout << "sin(M_PI) " << sin(M_PI) << " - " << ANGLE(M_PI) << "/" << fixedgrog::Sin(ANGLE(M_PI))/1024. << std::endl;
-  std::cout << "sin(2*M_PI) " << sin(2*M_PI) << " - " << ANGLE(2*M_PI) << "/" << fixedgrog::Sin(ANGLE(2*M_PI))/1024. << std::endl;
-  std::cout << "cos(1) " << cos(1.) << " - " << ANGLE(1.) << "/" << fixedgrog::Cos(ANGLE(1.))/1024. << std::endl;
-  std::cout << "sin(1) " << sin(1.) << " - " << ANGLE(1.) << "/" << fixedgrog::Sin(ANGLE(1.))/1024. << std::endl;
+  std::cout << "cos(0) " << cos(0) << " - " << ANGLE(0) << "/" << grog::Cos(ANGLE(0))/1024. << std::endl;
+  std::cout << "cos(M_PI) " << cos(M_PI) << " - " << ANGLE(M_PI) << "/" << grog::Cos(ANGLE(M_PI))/1024. << std::endl;
+  std::cout << "cos(2*M_PI) " << cos(2*M_PI) << " - " << ANGLE(2*M_PI) << "/" << grog::Cos(ANGLE(2*M_PI))/1024. << std::endl;
+  std::cout << "sin(0) " << sin(0) << " - " << ANGLE(0) << "/" << grog::Sin(ANGLE(0))/1024. << std::endl;
+  std::cout << "sin(M_PI) " << sin(M_PI) << " - " << ANGLE(M_PI) << "/" << grog::Sin(ANGLE(M_PI))/1024. << std::endl;
+  std::cout << "sin(2*M_PI) " << sin(2*M_PI) << " - " << ANGLE(2*M_PI) << "/" << grog::Sin(ANGLE(2*M_PI))/1024. << std::endl;
+  std::cout << "cos(1) " << cos(1.) << " - " << ANGLE(1.) << "/" << grog::Cos(ANGLE(1.))/1024. << std::endl;
+  std::cout << "sin(1) " << sin(1.) << " - " << ANGLE(1.) << "/" << grog::Sin(ANGLE(1.))/1024. << std::endl;
 
   trans.rotateX(2.f);
   ftrans.rotateX(ANGLE(2.f));
@@ -204,42 +203,122 @@ void MainWindow::pwet()
   trans.rotateZ(5.f);
   ftrans.rotateZ(ANGLE(5.f));
 
-  PWET
+  PWET;
 
-  std::cout.flush();
+  std::cout << "View FLOAT" << std::endl;
+  oldgrog::TransformMatrix::View(1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 0.f, 1.f, 2.f).print();
+  std::cout << "View FIXED" << std::endl;
+  grog::TransformMatrix::View(grog::floatToFixed(1.f), grog::floatToFixed(2.f), grog::floatToFixed(3.f),
+                              grog::floatToFixed(4.f), grog::floatToFixed(5.f), grog::floatToFixed(6.f),
+                              grog::floatToFixed(0.f), grog::floatToFixed(1.f), grog::floatToFixed(2.f)).print();
+
+  oldgrog::Matrix proj;
+  grog::Matrix fproj;
+
+  proj = oldgrog::Matrix::Projection(2.f, 1.f, 10.f);
+  fproj = grog::Matrix::Projection(2.f, 1.f, 10.f);
+
+  std::cout << "Projection FLOAT" << std::endl;
+  proj.print();
+  std::cout << "Projection FIXED" << std::endl;
+  fproj.print();
+
+  oldgrog::Matrix res;
+  grog::Matrix fres;
+
+  std::cout << "Composition FLOAT" << std::endl;
+  oldgrog::Matrix::Transform(proj, trans, res);
+  res.print();
+  std::cout << "Composition FIXED" << std::endl;
+  grog::Matrix::Transform(fproj, ftrans, fres);
+  fres.print();
+
+
+//  std::cout.flush();
+
+//  {
+//    oldgrog::TransformMatrix trans2;
+
+//    float xRot(1.), yRot(2.);
+
+//    auto start = std::chrono::steady_clock::now();
+
+//    for(unsigned int ii = 0; ii < 1000000; ++ii)
+//    {
+//      trans2.rotateX(xRot).rotateY(yRot);
+//    }
+
+//    auto end = std::chrono::steady_clock::now();
+
+//    std::cout << "Float duration " << std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << std::endl;
+//  }
+
+//  {
+//    grog::TransformMatrix trans2;
+
+//    int32_t xRot(ANGLE(1.)), yRot(ANGLE(2.));
+
+//    auto start = std::chrono::steady_clock::now();
+
+//    for(unsigned int ii = 0; ii < 1000000; ++ii)
+//    {
+//      trans2.rotateX(xRot).rotateY(yRot);
+//    }
+
+//    auto end = std::chrono::steady_clock::now();
+
+//    std::cout << "Fixed duration " << std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << std::endl;
+//  }
+
+//  int32_t testNorm[] {grog::floatToFixed(40.f), 0, 0};
+//  std::cout << "Before:     [" << testNorm[0]/1024.f << "," << testNorm[1]/1024. << "," << testNorm[2]/1024. << "]" << std::endl;
+//  grog::normalize(testNorm);
+//  std::cout << "Normalized: [" << testNorm[0]/1024.f << "," << testNorm[1]/1024. << "," << testNorm[2]/1024. << "]" << std::endl;
+
+  std::cout << "---- TRANS\n";
+  float plop[] = {1.f, -2.5f, 6.f};
+  int32_t fplop[] = {grog::floatToFixed(1.f),
+                     grog::floatToFixed(-2.5f),
+                     grog::floatToFixed(6.f)};
 
   {
-    grog::TransformMatrix trans2;
+    float inX = plop[0];
+    float inY = plop[1];
+    float inZ = plop[2];
 
-    float xRot(1.), yRot(2.);
-
-    auto start = std::chrono::steady_clock::now();
-
-    for(unsigned int ii = 0; ii < 1000000; ++ii)
-    {
-      trans2.rotateX(xRot).rotateY(yRot);
-    }
-
-    auto end = std::chrono::steady_clock::now();
-
-    std::cout << "Float duration " << std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << std::endl;
+    std::cout << "float [";
+    std::cout <<  res.data[0] * inX +
+                  res.data[1] * inY +
+                  res.data[2] * inZ +
+                  res.data[3] << ", ";
+    std::cout <<  res.data[4] * inX +
+                  res.data[5] * inY +
+                  res.data[6] * inZ +
+                  res.data[7] << ", ";
+    std::cout <<  res.data[8] * inX +
+                  res.data[9] * inY +
+                  res.data[10] * inZ +
+                  res.data[11] << "\n";
   }
 
   {
-    fixedgrog::TransformMatrix trans2;
+    int32_t inX = fplop[0];
+    int32_t inY = fplop[1];
+    int32_t inZ = fplop[2];
 
-    int32_t xRot(ANGLE(1.)), yRot(ANGLE(2.));
-
-    auto start = std::chrono::steady_clock::now();
-
-    for(unsigned int ii = 0; ii < 1000000; ++ii)
-    {
-      trans2.rotateX(xRot).rotateY(yRot);
-    }
-
-    auto end = std::chrono::steady_clock::now();
-
-    std::cout << "Fixed duration " << std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << std::endl;
+    std::cout << "fixed [";
+    std::cout <<  ((fres.data[0] * inX +
+                  fres.data[1] * inY +
+                  fres.data[2] * inZ +
+                  fres.data[3] * 1024) >> 10) / 1024.f << ", ";
+    std::cout <<  ((fres.data[4] * inX +
+                  fres.data[5] * inY +
+                  fres.data[6] * inZ +
+                  fres.data[7] * 1024) >> 10) / 1024.f << ", ";
+    std::cout <<  ((fres.data[8] * inX +
+                  fres.data[9] * inY +
+                  fres.data[10] * inZ +
+                  fres.data[11] * 1024) >> 10) / 1024.f << "\n";
   }
 
 }
@@ -359,12 +438,16 @@ void MainWindow::farChanged(double val)
 
 void MainWindow::draw()
 {
-
+//grog::Matrix::Projection(fov, near, far).print();
   engine.setProjection(grog::Matrix::Projection(fov, near, far));
 
-  engine.setView(grog::TransformMatrix::View(eyeX, eyeY, eyeZ,
-                                             targetX, targetY, targetZ,
-                                             upX, upY, upZ));
+//  grog::TransformMatrix::View(grog::floatToFixed(eyeX), grog::floatToFixed(eyeY), grog::floatToFixed(eyeZ),
+//                                               grog::floatToFixed(targetX), grog::floatToFixed(targetY), grog::floatToFixed(targetZ),
+//                                               grog::floatToFixed(upX), grog::floatToFixed(upY), grog::floatToFixed(upZ)).print();
+
+  engine.setView(grog::TransformMatrix::View(grog::floatToFixed(eyeX), grog::floatToFixed(eyeY), grog::floatToFixed(eyeZ),
+                                             grog::floatToFixed(targetX), grog::floatToFixed(targetY), grog::floatToFixed(targetZ),
+                                             grog::floatToFixed(upX), grog::floatToFixed(upY), grog::floatToFixed(upZ)));
 
   engine.projectScene(&scene);
 

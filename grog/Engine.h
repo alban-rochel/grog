@@ -47,7 +47,7 @@ namespace grog
 
       void newFrame();
 
-      coord* transformedVertexBuffer {nullptr};
+      int32_t* transformedVertexBuffer {nullptr};
 
       Matrix projection;
       TransformMatrix view;

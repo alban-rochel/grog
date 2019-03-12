@@ -5,7 +5,7 @@
 #include <iostream>
 #endif
 
-using namespace grog;
+using namespace oldgrog;
 
 TransformMatrix::TransformMatrix() noexcept
 {}

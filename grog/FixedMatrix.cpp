@@ -6,7 +6,7 @@
 #include <iostream>
 #endif
 
-using namespace fixedgrog;
+using namespace grog;
 
 TransformMatrix::TransformMatrix() noexcept
 {}
@@ -25,7 +25,7 @@ TransformMatrix& TransformMatrix::operator=(const TransformMatrix& other) noexce
 TransformMatrix& TransformMatrix::identity() noexcept
 {
   memset(data, 0, sizeof (data));
-  data[0] = data[5] = data[10] = data[12] = 1;
+  data[0] = data[5] = data[10] = data[12] = (1 << 10);
 
   return *this;
 }
@@ -209,21 +209,21 @@ TransformMatrix TransformMatrix::View(int32_t eyeX, int32_t eyeY, int32_t eyeZ,
   // translate to origin
 
   //res.translate(-eyeX, -eyeY, -eyeZ);
-  res.data[3] = - res.data[0] * eyeX
-                - res.data[1] * eyeY
-                - res.data[2] * eyeZ;
-  res.data[7] = - res.data[4] * eyeX
-                - res.data[5] * eyeY
-                - res.data[6] * eyeZ;
-  res.data[11] =  - res.data[8] * eyeX
+  res.data[3] = ( - res.data[0] * eyeX
+                  - res.data[1] * eyeY
+                  - res.data[2] * eyeZ) >> 10;
+  res.data[7] = ( - res.data[4] * eyeX
+                  - res.data[5] * eyeY
+                  - res.data[6] * eyeZ) >> 10;
+  res.data[11] = (- res.data[8] * eyeX
                   - res.data[9] * eyeY
-                  - res.data[10] * eyeZ;
+                  - res.data[10] * eyeZ) >> 10;
 
   return res;
 }
 
 #ifdef __linux__
-void TransformMatrix::print() noexcept
+void TransformMatrix::print() const noexcept
 {
   std::cout <<"[\t" << data[0]/1024. << "\t" << data[1]/1024. << "\t" << data[2]/1024. << "\t" << data[3]/1024. << "\t]\n";
   std::cout <<"[\t" << data[4]/1024. << "\t" << data[5]/1024. << "\t" << data[6]/1024. << "\t" << data[7]/1024. << "\t]\n";
@@ -232,96 +232,96 @@ void TransformMatrix::print() noexcept
 }
 #endif
 
-//Matrix::Matrix() noexcept
-//{}
+Matrix::Matrix() noexcept
+{}
 
-//Matrix::Matrix(const Matrix& other) noexcept
-//{
-//  memcpy(data, other.data, sizeof(data));
-//}
+Matrix::Matrix(const Matrix& other) noexcept
+{
+  memcpy(data, other.data, sizeof(data));
+}
 
-//Matrix& Matrix::operator=(const Matrix& other) noexcept
-//{
-//  memcpy(data, other.data, sizeof(data));
-//  return *this;
-//}
+Matrix& Matrix::operator=(const Matrix& other) noexcept
+{
+  memcpy(data, other.data, sizeof(data));
+  return *this;
+}
 
-//void Matrix::Transform(const Matrix& left,
-//                       const TransformMatrix& right,
-//                       Matrix& out) noexcept
-//{
-//#define OUT(i) out.data[i]
-//#define LFT(i) left.data[i]
-//#define RGT(i) right.data[i]
-//  OUT(0) = LFT(0) * RGT(0)  + LFT(1)  * RGT(4)  + LFT(2)  * RGT(8);
-//  OUT(1) = LFT(0) * RGT(1)  + LFT(1)  * RGT(5)  + LFT(2)  * RGT(9);
-//  OUT(2) = LFT(0) * RGT(2)  + LFT(1)  * RGT(6)  + LFT(2)  * RGT(10);
-//  OUT(3) = LFT(0) * RGT(3)  + LFT(1)  * RGT(7)  + LFT(2)  * RGT(11) + LFT(3)  * RGT(12);
+void Matrix::Transform(const Matrix& left,
+                       const TransformMatrix& right,
+                       Matrix& out) noexcept
+{
+#define OUT(i) out.data[i]
+#define LFT(i) left.data[i]
+#define RGT(i) right.data[i]
+  OUT(0) = (LFT(0) * RGT(0)  + LFT(1)  * RGT(4)  + LFT(2)  * RGT(8)) >> 10;
+  OUT(1) = (LFT(0) * RGT(1)  + LFT(1)  * RGT(5)  + LFT(2)  * RGT(9)) >> 10;
+  OUT(2) = (LFT(0) * RGT(2)  + LFT(1)  * RGT(6)  + LFT(2)  * RGT(10)) >> 10;
+  OUT(3) = (LFT(0) * RGT(3)  + LFT(1)  * RGT(7)  + LFT(2)  * RGT(11) + LFT(3)  * RGT(12)) >> 10;
 
-//  OUT(4) = LFT(4) * RGT(0)  + LFT(5)  * RGT(4)  + LFT(6)  * RGT(8);
-//  OUT(5) = LFT(4) * RGT(1)  + LFT(5)  * RGT(5)  + LFT(6)  * RGT(9);
-//  OUT(6) = LFT(4) * RGT(2)  + LFT(5)  * RGT(6)  + LFT(6)  * RGT(10);
-//  OUT(7) = LFT(4) * RGT(3)  + LFT(5)  * RGT(7)  + LFT(6)  * RGT(11) + LFT(7)  * RGT(12);
+  OUT(4) = (LFT(4) * RGT(0)  + LFT(5)  * RGT(4)  + LFT(6)  * RGT(8)) >> 10;
+  OUT(5) = (LFT(4) * RGT(1)  + LFT(5)  * RGT(5)  + LFT(6)  * RGT(9)) >> 10;
+  OUT(6) = (LFT(4) * RGT(2)  + LFT(5)  * RGT(6)  + LFT(6)  * RGT(10)) >> 10;
+  OUT(7) = (LFT(4) * RGT(3)  + LFT(5)  * RGT(7)  + LFT(6)  * RGT(11) + LFT(7)  * RGT(12)) >> 10;
 
-//  OUT(8)  = LFT(8) * RGT(0)  + LFT(9)  * RGT(4)  + LFT(10)  * RGT(8);
-//  OUT(9)  = LFT(8) * RGT(1)  + LFT(9)  * RGT(5)  + LFT(10)  * RGT(9);
-//  OUT(10) = LFT(8) * RGT(2)  + LFT(9)  * RGT(6)  + LFT(10)  * RGT(10);
-//  OUT(11) = LFT(8) * RGT(3)  + LFT(9)  * RGT(7)  + LFT(10)  * RGT(11) + LFT(12)  * RGT(12);
+  OUT(8)  = (LFT(8) * RGT(0)  + LFT(9)  * RGT(4)  + LFT(10)  * RGT(8)) >> 10;
+  OUT(9)  = (LFT(8) * RGT(1)  + LFT(9)  * RGT(5)  + LFT(10)  * RGT(9)) >> 10;
+  OUT(10) = (LFT(8) * RGT(2)  + LFT(9)  * RGT(6)  + LFT(10)  * RGT(10)) >> 10;
+  OUT(11) = (LFT(8) * RGT(3)  + LFT(9)  * RGT(7)  + LFT(10)  * RGT(11) + LFT(12)  * RGT(12)) >> 10;
 
-//  OUT(12) = LFT(12) * RGT(0)  + LFT(13)  * RGT(4)  + LFT(14)  * RGT(8);
-//  OUT(13) = LFT(12) * RGT(1)  + LFT(13)  * RGT(5)  + LFT(14)  * RGT(9);
-//  OUT(14) = LFT(12) * RGT(2)  + LFT(13)  * RGT(6)  + LFT(14)  * RGT(10);
-//  OUT(15) = LFT(12) * RGT(3)  + LFT(13)  * RGT(7)  + LFT(14)  * RGT(11) + LFT(15)  * RGT(12);
+  OUT(12) = (LFT(12) * RGT(0)  + LFT(13)  * RGT(4)  + LFT(14)  * RGT(8)) >> 10;
+  OUT(13) = (LFT(12) * RGT(1)  + LFT(13)  * RGT(5)  + LFT(14)  * RGT(9)) >> 10;
+  OUT(14) = (LFT(12) * RGT(2)  + LFT(13)  * RGT(6)  + LFT(14)  * RGT(10)) >> 10;
+  OUT(15) = (LFT(12) * RGT(3)  + LFT(13)  * RGT(7)  + LFT(14)  * RGT(11) + LFT(15)  * RGT(12)) >> 10;
 
-//#undef OUT
-//#undef LFT
-//#undef RGT
-//}
+#undef OUT
+#undef LFT
+#undef RGT
+}
 
-//Matrix Matrix::Projection(float fov,
-//                          float near,
-//                          float far) noexcept
-//{
-//  /*
-//   * glm::perspective:
-//   * T const rad = fovy;
-//    T const tanHalfFovy = tan(rad / static_cast<T>(2));
+Matrix Matrix::Projection(float fov,
+                          float near,
+                          float far) noexcept
+{
+  /*
+   * glm::perspective:
+   * T const rad = fovy;
+    T const tanHalfFovy = tan(rad / static_cast<T>(2));
 
-//    detail::tmat4x4<T, defaultp> Result(static_cast<T>(0));
-//    Result[0][0] = static_cast<T>(1) / (aspect * tanHalfFovy);
-//    Result[1][1] = static_cast<T>(1) / (tanHalfFovy);
-//    Result[2][2] = - (zFar + zNear) / (zFar - zNear);
-//    Result[2][3] = - static_cast<T>(1);
-//    Result[3][2] = - (static_cast<T>(2) * zFar * zNear) / (zFar - zNear);
-//    return Result;
-//    */
+    detail::tmat4x4<T, defaultp> Result(static_cast<T>(0));
+    Result[0][0] = static_cast<T>(1) / (aspect * tanHalfFovy);
+    Result[1][1] = static_cast<T>(1) / (tanHalfFovy);
+    Result[2][2] = - (zFar + zNear) / (zFar - zNear);
+    Result[2][3] = - static_cast<T>(1);
+    Result[3][2] = - (static_cast<T>(2) * zFar * zNear) / (zFar - zNear);
+    return Result;
+    */
 
-//  Matrix res;
+  Matrix res;
 //#define GROG_PI_OVER_360 0.0087266462599716477f
-////#define GROG_INV_ASPECT 1.25f
-//  #define GROG_INV_ASPECT 0.8f
-//  float invTanHalfFov = 1.f / tanf(fov/2.f);
+//#define GROG_INV_ASPECT 1.25f
+  #define GROG_INV_ASPECT 0.8f
+  float invTanHalfFov = 1.f / tanf(fov/2.f);
 
-//  res.data[0]   = GROG_INV_ASPECT * invTanHalfFov;
-//  res.data[5]   = invTanHalfFov;
-//  res.data[10]  = (far + near)/(near - far);
-//  res.data[11]  = 2.f * far * near/(near - far);
-//  res.data[14]  = -1;
-//  res.data[15]  = 0.f;
+  res.data[0]   = grog::floatToFixed(GROG_INV_ASPECT * invTanHalfFov );
+  res.data[5]   = grog::floatToFixed(invTanHalfFov);
+  res.data[10]  = grog::floatToFixed((far + near)/(near - far));
+  res.data[11]  = grog::floatToFixed(2.f * far * near/(near - far));
+  res.data[14]  = grog::floatToFixed(-1.f);
+  res.data[15]  = 0;
 
-//#undef GROG_INV_ASPECT
+#undef GROG_INV_ASPECT
 //#undef GROG_PI_OVER_360
 
 
-//  return res;
-//}
+  return res;
+}
 
-//#ifdef __linux__
-//void Matrix::print() noexcept
-//{
-//  std::cout <<"[\t" << data[0] << "\t" << data[1] << "\t" << data[2] << "\t" << data[3] << "\t]\n";
-//  std::cout <<"[\t" << data[4] << "\t" << data[5] << "\t" << data[6] << "\t" << data[7] << "\t]\n";
-//  std::cout <<"[\t" << data[8] << "\t" << data[9] << "\t" << data[10] << "\t" << data[11] << "\t]\n";
-//  std::cout <<"[\t" << data[12] << "\t" << data[13] << "\t" << data[14] << "\t" << data[15] << "\t]\n";
-//}
-//#endif
+#ifdef __linux__
+void Matrix::print() const noexcept
+{
+  std::cout <<"[\t" << data[0]/1024. << "\t" << data[1]/1024. << "\t" << data[2]/1024. << "\t" << data[3]/1024. << "\t]\n";
+  std::cout <<"[\t" << data[4]/1024. << "\t" << data[5]/1024. << "\t" << data[6]/1024. << "\t" << data[7]/1024. << "\t]\n";
+  std::cout <<"[\t" << data[8]/1024. << "\t" << data[9]/1024. << "\t" << data[10]/1024. << "\t" << data[11]/1024. << "\t]\n";
+  std::cout <<"[\t" << data[12]/1024. << "\t" << data[13]/1024. << "\t" << data[14]/1024. << "\t" << data[15]/1024. << "\t]\n";
+}
+#endif

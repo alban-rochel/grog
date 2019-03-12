@@ -40,7 +40,7 @@ void Engine::init(uint32_t maxVerticesPerMesh,
   if(transformedVertexBuffer)
     delete[] transformedVertexBuffer;
 
-  transformedVertexBuffer = new /*(std::nothrow)*/ coord[maxVerticesPerMesh*3];
+  transformedVertexBuffer = new /*(std::nothrow)*/ int32_t[maxVerticesPerMesh*3];
 
 /*  if(transformStack)
     delete[] transformStack;
@@ -104,27 +104,69 @@ void Engine::projectScene(const SceneNode* node,
 
   // project all the coordinates in transformedVertexBuffer
   {
-    const coord* inVertexBuffer = mesh.vertexBuffer;
-    coord* outTransformedVertexBuffer = transformedVertexBuffer;
-    coord inX(0), inY(0), inZ(0);
+    const int32_t* inVertexBuffer = mesh.vertexBuffer;
+    int32_t* outTransformedVertexBuffer = transformedVertexBuffer;
+    int32_t inX(0), inY(0), inZ(0);
     for(uint32_t vertexIndex = mesh.vertexCount; vertexIndex; --vertexIndex)
     {
       inX = (*inVertexBuffer++);
       inY = (*inVertexBuffer++);
       inZ = (*inVertexBuffer++);
 
-      (*outTransformedVertexBuffer++) = (mvp.data[0] * inX
+//      std::cout << "IN FIXED "
+//                << inX/1024.f << " - "
+//                << inY/1024.f << " - "
+//                << inZ/1024.f << "\n";
+
+      (*outTransformedVertexBuffer++) = (((mvp.data[0] * inX
                                         +  mvp.data[1] * inY
                                         +  mvp.data[2] * inZ
-                                        +  mvp.data[3]) * 40 + 40;
-      (*outTransformedVertexBuffer++) = (mvp.data[4] * inX
+                                        +  mvp.data[3] * 1024) * 40) >> 20) + 40;
+      (*outTransformedVertexBuffer++) = (((mvp.data[4] * inX
                                         +  mvp.data[5] * inY
                                         +  mvp.data[6] * inZ
-                                        +  mvp.data[7]) * 32 + 32;
-      (*outTransformedVertexBuffer++) = (mvp.data[8] * inX
+                                        +  mvp.data[7] * 1024) * 32) >> 20) + 32;
+      (*outTransformedVertexBuffer++) = ((mvp.data[8] * inX
                                         +  mvp.data[9] * inY
                                         +  mvp.data[10] * inZ
-                                        +  mvp.data[11])*100;
+                                        +  mvp.data[11] * 1024)*100) >> 20;
+
+//      int32_t outX = (((mvp.data[0] * inX
+//          +  mvp.data[1] * inY
+//          +  mvp.data[2] * inZ
+//          +  mvp.data[3] * 1024) * 40) >> 20) + 40;
+
+//      float outXbis = ((mvp.data[0] * inX
+//          +  mvp.data[1] * inY
+//          +  mvp.data[2] * inZ
+////          +  mvp.data[3] * 1024) * 40)/1024./1024. + 40;
+
+//      std::cout << mvp.data[0]/1024. << "*" << inX/1024. << std::endl;
+//      std::cout << mvp.data[1]/1024. << "*" << inY/1024. << std::endl;
+//      std::cout << mvp.data[2]/1024. << "*" << inZ/1024. << std::endl;
+//      std::cout << mvp.data[3]/1024.<< std::endl;
+
+//      int32_t outY = ((mvp.data[4] * inX
+//                    +  mvp.data[5] * inY
+//                    +  mvp.data[6] * inZ
+//                    +  mvp.data[7] * 1024) * 32) >> 20 + 32;
+
+//      float outYbis = ((mvp.data[4] * inX
+//                    +  mvp.data[5] * inY
+//                    +  mvp.data[6] * inZ
+//                    +  mvp.data[7] * 1024) * 40)/1024./1024. + 32;
+
+//      int32_t outZ = (mvp.data[8] * inX
+//                    +  mvp.data[9] * inY
+//                    +  mvp.data[10] * inZ
+//                    +  mvp.data[11] * 1024) >> 20;
+
+//      std::cout << "OUT FIXED "
+//                << outX << " / " << outXbis << " - "
+//                << outY << " / " << outYbis << " - "
+//                << outZ << "\n";
+//      std::cout.flush();
+//      exit(0);
     }
   }
   // end project all the coordinates in transformedVertexBuffer
@@ -136,7 +178,7 @@ void Engine::projectScene(const SceneNode* node,
     const uint8_t* colorIter = mesh.colors;
     for(uint32_t faceIndex = mesh.faceCount; faceIndex; --faceIndex)
     {
-      coord* vertex = transformedVertexBuffer + 3 * (*faceIter++);
+      int32_t* vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p1x = (*vertex++);
       projection.p1y = (*vertex++);
       projection.z = (*vertex++);
@@ -144,7 +186,7 @@ void Engine::projectScene(const SceneNode* node,
       vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p2x = (*vertex++);
       projection.p2y = (*vertex++);
-      coord z = (*vertex++);
+      int32_t z = (*vertex++);
       projection.z = max2(projection.z, z);
 
       vertex = transformedVertexBuffer + 3 * (*faceIter++);

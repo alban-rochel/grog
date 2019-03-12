@@ -9,6 +9,11 @@ typedef int32_t Fixed;
 
 namespace grog
 {
+    constexpr int32_t floatToFixed(float val) noexcept
+    {
+      return (int32_t)(val * 1024.f + 0.5f);
+    }
+
     constexpr unsigned int screenWidth = 80;
     constexpr unsigned int screenHeight = 64;
     using bufferType = uint8_t;
@@ -21,8 +26,8 @@ namespace grog
     using trianglef = vec4f[3];
     using trianglei = vec4i[3];
 
-    using coord = int32_t;
-    using vertex = coord[3];
+//    using coord = int32_t;
+//    using vertex = coord[3];
 
     struct Triangle// in normalized cube
     {
@@ -67,22 +72,20 @@ namespace grog
     void rasterizeTriangle( const Triangle& triangle,
                             bufferType* __restrict frameBuffer) noexcept;
 
-    // Accumulate
+    void normalize(int32_t* io) noexcept;
 
-    void normalize(float* io) noexcept;
-
-    void crossProd(float* left,
-                   float* right,
-                   float* out,
+    void crossProd(int32_t* left,
+                   int32_t* right,
+                   int32_t* out,
                    bool normalize) noexcept;
 }
 
-namespace fixedgrog
+namespace oldgrog
 {
-  void normalize(int32_t* io) noexcept;
+  void normalize(float* io) noexcept;
 
-  void crossProd(int32_t* left,
-                 int32_t* right,
-                 int32_t* out,
+  void crossProd(float* left,
+                 float* right,
+                 float* out,
                  bool normalize) noexcept;
 }
