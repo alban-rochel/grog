@@ -42,15 +42,21 @@ namespace grog
     LightBlue   = 15,
   };
 
+#ifdef DITHERING_ENABLED // Consumes too many CPU cycles. Maybe acceptable for small scenes
   constexpr uint8_t color(Color col1, Color col2) noexcept
   {
     return  static_cast<uint8_t>(col1) |
             (static_cast<uint8_t>(col2) << 4);
   }
+#endif
 
   constexpr uint8_t color(Color col) noexcept
   {
+#ifdef DITHERING_ENABLED
     return color(col, col);
+#else
+  return static_cast<uint8_t>(col);
+#endif
   }
 
 

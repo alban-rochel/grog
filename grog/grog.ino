@@ -30,13 +30,29 @@ static const uint32_t faces[] {
   1, 5, 7,
   1, 7, 3
 };
+
+static const uint32_t inverted_faces[] {
+  0, 4, 6,
+  0, 6, 2,
+  0, 2, 3,
+  0, 3, 1,
+  2, 6, 7,
+  2, 7, 3,
+  4, 7, 6,
+  4, 5, 7,
+  0, 5, 4,
+  0, 1, 5,
+  1, 7, 5,
+  1, 3, 7
+};
+
 static const uint8_t colors[] {
   grog::color(grog::Color::White), grog::color(grog::Color::White),
   grog::color(grog::Color::Gray), grog::color(grog::Color::Gray),
   grog::color(grog::Color::DarkGray), grog::color(grog::Color::DarkGray),
-  grog::color(grog::Color::White, grog::Color::DarkBlue), grog::color(grog::Color::White, grog::Color::DarkBlue),
-  grog::color(grog::Color::Gray, grog::Color::DarkBlue), grog::color(grog::Color::Gray, grog::Color::DarkBlue),
-  grog::color(grog::Color::DarkGray, grog::Color::DarkBlue), grog::color(grog::Color::DarkGray, grog::Color::DarkBlue)
+  grog::color(grog::Color::White), grog::color(grog::Color::White),
+  grog::color(grog::Color::Gray), grog::color(grog::Color::Gray),
+  grog::color(grog::Color::DarkGray), grog::color(grog::Color::DarkGray)
 };
 
 static const uint8_t colorsX[] {
@@ -66,6 +82,15 @@ static const uint8_t colorsZ[] {
   grog::color(grog::Color::Blue), grog::color(grog::Color::Blue)
 };
 
+static const uint8_t outer_colors[] {
+  grog::color(grog::Color::White), grog::color(grog::Color::White),
+  grog::color(grog::Color::Gray), grog::color(grog::Color::Gray),
+  grog::color(grog::Color::DarkGray), grog::color(grog::Color::DarkGray),
+  grog::color(grog::Color::White), grog::color(grog::Color::White),
+  grog::color(grog::Color::Gray), grog::color(grog::Color::Gray),
+  grog::color(grog::Color::DarkGray), grog::color(grog::Color::DarkGray)
+};
+
 void setup()
 {
   gb.begin();
@@ -87,8 +112,8 @@ void loop()
   scene.mesh.faceCount = 12;
   scene.mesh.colors = colors;
 
-  scene.children = new grog::SceneNode[3];
-  scene.childCount = 3;
+  scene.children = new grog::SceneNode[4];
+  scene.childCount = 4;
 
   scene.children[0].mesh.vertexBuffer = vertices;
   scene.children[0].mesh.vertexCount = 8;
@@ -108,9 +133,17 @@ void loop()
   scene.children[2].mesh.faceCount = 12;
   scene.children[2].mesh.colors = colorsZ;
 
+// outer cube
+  scene.children[3].mesh.vertexBuffer = vertices;
+  scene.children[3].mesh.vertexCount = 8;
+  scene.children[3].mesh.faces = inverted_faces;
+  scene.children[3].mesh.faceCount = 12;
+  scene.children[3].mesh.colors = outer_colors;
+
   scene.children[0].transform.identity().translate(2 << 10, 0, 0).scale(grog::floatToFixed(0.5f), grog::floatToFixed(0.5f), grog::floatToFixed(0.5f));
   scene.children[1].transform.identity().translate(0, 2 << 10, 0).scale(grog::floatToFixed(0.5f), grog::floatToFixed(0.5f), grog::floatToFixed(0.5f));
   scene.children[2].transform.identity().translate(0, 0, 2 << 10).scale(grog::floatToFixed(0.5f), grog::floatToFixed(0.5f), grog::floatToFixed(0.5f));
+  scene.children[3].transform.identity().scale(1 << 11, 1 << 11, 1 << 11);
 
   engine.setProjection(grog::Matrix::Projection(2.f, 1, 10));
 
@@ -138,41 +171,5 @@ void loop()
 
     SerialUSB.printf("%d %d\n", gb.getCpuLoad(), gb.getFreeRam());
 
-//int32_t duration1(0), duration2(0);
-//      {
-//      grog::TransformMatrix trans2;
-//  
-//      float xRot(1.), yRot(2.);
-//  
-//      int32_t start = millis();
-//  
-//      for(unsigned int ii = 0; ii < 1000; ++ii)
-//      {
-//        trans2.rotateX(xRot).rotateY(yRot);
-//      }
-//  
-//      int32_t end = millis();
-//      duration1 = end-start;
-//  
-//    }
-//  #define ANGLE(fl) ((int32_t)(fl * 512. / M_PI + 0.5))
-//
-//    {
-//      fixedgrog::TransformMatrix trans2;
-//  
-//      int32_t xRot(ANGLE(1.)), yRot(ANGLE(2.));
-//  
-//      int32_t start = millis();
-//  
-//      for(unsigned int ii = 0; ii < 1000; ++ii)
-//      {
-//        trans2.rotateX(xRot).rotateY(yRot);
-//      }
-//  
-//      int32_t end = millis();
-//      duration2 = end-start;
-//    }
-//
-//    SerialUSB.printf("Durations %d %d\n", duration1, duration2);
   }
 }

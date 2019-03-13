@@ -43,15 +43,19 @@ void grog::rasterizeTriangle(const Triangle& triangle,
   int w1(0), w2(0), w3(0);
   bufferType* lineStart = frameBuffer + (minY * screenWidth + minX) / 2;
   bool upperNibbleStart = (minY * screenWidth + minX) & 0x1;
-  bool ditheringStepStart = (minX + minY) & 0x1;
   const uint8_t& col1 = triangle.color & 0x0F;
+#ifdef DITHERING_ENABLED
+  bool ditheringStepStart = (minX + minY) & 0x1;
   const uint8_t& col2 = triangle.color >> 4;
+#endif
   for(int y = maxY - minY + 1; y; --y, lineStart += screenWidth/2, w1_row += _B23, w2_row += _B31, w3_row += _B12)
   {
     bufferType* tmp = lineStart;
     bool upperNibble = upperNibbleStart;
+#ifdef DITHERING_ENABLED
     ditheringStepStart = !ditheringStepStart;
     bool ditheringStep = ditheringStepStart;
+#endif
     w1 = w1_row;
     w2 = w2_row;
     w3 = w3_row;
@@ -61,6 +65,7 @@ void grog::rasterizeTriangle(const Triangle& triangle,
     {
       if((w1|w2|w3) >= 0)
       {
+#ifdef DITHERING_ENABLED
         if(upperNibble)
         {
           *tmp = (*tmp & 0x0F) | ((ditheringStep ? col1 : col2) << 4) ;
@@ -69,6 +74,16 @@ void grog::rasterizeTriangle(const Triangle& triangle,
         {
           *tmp = (*tmp & 0xF0) | (ditheringStep ? col1 : col2) ;
         }
+#else
+        if(upperNibble)
+        {
+          *tmp = (*tmp & 0x0F) | (col1 << 4) ;
+        }
+        else
+        {
+          *tmp = (*tmp & 0xF0) | col1;
+        }
+#endif
         wasOk = true;
       }
       else if(wasOk)
@@ -82,7 +97,9 @@ void grog::rasterizeTriangle(const Triangle& triangle,
         ++tmp;
       }
       upperNibble = ! upperNibble;
+#ifdef DITHERING_ENABLED
       ditheringStep = ! ditheringStep;
+#endif
     }
   }
 }
