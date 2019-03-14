@@ -44,13 +44,16 @@ class MainWindow : public QMainWindow
     void nearChanged(double);
     void farChanged(double);
 
+    void defaultScene();
+    void convertObj();
+
   private:
     Ui::MainWindow *ui;
 
-    double eyeX {1.}, eyeY {1.}, eyeZ {1.};
+    double eyeX {-2.}, eyeY {1.}, eyeZ {-0.4};
     double targetX {0.}, targetY {0.}, targetZ {0.};
-    double upX {0.}, upY {1.}, upZ {0.};
-    double fov {2.}, near {1.}, far {10.};
+    double upX {0.}, upY {-1.}, upZ {0.};
+    double fov {1.}, near {1.}, far {10.};
 
     grog::SceneNode scene {};
     grog::Engine engine {};

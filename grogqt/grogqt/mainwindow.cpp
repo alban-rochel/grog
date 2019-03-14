@@ -1,9 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "trigo.h"
+#include "asset_car.h"
 
 #include <iostream>
 #include <QPainter>
+#include <QFileDialog>
 #include <thread>
 #include <chrono>
 
@@ -36,9 +38,9 @@ static const uint8_t colors[] {
   grog::color(grog::Color::White), grog::color(grog::Color::White),
   grog::color(grog::Color::Gray), grog::color(grog::Color::Gray),
   grog::color(grog::Color::DarkGray), grog::color(grog::Color::DarkGray),
-  grog::color(grog::Color::White, grog::Color::DarkBlue), grog::color(grog::Color::White, grog::Color::DarkBlue),
-  grog::color(grog::Color::Gray, grog::Color::DarkBlue), grog::color(grog::Color::Gray, grog::Color::DarkBlue),
-  grog::color(grog::Color::DarkGray, grog::Color::DarkBlue), grog::color(grog::Color::DarkGray, grog::Color::DarkBlue)
+  grog::color(grog::Color::White), grog::color(grog::Color::White),
+  grog::color(grog::Color::Gray), grog::color(grog::Color::Gray),
+  grog::color(grog::Color::DarkGray), grog::color(grog::Color::DarkGray)
 };
 
 static const uint8_t colorsX[] {
@@ -80,16 +82,22 @@ MainWindow::MainWindow(QWidget *parent) :
 //  exit(0);
   ui->setupUi(this);
 
-  engine.init(10, 100, 3, &pix);
+  engine.init(100, 100, 3, &pix);
 
-  scene.mesh.vertexBuffer = vertices;
+  /*scene.mesh.vertexBuffer = vertices;
   scene.mesh.vertexCount = 8;
   scene.mesh.faces = faces;
   scene.mesh.faceCount = 12;
-  scene.mesh.colors = colors;
+  scene.mesh.colors = colors;*/
+
+  scene.mesh.vertexBuffer = grog::car_vertices;
+  scene.mesh.vertexCount = grog::car_vertexCount;
+  scene.mesh.faces = grog::car_faces;
+  scene.mesh.faceCount = grog::car_faceCount;
+  scene.mesh.colors = grog::car_colors;
 
   scene.children = new grog::SceneNode[3];
-  scene.childCount = 3;
+  scene.childCount = 0;
 
   scene.children[0].mesh.vertexBuffer = vertices;
   scene.children[0].mesh.vertexCount = 8;
@@ -144,6 +152,9 @@ MainWindow::MainWindow(QWidget *parent) :
   connect(ui->fovSpinBox, SIGNAL(valueChanged(double)), this, SLOT(fovChanged(double)));
   connect(ui->nearSpinBox, SIGNAL(valueChanged(double)), this, SLOT(nearChanged(double)));
   connect(ui->farSpinBox, SIGNAL(valueChanged(double)), this, SLOT(farChanged(double)));
+
+  connect(ui->actionDefault, SIGNAL(triggered(bool)), this, SLOT(defaultScene()));
+  connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(convertObj()));
 
   draw();
 }
@@ -460,90 +471,84 @@ void MainWindow::draw()
   QApplication::processEvents();
 }
 
-#if 0
-void MainWindow::animate()
+void MainWindow::defaultScene()
+{}
+
+void MainWindow::convertObj()
 {
-  grog::Engine engine;
-  QPixmap pix(80, 64);
-  engine.init(10, 100, 3, &pix);
+  QString fileName = QFileDialog::getOpenFileName(this, "obj to convert", QString(), "*.obj");
 
+  QFile file(fileName);
 
-  grog::SceneNode cube;
-  cube.mesh.vertexBuffer = vertices;
-  cube.mesh.vertexCount = 8;
-  cube.mesh.faces = faces;
-  cube.mesh.faceCount = 12;
-  cube.mesh.colors = colors;
-//  cube.children = nullptr;
-//  cube.childCount = 0;
-  grog::SceneNode cube2;
-  cube2.mesh.vertexBuffer = vertices;
-  cube2.mesh.vertexCount = 8;
-  cube2.mesh.faces = faces;
-  cube2.mesh.faceCount = 12;
-  cube2.mesh.colors = colors;
-  cube.children = &cube2;
-  cube.childCount = 1;
-
-  grog::bufferType* buffer = new grog::bufferType[grog::screenWidth * grog::screenHeight];
-
-  engine.setProjection(grog::Matrix::Projection(2.f, 1, 10));
-
-  for(unsigned int ii = 0; ii < 1000; ++ii)
+  if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
   {
-
-    memset(buffer, 0x0, grog::screenWidth * grog::screenHeight * sizeof (grog::bufferType));
-
-
-    engine.setView(grog::TransformMatrix::View(1, 1, 1.,
-                                               0, 0, 0,
-                                               0, 1, 0));
-
-    cube.transform.identity()
-        .scale(0.5, 0.5, 0.5)
-        .rotateX(ii/20.f)
-        .rotateY(ii/15.f)/*
-                          .translate(40, 40, 40)*/;
-
-    cube2.transform.identity()
-                  .translate(1, 1, 1)
-                  .scale(0.4, 0.4, 0.4)
-                  ;
-
-    engine.projectScene(&cube);
-//    engine.projectScene(&cube2);
-
-    engine.debugTriangleStack();
-
-    engine.render();
-
-    QPixmap coincoin = pix.scaled(320, 256);
-
-    ui->label->setPixmap(coincoin);
-
-    QApplication::processEvents();
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(40));
-//    exit(0);
+    std::cerr << "Failed opening " << fileName.toStdString() << std::endl;
+    return;
   }
+
+  std::cerr << "Success opening " << fileName.toStdString() << std::endl;
+
+  std::vector<int32_t> vertices;
+  std::vector<uint32_t> faces;
+
+  while(!file.atEnd())
+  {
+    QString line = QString(file.readLine().data());
+
+    QStringList sl = line.split(" ");
+
+    if(sl.size() == 4 && sl[0] == "v")
+    {
+      float vertexCoord = atof(sl[1].toStdString().data());
+      vertices.push_back(grog::floatToFixed(vertexCoord));
+      vertexCoord = atof(sl[2].toStdString().data());
+      vertices.push_back(grog::floatToFixed(vertexCoord));
+      vertexCoord = atof(sl[3].toStdString().data());
+      vertices.push_back(grog::floatToFixed(vertexCoord));
+    }
+    else if(sl.size() == 4 && sl[0] == "f")
+    {
+      QStringList sl2 = sl[1].split("/");
+      uint32_t faceIndex = atoi(sl2[0].toStdString().data())-1;
+      faces.push_back(faceIndex);
+      sl2 = sl[2].split("/");
+      faceIndex = atoi(sl2[0].toStdString().data())-1;
+      faces.push_back(faceIndex);
+      sl2 = sl[3].split("/");
+      faceIndex = atoi(sl2[0].toStdString().data())-1;
+      faces.push_back(faceIndex);
+    }
+  }
+
+  file.close();
+
+  std::cerr << "Success parsing " << fileName.toStdString() << std::endl;
+
+  std::cout << "static const int32_t vertices[] {\n";
+  for(unsigned int ii = 0; ii < vertices.size(); ii+=3)
+  {
+    std::cout << "\t" << vertices[ii] << ",\t" << vertices[ii+1] << ",\t" << vertices[ii+2] << ",\n";
+  }
+  std::cout << "};\n\n";
+
+  std::cout << "static const uint32_t faces[] {\n";
+  for(unsigned int ii = 0; ii < faces.size(); ii+=3)
+  {
+    std::cout << "\t" << faces[ii] << ",\t" << faces[ii+1] << ",\t" << faces[ii+2] << ",\n";
+  }
+  std::cout << "};\n\n";
+
+  std::cout << "static const uint8_t colors[] {\n";
+  for(unsigned int ii = 0; ii < faces.size(); ii+=3)
+  {
+    std::cout << "grog::color(grog::Color::White),\n";
+  }
+  std::cout << "};\n\n";
+
+  std::cout << "static const uint32_t vertexCount {" << vertices.size()/3 << "};\n";
+  std::cout << "static const uint32_t faceCount {" << faces.size()/3 << "};\n";
+
+  std::cout.flush();
 }
-
-void MainWindow::debug()
-{
-  grog::Engine engine;
-  QPixmap pix(80, 64);
-  engine.init(10, 100, 3, &pix);
-
-  engine.pushDebugTriangles();
-
-    engine.render();
-
-    QPixmap coincoin = pix.scaled(320, 256);
-
-    ui->label->setPixmap(coincoin);
-
-    QApplication::processEvents();
-}
-#endif
 
 

@@ -46,7 +46,8 @@ HEADERS += \
     ../../grog/Matrix.h \
     ../../grog/Colors.h \
     ../../grog/Display.h \
-    ../../grog/trigo.h
+    ../../grog/trigo.h \
+    ../../grog/asset_car.h
 
 FORMS += \
         mainwindow.ui
