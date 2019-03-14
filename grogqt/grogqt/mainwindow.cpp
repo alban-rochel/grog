@@ -90,11 +90,11 @@ MainWindow::MainWindow(QWidget *parent) :
   scene.mesh.faceCount = 12;
   scene.mesh.colors = colors;*/
 
-  scene.mesh.vertexBuffer = grog::car_vertices;
-  scene.mesh.vertexCount = grog::car_vertexCount;
-  scene.mesh.faces = grog::car_faces;
-  scene.mesh.faceCount = grog::car_faceCount;
-  scene.mesh.colors = grog::car_colors;
+  scene.mesh.vertexBuffer = grog::wheel_vertices;
+  scene.mesh.vertexCount = grog::wheel_vertexCount;
+  scene.mesh.faces = grog::wheel_faces;
+  scene.mesh.faceCount = grog::wheel_faceCount;
+  scene.mesh.colors = grog::wheel_colors;
 
   scene.children = new grog::SceneNode[3];
   scene.childCount = 0;
@@ -486,7 +486,7 @@ void MainWindow::convertObj()
     return;
   }
 
-  std::cerr << "Success opening " << fileName.toStdString() << std::endl;
+  std::cout << "Success opening " << fileName.toStdString() << std::endl;
 
   std::vector<int32_t> vertices;
   std::vector<uint32_t> faces;
@@ -522,7 +522,7 @@ void MainWindow::convertObj()
 
   file.close();
 
-  std::cerr << "Success parsing " << fileName.toStdString() << std::endl;
+  std::cout << "Success parsing " << fileName.toStdString() << std::endl;
 
   std::cout << "static const int32_t vertices[] {\n";
   for(unsigned int ii = 0; ii < vertices.size(); ii+=3)

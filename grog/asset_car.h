@@ -130,4 +130,68 @@ namespace grog
 
 	static const uint32_t car_vertexCount {39};
 	static const uint32_t car_faceCount {39};
+
+	static const int32_t wheel_vertices[] {
+		2,	-89,	58,
+		2,	-89,	-56,
+		80,	-44,	58,
+		80,	-44,	-56,
+		80,	44,	58,
+		80,	44,	-56,
+		2,	89,	58,
+		2,	89,	-56,
+		-75,	44,	58,
+		-75,	44,	-56,
+		-75,	-44,	58,
+		-75,	-44,	-56,
+	};
+
+	static const uint32_t wheel_faces[] {
+		1,	2,	0,
+		3,	4,	2,
+		5,	6,	4,
+		7,	8,	6,
+		7,	5,	1,
+		9,	10,	8,
+		11,	0,	10,
+		6,	8,	10,
+		1,	3,	2,
+		3,	5,	4,
+		5,	7,	6,
+		7,	9,	8,
+		5,	3,	1,
+		1,	11,	9,
+		9,	7,	1,
+		9,	11,	10,
+		11,	1,	0,
+		10,	0,	6,
+		0,	2,	6,
+		2,	4,	6,
+	};
+
+	static const uint8_t wheel_colors[] {
+	grog::color(grog::Color::Gray), // Bande 1
+	grog::color(grog::Color::DarkGray), // Bande 2
+	grog::color(grog::Color::Gray),    // Bande 3
+	grog::color(grog::Color::DarkGray), // Bande 4
+	grog::color(grog::Color::Black), // Cote 1
+	grog::color(grog::Color::Gray), // Bande 5
+	grog::color(grog::Color::DarkGray), // Bande 6
+	grog::color(grog::Color::Black), // Cote 2
+	grog::color(grog::Color::Gray), // Bande 1
+	grog::color(grog::Color::DarkGray), // Bande 2
+	grog::color(grog::Color::Gray),    // Bande 3
+	grog::color(grog::Color::DarkGray), // Bande 4
+	grog::color(grog::Color::Black), // Cote 1
+	grog::color(grog::Color::Black),   // Cote 1
+	grog::color(grog::Color::Black), // Cote 1
+	grog::color(grog::Color::Gray), // Bande 5
+	grog::color(grog::Color::DarkGray), // Bande 6
+	grog::color(grog::Color::Black), // Cote 2
+	grog::color(grog::Color::Black),// Cote 2
+	grog::color(grog::Color::Black),// Cote 2
+	};
+
+	static const uint32_t wheel_vertexCount {12};
+	static const uint32_t wheel_faceCount {20};
 }
