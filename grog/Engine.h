@@ -39,10 +39,6 @@ namespace grog
       void projectScene(const SceneNode* node,
                         const Matrix& parentMvp)noexcept;
 
-      void pushTransform(const TransformMatrix& transform) noexcept;
-
-      void popTransform() noexcept;
-
       void pushTriangle(Triangle& in) noexcept;
 
       void newFrame();

@@ -9,67 +9,6 @@
 #include <thread>
 #include <chrono>
 
-
-const int32_t vertices[] {
-  (-1) << 10,  (-1) << 10, (-1) << 10,
-  (-1) << 10,  (-1) << 10, ( 1) << 10,
-  (-1) << 10,  ( 1) << 10, (-1) << 10,
-  (-1) << 10,  ( 1) << 10, ( 1) << 10,
-  ( 1) << 10,  (-1) << 10, (-1) << 10,
-  ( 1) << 10,  (-1) << 10, ( 1) << 10,
-  ( 1) << 10,  ( 1) << 10, (-1) << 10,
-  ( 1) << 10,  ( 1) << 10, ( 1) << 10
-};
-static const uint32_t faces[] {
-  0, 6, 4,
-  0, 2, 6,
-  0, 3, 2,
-  0, 1, 3,
-  2, 7, 6,
-  2, 3, 7,
-  4, 6, 7,
-  4, 7, 5,
-  0, 4, 5,
-  0, 5, 1,
-  1, 5, 7,
-  1, 7, 3
-};
-static const uint8_t colors[] {
-  grog::color(grog::Color::White), grog::color(grog::Color::White),
-  grog::color(grog::Color::Gray), grog::color(grog::Color::Gray),
-  grog::color(grog::Color::DarkGray), grog::color(grog::Color::DarkGray),
-  grog::color(grog::Color::White), grog::color(grog::Color::White),
-  grog::color(grog::Color::Gray), grog::color(grog::Color::Gray),
-  grog::color(grog::Color::DarkGray), grog::color(grog::Color::DarkGray)
-};
-
-static const uint8_t colorsX[] {
-  grog::color(grog::Color::Red), grog::color(grog::Color::Red),
-  grog::color(grog::Color::Red), grog::color(grog::Color::Red),
-  grog::color(grog::Color::Red), grog::color(grog::Color::Red),
-  grog::color(grog::Color::Red), grog::color(grog::Color::Red),
-  grog::color(grog::Color::Red), grog::color(grog::Color::Red),
-  grog::color(grog::Color::Red), grog::color(grog::Color::Red)
-};
-
-static const uint8_t colorsY[] {
-  grog::color(grog::Color::Green), grog::color(grog::Color::Green),
-  grog::color(grog::Color::Green), grog::color(grog::Color::Green),
-  grog::color(grog::Color::Green), grog::color(grog::Color::Green),
-  grog::color(grog::Color::Green), grog::color(grog::Color::Green),
-  grog::color(grog::Color::Green), grog::color(grog::Color::Green),
-  grog::color(grog::Color::Green), grog::color(grog::Color::Green)
-};
-
-static const uint8_t colorsZ[] {
-  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue),
-  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue),
-  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue),
-  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue),
-  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue),
-  grog::color(grog::Color::Blue), grog::color(grog::Color::Blue)
-};
-
 #define ANGLE(fl) ((int32_t)(fl * 512. / M_PI + 0.5))
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -477,6 +416,48 @@ void MainWindow::draw()
 
   QApplication::processEvents();
 }
+
+//void MainWindow::draw()
+//{
+//  engine.setProjection(grog::Matrix::Projection(1.f, 1, 10));
+
+////  static int ii = 228;
+
+//  //while(true)
+//  {
+//    std::this_thread::sleep_for(std::chrono::milliseconds(40));
+
+//    engine.setView(grog::TransformMatrix::View(grog::floatToFixed(-1.f), grog::floatToFixed(0.5f), grog::floatToFixed(-0.4f),
+//                                               0, 0, 0,
+//                                               grog::floatToFixed(0), grog::floatToFixed(-1.f), 0));
+
+//    scene.transform.identity();
+//          //.scale(1 << 10, 1 << 10, 1 << 10)
+//          /*.rotateX(ii << 2)
+//          .rotateY(ii << 1);*/
+//    scene.transform.rotateY(ii/100.*512);
+
+//    scene.children[0].transform.identity().rotateZ(ii*50).translate(-300, 50, 200);
+//    scene.children[1].transform.identity().rotateZ(ii*50).translate(-300, 50, -200);
+//    scene.children[2].transform.identity().rotateZ(ii*50).translate(600, 50, 200);
+//    scene.children[3].transform.identity().rotateZ(ii*50).translate(600, 50, -200);
+
+//    engine.projectScene(&scene);
+
+////    engine.debugTriangleStack();
+
+//    engine.render();
+
+//    ++ii;
+//    QPixmap coincoin = pix.scaled(320, 256);
+
+//    ui->label->setPixmap(coincoin);
+
+//    QApplication::processEvents();
+
+//  }
+
+//}
 
 void MainWindow::defaultScene()
 {}

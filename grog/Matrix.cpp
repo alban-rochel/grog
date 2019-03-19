@@ -142,7 +142,7 @@ void TransformMatrix::Product(const TransformMatrix& left,
   OUT(8)  = LFT(8) * RGT(0)  + LFT(9)  * RGT(4)  + LFT(10)  * RGT(8);
   OUT(9)  = LFT(8) * RGT(1)  + LFT(9)  * RGT(5)  + LFT(10)  * RGT(9);
   OUT(10) = LFT(8) * RGT(2)  + LFT(9)  * RGT(6)  + LFT(10)  * RGT(10);
-  OUT(11) = LFT(8) * RGT(3)  + LFT(9)  * RGT(7)  + LFT(10)  * RGT(11) + LFT(12)  * RGT(12);
+  OUT(11) = LFT(8) * RGT(3)  + LFT(9)  * RGT(7)  + LFT(10)  * RGT(11) + LFT(11)  * RGT(12);
 
   OUT(12) = LFT(12)  * RGT(12);
 
@@ -345,7 +345,7 @@ void Matrix::Transform(const Matrix& left,
   OUT(8)  = LFT(8) * RGT(0)  + LFT(9)  * RGT(4)  + LFT(10)  * RGT(8);
   OUT(9)  = LFT(8) * RGT(1)  + LFT(9)  * RGT(5)  + LFT(10)  * RGT(9);
   OUT(10) = LFT(8) * RGT(2)  + LFT(9)  * RGT(6)  + LFT(10)  * RGT(10);
-  OUT(11) = LFT(8) * RGT(3)  + LFT(9)  * RGT(7)  + LFT(10)  * RGT(11) + LFT(12)  * RGT(12);
+  OUT(11) = LFT(8) * RGT(3)  + LFT(9)  * RGT(7)  + LFT(10)  * RGT(11) + LFT(11)  * RGT(12);
 
   OUT(12) = LFT(12) * RGT(0)  + LFT(13)  * RGT(4)  + LFT(14)  * RGT(8);
   OUT(13) = LFT(12) * RGT(1)  + LFT(13)  * RGT(5)  + LFT(14)  * RGT(9);

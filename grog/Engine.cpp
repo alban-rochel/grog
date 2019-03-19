@@ -2,14 +2,11 @@
 
 using namespace grog;
 
-//#include <new>          // std::nothrow
 #include <string.h>
-//#include <iostream>
-
 
 #ifdef __linux
 #include <iostream>
-#define PRINT_TRIANGLE(t) std::cout << t->z << " - (" << t->p1x << "," << t->p1y <<") - ("<< t->p2x << "," << t->p2y <<") - ("<< t->p3x << "," << t->p3y <<") " << (t->next ? "+next\n" : "+end\n");
+#define PRINT_TRIANGLE(t) if(!t) std::cout << "NULL\n"; else std::cout << t->z << " - (" << t->p1x/1024. << "," << t->p1y/1024. <<") - ("<< t->p2x/1024. << "," << t->p2y/1024. <<") - ("<< t->p3x/1024. << "," << t->p3y/1024. <<") " << (t->next ? "+next\n" : "+end\n");
 #endif
 
 Engine::Engine() noexcept
@@ -21,9 +18,6 @@ Engine::~Engine() noexcept
 {
   if(transformedVertexBuffer)
     delete[] transformedVertexBuffer;
-
-/*  if(transformStack)
-    delete[] transformStack;*/
 
   if(triangleStack)
     delete[] triangleStack;
@@ -42,13 +36,6 @@ void Engine::init(uint32_t maxVerticesPerMesh,
 
   transformedVertexBuffer = new /*(std::nothrow)*/ int32_t[maxVerticesPerMesh*3];
 
-/*  if(transformStack)
-    delete[] transformStack;
-
-  transformStack = new (std::nothrow) TransformMatrix[maxTransforms];
-  nextTransformIndex = 0;
-  transformCount = maxTransforms;*/
-
   if(triangleStack)
     delete[] triangleStack;
 
@@ -60,35 +47,6 @@ void Engine::init(uint32_t maxVerticesPerMesh,
 #ifdef __linux
   display.pixmap = pixmap;
 #endif
-}
-
-void Engine::pushTransform(const TransformMatrix &transform) noexcept
-{
-/*  if(GROG_UNLIKELY(nextTransformIndex == transformCount))
-  {
-    return;
-  }
-
-  if(GROG_UNLIKELY(nextTransformIndex == 0))
-  {
-    transformStack[0] = transform;
-  }
-  else
-  {
-    TransformMatrix::Product(transformStack[nextTransformIndex-1], transform, transformStack[nextTransformIndex]);
-  }
-
-  ++nextTransformIndex;*/
-}
-
-void Engine::popTransform() noexcept
-{
-/*  if(GROG_UNLIKELY(nextTransformIndex == 0))
-  {
-    return;
-  }
-
-  --nextTransformIndex;*/
 }
 
 void Engine::projectScene(const SceneNode* node,
@@ -113,60 +71,23 @@ void Engine::projectScene(const SceneNode* node,
       inY = (*inVertexBuffer++);
       inZ = (*inVertexBuffer++);
 
-//      std::cout << "IN FIXED "
-//                << inX/1024.f << " - "
-//                << inY/1024.f << " - "
-//                << inZ/1024.f << "\n";
+      int32_t w = (mvp.data[12] * inX
+          +  mvp.data[13] * inY
+          +  mvp.data[14] * inZ
+          +  mvp.data[15] * 1024) >> 10;
 
-      (*outTransformedVertexBuffer++) = (((mvp.data[0] * inX
-                                        +  mvp.data[1] * inY
-                                        +  mvp.data[2] * inZ
-                                        +  mvp.data[3] * 1024) /** 40*/) >> 20) + 40;
-      (*outTransformedVertexBuffer++) = (((mvp.data[4] * inX
-                                        +  mvp.data[5] * inY
-                                        +  mvp.data[6] * inZ
-                                        +  mvp.data[7] * 1024) /** 32*/) >> 20) + 32;
-      (*outTransformedVertexBuffer++) = ((mvp.data[8] * inX
-                                        +  mvp.data[9] * inY
-                                        +  mvp.data[10] * inZ
-                                        +  mvp.data[11] * 1024)*100) >> 20;
-
-//      int32_t outX = (((mvp.data[0] * inX
-//          +  mvp.data[1] * inY
-//          +  mvp.data[2] * inZ
-//          +  mvp.data[3] * 1024) * 40) >> 20) + 40;
-
-//      float outXbis = ((mvp.data[0] * inX
-//          +  mvp.data[1] * inY
-//          +  mvp.data[2] * inZ
-////          +  mvp.data[3] * 1024) * 40)/1024./1024. + 40;
-
-//      std::cout << mvp.data[0]/1024. << "*" << inX/1024. << std::endl;
-//      std::cout << mvp.data[1]/1024. << "*" << inY/1024. << std::endl;
-//      std::cout << mvp.data[2]/1024. << "*" << inZ/1024. << std::endl;
-//      std::cout << mvp.data[3]/1024.<< std::endl;
-
-//      int32_t outY = ((mvp.data[4] * inX
-//                    +  mvp.data[5] * inY
-//                    +  mvp.data[6] * inZ
-//                    +  mvp.data[7] * 1024) * 32) >> 20 + 32;
-
-//      float outYbis = ((mvp.data[4] * inX
-//                    +  mvp.data[5] * inY
-//                    +  mvp.data[6] * inZ
-//                    +  mvp.data[7] * 1024) * 40)/1024./1024. + 32;
-
-//      int32_t outZ = (mvp.data[8] * inX
-//                    +  mvp.data[9] * inY
-//                    +  mvp.data[10] * inZ
-//                    +  mvp.data[11] * 1024) >> 20;
-
-//      std::cout << "OUT FIXED "
-//                << outX << " / " << outXbis << " - "
-//                << outY << " / " << outYbis << " - "
-//                << outZ << "\n";
-//      std::cout.flush();
-//      exit(0);
+    (*outTransformedVertexBuffer++) = (((mvp.data[0] * inX
+                                      +  mvp.data[1] * inY
+                                      +  mvp.data[2] * inZ
+                                      +  mvp.data[3] * 1024)/w) >> 10) + 40;
+    (*outTransformedVertexBuffer++) = (((mvp.data[4] * inX
+                                      +  mvp.data[5] * inY
+                                      +  mvp.data[6] * inZ
+                                      +  mvp.data[7] * 1024)/w) >> 10) + 32;
+    (*outTransformedVertexBuffer++) = (((mvp.data[8] * inX
+                                      +  mvp.data[9] * inY
+                                      +  mvp.data[10] * inZ
+                                      +  mvp.data[11] * 1024)*100)/w) >> 10;
     }
   }
   // end project all the coordinates in transformedVertexBuffer
@@ -198,10 +119,10 @@ void Engine::projectScene(const SceneNode* node,
       // TODO check that triangle covers some part of the screen
 
       projection.color = (*colorIter++);
-      /*std::cout << "Pushing ";
-      PRINT_TRIANGLE((&projection));*/
+//      std::cout << "Pushing ";
+//      PRINT_TRIANGLE((&projection));
       pushTriangle(projection);
-      /*debugTriangleStack();*/
+//      debugTriangleStack();
     }
   }
   // end push triangles
@@ -217,8 +138,6 @@ void Engine::projectScene(const SceneNode* node,
     }
   }
   // end recursive call
-
-  popTransform();
 }
 
 void Engine::projectScene(const SceneNode *node) noexcept
@@ -231,12 +150,6 @@ void Engine::projectScene(const SceneNode *node) noexcept
 
 void Engine::render() noexcept
 {
-  /*const Triangle* currentTriangle = triangleStack;
-  for(uint32_t triangleIndex = triangleCount; triangleIndex; --triangleIndex, ++currentTriangle)
-  {
-    rasterizeTriangle(*currentTriangle, display.buffer);
-  }*/
-
   const Triangle* currentTriangle = triangleStackHead;
   while(currentTriangle)
   {
@@ -246,7 +159,6 @@ void Engine::render() noexcept
 
   display.draw();
 
-//std::cout << "new" << std::endl;
 //  debugTriangleStack();
   newFrame();
 //  exit(0);
@@ -314,13 +226,9 @@ void Engine::pushDebugTriangles()
 
 void Engine::pushTriangle(Triangle& in) noexcept
 {
-//  std::cout << "push " << in.p1x << "," << in.p1y << "  - "
-//               << in.p2x << "," << in.p2y << "  - "
-//                  << in.p3x << "," << in.p3y << "\n";
 
 if(grog::orient2d(in.p1x, in.p1y, in.p2x, in.p2y, in.p3x, in.p3y) <= 0)
   return;
-
   if(triangleCount == maxTriangles)
   {
     // replace triangles
@@ -328,8 +236,6 @@ if(grog::orient2d(in.p1x, in.p1y, in.p2x, in.p2y, in.p3x, in.p3y) <= 0)
   else
   {
     // standard insertion
-    /*triangleStack[triangleCount] = in;
-    ++triangleCount;*/
 
     Triangle* insertedTriangle = triangleStack + triangleCount;
     *insertedTriangle = in;
