@@ -16,7 +16,7 @@ void setup()
 
   gb.setFrameRate(25);
 
-  engine.init(10, 100, 3);
+  engine.init(100, 100, 3);
 }
 
 void loop()
@@ -69,7 +69,7 @@ void loop()
   {
     while(!gb.update());
 
-    engine.setView(grog::TransformMatrix::View(grog::floatToFixed(-2.f), grog::floatToFixed(1.f), grog::floatToFixed(-0.4f),
+    engine.setView(grog::TransformMatrix::View(grog::floatToFixed(-1.f), grog::floatToFixed(0.5f), grog::floatToFixed(-0.4f),
                                                0, 0, 0,
                                                grog::floatToFixed(0), grog::floatToFixed(-1.f), 0));
 

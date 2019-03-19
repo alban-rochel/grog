@@ -87,7 +87,7 @@ void Engine::projectScene(const SceneNode* node,
     (*outTransformedVertexBuffer++) = (((mvp.data[8] * inX
                                       +  mvp.data[9] * inY
                                       +  mvp.data[10] * inZ
-                                      +  mvp.data[11] * 1024)*100)/w) >> 10;
+                                      +  mvp.data[11] * 1024)*1000)/w) >> 10;
     }
   }
   // end project all the coordinates in transformedVertexBuffer
@@ -107,14 +107,16 @@ void Engine::projectScene(const SceneNode* node,
       vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p2x = (*vertex++);
       projection.p2y = (*vertex++);
-      int32_t z = (*vertex++);
-      projection.z = max2(projection.z, z);
+      //int32_t z = (*vertex++);
+      //projection.z = max2(projection.z, z);
+      projection.z += (*vertex++);
 
       vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p3x = (*vertex++);
       projection.p3y = (*vertex++);
-      z = (*vertex++);
-      projection.z = max2(projection.z, z);
+      /*z = (*vertex++);
+      projection.z = max2(projection.z, z);*/
+      projection.z += (*vertex++);
 
       // TODO check that triangle covers some part of the screen
 
