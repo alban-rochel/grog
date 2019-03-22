@@ -97,7 +97,7 @@ void Engine::projectScene(const SceneNode* node,
       }
       else
       {
-        (*outTransformedVertexBuffer++) = std::numeric_limits<int32_t>::max();
+        (*outTransformedVertexBuffer++) = 0xFFFFFFFF;
         outTransformedVertexBuffer++;
         outTransformedVertexBuffer++;
 
@@ -115,7 +115,7 @@ void Engine::projectScene(const SceneNode* node,
     {
       int32_t* vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p1x = (*vertex++);
-      if(projection.p1x == std::numeric_limits<int32_t>::max())
+      if(projection.p1x == 0xFFFFFFFF)
       {
         continue;
       }
@@ -124,7 +124,7 @@ void Engine::projectScene(const SceneNode* node,
 
       vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p2x = (*vertex++);
-      if(projection.p2x == std::numeric_limits<int32_t>::max())
+      if(projection.p2x == 0xFFFFFFFF)
       {
         continue;
       }
@@ -135,7 +135,7 @@ void Engine::projectScene(const SceneNode* node,
 
       vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p3x = (*vertex++);
-      if(projection.p3x == std::numeric_limits<int32_t>::max())
+      if(projection.p3x == 0xFFFFFFFF)
       {
         continue;
       }

@@ -164,7 +164,7 @@ namespace grog
 	grog::color(grog::Color::Blue), // Aileron
 	grog::color(grog::Color::Blue), // Aileron
 	grog::color(grog::Color::Blue), // Cote
-	grog::color(grog::Color::/*Blue*/Gray), // Aileron
+	grog::color(grog::Color::Blue), // Aileron
 	grog::color(grog::Color::Blue), // Aileron
 	grog::color(grog::Color::White),
 	grog::color(grog::Color::White),

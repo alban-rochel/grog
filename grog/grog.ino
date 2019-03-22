@@ -1,11 +1,13 @@
 #include <Gamebuino-Meta.h>
 #include "Engine.h"
 #include "Colors.h"
-#include "asset_car.h"
+#include "Car.h"
 
 #include "trigo.h"
 
 grog::Engine engine;
+grog::Car* car1;
+grog::Car* car2;
 
 
 void setup()
@@ -23,45 +25,21 @@ void loop()
 {
   grog::SceneNode scene;
 
-  scene.mesh.vertexBuffer = grog::car_vertices;
-  scene.mesh.vertexCount = grog::car_vertexCount;
-  scene.mesh.faces = grog::car_faces;
-  scene.mesh.faceCount = grog::car_faceCount;
-  scene.mesh.colors = grog::car_colors;
+  scene.mesh.vertexBuffer = nullptr;
+  scene.mesh.vertexCount = 0;
+  scene.mesh.faces = nullptr;
+  scene.mesh.faceCount = 0;
+  scene.mesh.colors = nullptr;
+  scene.children = new grog::SceneNode*[2];
+  scene.childCount = 2;
 
-  scene.children = new grog::SceneNode[4];
-  scene.childCount = 4;
-
-  scene.children[0].mesh.vertexBuffer = grog::wheel_vertices;
-  scene.children[0].mesh.vertexCount = grog::wheel_vertexCount;
-  scene.children[0].mesh.faces = grog::wheel_faces;
-  scene.children[0].mesh.faceCount = grog::wheel_faceCount;
-  scene.children[0].mesh.colors = grog::wheel_colors;
-
-  scene.children[1].mesh.vertexBuffer = grog::wheel_vertices;
-  scene.children[1].mesh.vertexCount = grog::wheel_vertexCount;
-  scene.children[1].mesh.faces = grog::wheel_faces;
-  scene.children[1].mesh.faceCount = grog::wheel_faceCount;
-  scene.children[1].mesh.colors = grog::wheel_colors;
-
-  scene.children[2].mesh.vertexBuffer = grog::wheel_vertices;
-  scene.children[2].mesh.vertexCount = grog::wheel_vertexCount;
-  scene.children[2].mesh.faces = grog::wheel_faces;
-  scene.children[2].mesh.faceCount = grog::wheel_faceCount;
-  scene.children[2].mesh.colors = grog::wheel_colors;
-
-  scene.children[3].mesh.vertexBuffer = grog::wheel_vertices;
-  scene.children[3].mesh.vertexCount = grog::wheel_vertexCount;
-  scene.children[3].mesh.faces = grog::wheel_faces;
-  scene.children[3].mesh.faceCount = grog::wheel_faceCount;
-  scene.children[3].mesh.colors = grog::wheel_colors;
-
-  scene.children[0].transform.identity().translate(-300, 50, 200);
-  scene.children[1].transform.identity().translate(-300, 50, -200);
-  scene.children[2].transform.identity().translate(600, 50, 200);
-  scene.children[3].transform.identity().translate(600, 50, -200);
-
-  engine.setProjection(grog::Matrix::Projection(1.f, 1, 10));
+  car1=new grog::Car(true);
+  car2=new grog::Car(false);
+  scene.children[0] = car1;
+  scene.children[1] = car2;
+  scene.children[1]->transform.identity().translate(1500,0, 1000);
+  
+  engine.setProjection(grog::Matrix::Projection(1.f, 1, 100));
 
   int ii = 0;
 
@@ -77,11 +55,10 @@ void loop()
           //.scale(1 << 10, 1 << 10, 1 << 10)
           /*.rotateX(ii << 2)
           .rotateY(ii << 1);*/
-scene.transform.rotateY(ii);
-    scene.children[0].transform.identity().rotateZ(ii*50).translate(-300, 50, 200);
-    scene.children[1].transform.identity().rotateZ(ii*50).translate(-300, 50, -200);
-    scene.children[2].transform.identity().rotateZ(ii*50).translate(600, 50, 200);
-    scene.children[3].transform.identity().rotateZ(ii*50).translate(600, 50, -200);
+scene.transform.rotateY(2*ii);
+
+car1->setWheelRotation(ii << 6);
+car2->setWheelRotation(ii << 6);
 
     engine.projectScene(&scene);
 
