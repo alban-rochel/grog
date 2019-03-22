@@ -86,7 +86,7 @@ namespace grog
 		37,	38,	35,
 	};
 
-	static const uint8_t car_colors[] {
+	static const uint8_t car_colors_main[] {
 	grog::color(grog::Color::White), // Nez
 	grog::color(grog::Color::White), // Nez
 	grog::color(grog::Color::Red), // Aileron avant
@@ -124,6 +124,48 @@ namespace grog
 	grog::color(grog::Color::Red), // Cote
 	grog::color(grog::Color::Red), // Aileron
 	grog::color(grog::Color::Red), // Aileron
+	grog::color(grog::Color::White),
+	grog::color(grog::Color::White),
+	};
+
+	static const uint8_t car_colors_other[] {
+	grog::color(grog::Color::White), // Nez
+	grog::color(grog::Color::White), // Nez
+	grog::color(grog::Color::Blue), // Aileron avant
+	grog::color(grog::Color::White), // Nez
+	grog::color(grog::Color::Blue), // Aileron avant
+	grog::color(grog::Color::Blue), // Aileron avant
+	grog::color(grog::Color::Blue), // Aileron avant
+	grog::color(grog::Color::Gray), // Pilote
+	grog::color(grog::Color::Gray), // Pilote
+	grog::color(grog::Color::DarkGray), // Entree d'air
+	grog::color(grog::Color::DarkGray), // Entree d'air
+	grog::color(grog::Color::DarkGray), // Moteur
+	grog::color(grog::Color::Blue), // Derriere entree d'air
+	grog::color(grog::Color::White), // Cote
+	grog::color(grog::Color::Blue),  // Derriere entree d'air
+	grog::color(grog::Color::DarkGray), // Entree d'air laterale
+	grog::color(grog::Color::DarkGray), // Entree d'air laterale
+	grog::color(grog::Color::DarkGray), // Entree d'air laterale
+	grog::color(grog::Color::DarkGray), // Entree d'air laterale
+	grog::color(grog::Color::Blue), // Cote
+	grog::color(grog::Color::Blue), // Cote
+	grog::color(grog::Color::Blue), // Cote
+	grog::color(grog::Color::White), // Cote haut
+	grog::color(grog::Color::White), // Cote haut
+	grog::color(grog::Color::White), // Cote haut
+	grog::color(grog::Color::White), // Cote haut arriere
+	grog::color(grog::Color::Blue), // Cote arriere
+	grog::color(grog::Color::Blue), // Derriere entree d'air
+	grog::color(grog::Color::White), // Cote haut arriere
+	grog::color(grog::Color::DarkGray), // Moteur
+	grog::color(grog::Color::Blue), // Cote arriere
+	grog::color(grog::Color::White), // Sur moteur
+	grog::color(grog::Color::Blue), // Aileron
+	grog::color(grog::Color::Blue), // Aileron
+	grog::color(grog::Color::Blue), // Cote
+	grog::color(grog::Color::/*Blue*/Gray), // Aileron
+	grog::color(grog::Color::Blue), // Aileron
 	grog::color(grog::Color::White),
 	grog::color(grog::Color::White),
 	};

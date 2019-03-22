@@ -50,7 +50,7 @@ class MainWindow : public QMainWindow
   private:
     Ui::MainWindow *ui;
 
-    double eyeX {-2.}, eyeY {1.}, eyeZ {-0.4};
+    double eyeX {/*-2.*/1.}, eyeY {1.}, eyeZ {-0.4};
     double targetX {0.}, targetY {0.}, targetZ {0.};
     double upX {0.}, upY {-1.}, upZ {0.};
     double fov {1.}, near {1.}, far {10.};

@@ -15,7 +15,7 @@ namespace grog
       Mesh mesh;
       TransformMatrix transform;
 
-      SceneNode* children {};
+      SceneNode** children {nullptr};
       uint32_t childCount {0};
   };
 }

@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "trigo.h"
-#include "asset_car.h"
+#include "Car.h"
 
 #include <iostream>
 #include <QPainter>
@@ -29,43 +29,18 @@ MainWindow::MainWindow(QWidget *parent) :
   scene.mesh.faceCount = 12;
   scene.mesh.colors = colors;*/
 
-  scene.mesh.vertexBuffer = grog::car_vertices;
-  scene.mesh.vertexCount = grog::car_vertexCount;
-  scene.mesh.faces = grog::car_faces;
-  scene.mesh.faceCount = grog::car_faceCount;
-  scene.mesh.colors = grog::car_colors;
+  scene.mesh.vertexBuffer = nullptr;
+  scene.mesh.vertexCount = 0;
+  scene.mesh.faces = nullptr;
+  scene.mesh.faceCount = 0;
+  scene.mesh.colors = nullptr;
+  scene.children = new grog::SceneNode*[2];
+  scene.childCount = 2;
 
-  scene.children = new grog::SceneNode[4];
-  scene.childCount = 4;
+  scene.children[0] = new grog::Car(true);
+  scene.children[1] = new grog::Car(false);
+  scene.children[1]->transform.identity().translate(1500,0, 1000);
 
-  scene.children[0].mesh.vertexBuffer = grog::wheel_vertices;
-  scene.children[0].mesh.vertexCount = grog::wheel_vertexCount;
-  scene.children[0].mesh.faces = grog::wheel_faces;
-  scene.children[0].mesh.faceCount = grog::wheel_faceCount;
-  scene.children[0].mesh.colors = grog::wheel_colors;
-
-  scene.children[1].mesh.vertexBuffer = grog::wheel_vertices;
-  scene.children[1].mesh.vertexCount = grog::wheel_vertexCount;
-  scene.children[1].mesh.faces = grog::wheel_faces;
-  scene.children[1].mesh.faceCount = grog::wheel_faceCount;
-  scene.children[1].mesh.colors = grog::wheel_colors;
-
-  scene.children[2].mesh.vertexBuffer = grog::wheel_vertices;
-  scene.children[2].mesh.vertexCount = grog::wheel_vertexCount;
-  scene.children[2].mesh.faces = grog::wheel_faces;
-  scene.children[2].mesh.faceCount = grog::wheel_faceCount;
-  scene.children[2].mesh.colors = grog::wheel_colors;
-
-  scene.children[3].mesh.vertexBuffer = grog::wheel_vertices;
-  scene.children[3].mesh.vertexCount = grog::wheel_vertexCount;
-  scene.children[3].mesh.faces = grog::wheel_faces;
-  scene.children[3].mesh.faceCount = grog::wheel_faceCount;
-  scene.children[3].mesh.colors = grog::wheel_colors;
-
-  scene.children[0].transform.identity().translate(-300, 50, 200);
-  scene.children[1].transform.identity().translate(-300, 50, -200);
-  scene.children[2].transform.identity().translate(600, 50, 200);
-  scene.children[3].transform.identity().translate(600, 50, -200);
 
   ui->eyeXSpinBox->setValue(eyeX);
   ui->eyeYSpinBox->setValue(eyeY);
@@ -407,7 +382,7 @@ void MainWindow::draw()
                                              grog::floatToFixed(upX), grog::floatToFixed(upY), grog::floatToFixed(upZ)));
 
   engine.projectScene(&scene);
-
+//engine.debugTriangleStack();
   engine.render();
 
   QPixmap coincoin = pix.scaled(320, 256);

@@ -65,6 +65,7 @@ void Engine::projectScene(const SceneNode* node,
     const int32_t* inVertexBuffer = mesh.vertexBuffer;
     int32_t* outTransformedVertexBuffer = transformedVertexBuffer;
     int32_t inX(0), inY(0), inZ(0);
+    int pouet(0);
     for(uint32_t vertexIndex = mesh.vertexCount; vertexIndex; --vertexIndex)
     {
       inX = (*inVertexBuffer++);
@@ -75,19 +76,32 @@ void Engine::projectScene(const SceneNode* node,
           +  mvp.data[13] * inY
           +  mvp.data[14] * inZ
           +  mvp.data[15] * 1024) >> 10;
+      if(GROG_UNLIKELY(w == 0))
+        w = 1;
 
-    (*outTransformedVertexBuffer++) = (((mvp.data[0] * inX
-                                      +  mvp.data[1] * inY
-                                      +  mvp.data[2] * inZ
-                                      +  mvp.data[3] * 1024)/w) >> 10) + 40;
-    (*outTransformedVertexBuffer++) = (((mvp.data[4] * inX
-                                      +  mvp.data[5] * inY
-                                      +  mvp.data[6] * inZ
-                                      +  mvp.data[7] * 1024)/w) >> 10) + 32;
-    (*outTransformedVertexBuffer++) = (((mvp.data[8] * inX
-                                      +  mvp.data[9] * inY
-                                      +  mvp.data[10] * inZ
-                                      +  mvp.data[11] * 1024)*1000)/w) >> 10;
+      if(w >= 0)
+      {
+
+        (*outTransformedVertexBuffer++) = (((mvp.data[0] * inX
+                                          +  mvp.data[1] * inY
+                                          +  mvp.data[2] * inZ
+                                          +  mvp.data[3] * 1024)/w) >> 10) + 40;
+        (*outTransformedVertexBuffer++) = (((mvp.data[4] * inX
+                                          +  mvp.data[5] * inY
+                                          +  mvp.data[6] * inZ
+                                          +  mvp.data[7] * 1024)/w) >> 10) + 32;
+        (*outTransformedVertexBuffer++) = (((mvp.data[8] * inX
+                                          +  mvp.data[9] * inY
+                                          +  mvp.data[10] * inZ
+                                          +  mvp.data[11] * 1024)*1000)/w) >> 10;
+      }
+      else
+      {
+        (*outTransformedVertexBuffer++) = std::numeric_limits<int32_t>::max();
+        outTransformedVertexBuffer++;
+        outTransformedVertexBuffer++;
+
+      }
     }
   }
   // end project all the coordinates in transformedVertexBuffer
@@ -101,11 +115,19 @@ void Engine::projectScene(const SceneNode* node,
     {
       int32_t* vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p1x = (*vertex++);
+      if(projection.p1x == std::numeric_limits<int32_t>::max())
+      {
+        continue;
+      }
       projection.p1y = (*vertex++);
       projection.z = (*vertex++);
 
       vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p2x = (*vertex++);
+      if(projection.p2x == std::numeric_limits<int32_t>::max())
+      {
+        continue;
+      }
       projection.p2y = (*vertex++);
       //int32_t z = (*vertex++);
       //projection.z = max2(projection.z, z);
@@ -113,6 +135,10 @@ void Engine::projectScene(const SceneNode* node,
 
       vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p3x = (*vertex++);
+      if(projection.p3x == std::numeric_limits<int32_t>::max())
+      {
+        continue;
+      }
       projection.p3y = (*vertex++);
       /*z = (*vertex++);
       projection.z = max2(projection.z, z);*/
@@ -131,12 +157,12 @@ void Engine::projectScene(const SceneNode* node,
 
   // recursive call to children
   {
-    SceneNode* child = node->children;
+    SceneNode** child = node->children;
     for(uint32_t childIndex = node->childCount;
         childIndex;
         --childIndex, ++child)
     {
-      projectScene(child, mvp);
+      projectScene(*child, mvp);
     }
   }
   // end recursive call
@@ -182,6 +208,7 @@ void Engine::debugTriangleStack()
   std::cout << "Triangle count: " << triangleCount << std::endl;
   std::cout << "Head ";
   PRINT_TRIANGLE(triangleStackHead);
+  std::cout.flush();
   Triangle* current = triangleStackHead;
   uint32_t count(0);
   while(current)
@@ -228,9 +255,11 @@ void Engine::pushDebugTriangles()
 
 void Engine::pushTriangle(Triangle& in) noexcept
 {
-
 if(grog::orient2d(in.p1x, in.p1y, in.p2x, in.p2y, in.p3x, in.p3y) <= 0)
+{
   return;
+}
+
   if(triangleCount == maxTriangles)
   {
     // replace triangles
