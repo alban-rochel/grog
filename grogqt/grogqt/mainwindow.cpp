@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "trigo.h"
 #include "Car.h"
+#include "Road.h"
 
 #include <iostream>
 #include <QPainter>
@@ -21,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //  exit(0);
   ui->setupUi(this);
 
-  engine.init(100, 100, 3, &pix);
+  engine.init(100, 150, 3, &pix);
 
   /*scene.mesh.vertexBuffer = vertices;
   scene.mesh.vertexCount = 8;
@@ -34,12 +35,13 @@ MainWindow::MainWindow(QWidget *parent) :
   scene.mesh.faces = nullptr;
   scene.mesh.faceCount = 0;
   scene.mesh.colors = nullptr;
-  scene.children = new grog::SceneNode*[2];
-  scene.childCount = 2;
+  scene.children = new grog::SceneNode*[3];
+  scene.childCount = 3;
 
   scene.children[0] = new grog::Car(true);
   scene.children[1] = new grog::Car(false);
   scene.children[1]->transform.identity().translate(1500,0, 1000);
+  scene.children[2] = new grog::Road();
 
 
   ui->eyeXSpinBox->setValue(eyeX);
@@ -382,7 +384,7 @@ void MainWindow::draw()
                                              grog::floatToFixed(upX), grog::floatToFixed(upY), grog::floatToFixed(upZ)));
 
   engine.projectScene(&scene);
-//engine.debugTriangleStack();
+engine.debugTriangleStack();
   engine.render();
 
   QPixmap coincoin = pix.scaled(320, 256);
