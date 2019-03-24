@@ -25,7 +25,7 @@ namespace grog
 
       void projectScene(const SceneNode* node) noexcept;
 
-      void render() noexcept;
+      void render(bool finalPass) noexcept;
 
       void setProjection(const Matrix& projection) noexcept;
       void setView(const TransformMatrix& view) noexcept;

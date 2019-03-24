@@ -30,18 +30,27 @@ MainWindow::MainWindow(QWidget *parent) :
   scene.mesh.faceCount = 12;
   scene.mesh.colors = colors;*/
 
-  scene.mesh.vertexBuffer = nullptr;
-  scene.mesh.vertexCount = 0;
-  scene.mesh.faces = nullptr;
-  scene.mesh.faceCount = 0;
-  scene.mesh.colors = nullptr;
-  scene.children = new grog::SceneNode*[3];
-  scene.childCount = 3;
+  scene_cars.mesh.vertexBuffer = nullptr;
+  scene_cars.mesh.vertexCount = 0;
+  scene_cars.mesh.faces = nullptr;
+  scene_cars.mesh.faceCount = 0;
+  scene_cars.mesh.colors = nullptr;
+  scene_cars.children = new grog::SceneNode*[2];
+  scene_cars.childCount = 2;
 
-  scene.children[0] = new grog::Car(true);
-  scene.children[1] = new grog::Car(false);
-  scene.children[1]->transform.identity().translate(1500,0, 1000);
-  scene.children[2] = new grog::Road();
+  scene_cars.children[0] = new grog::Car(true);
+  scene_cars.children[1] = new grog::Car(false);
+  scene_cars.children[1]->transform.identity().translate(1500,0, 1000);
+
+  scene_bg.mesh.vertexBuffer = nullptr;
+  scene_bg.mesh.vertexCount = 0;
+  scene_bg.mesh.faces = nullptr;
+  scene_bg.mesh.faceCount = 0;
+  scene_bg.mesh.colors = nullptr;
+  scene_bg.children = new grog::SceneNode*[1];
+  scene_bg.childCount = 1;
+
+  scene_bg.children[0] = new grog::Road();
 
 
   ui->eyeXSpinBox->setValue(eyeX);
@@ -85,7 +94,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
   delete ui;
-  delete[] scene.children;
+  delete[] scene_cars.children;
+  delete[] scene_bg.children;
 }
 
 void MainWindow::pwet()
@@ -383,9 +393,11 @@ void MainWindow::draw()
                                              grog::floatToFixed(targetX), grog::floatToFixed(targetY), grog::floatToFixed(targetZ),
                                              grog::floatToFixed(upX), grog::floatToFixed(upY), grog::floatToFixed(upZ)));
 
-  engine.projectScene(&scene);
-//engine.debugTriangleStack();
-  engine.render();
+  engine.projectScene(&scene_bg);
+  engine.render(false);
+
+  engine.projectScene(&scene_cars);
+  engine.render(true);
 
   QPixmap coincoin = pix.scaled(320, 256);
 

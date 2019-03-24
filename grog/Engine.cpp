@@ -180,7 +180,7 @@ void Engine::projectScene(const SceneNode *node) noexcept
   projectScene(node, mvp);
 }
 
-void Engine::render() noexcept
+void Engine::render(bool finalPass) noexcept
 {
   const Triangle* currentTriangle = triangleStackHead;
   while(currentTriangle)
@@ -189,10 +189,13 @@ void Engine::render() noexcept
     currentTriangle = currentTriangle->next;
   }
 
-  display.draw();
+  if(finalPass)
+  {
+    display.draw();
+  }
 
 //  debugTriangleStack();
-  newFrame();
+  newFrame(); // TODO newPass
 //  exit(0);
 }
 
