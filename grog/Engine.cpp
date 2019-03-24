@@ -118,7 +118,6 @@ if(w<0)
       projection.p1x = (*vertex++);
       if(projection.p1x == 0x7FFFFFFF)
       {
-        std::cout << "Discarding point 1\n";
         continue;
       }
       projection.p1y = (*vertex++);
@@ -128,7 +127,6 @@ if(w<0)
       projection.p2x = (*vertex++);
       if(projection.p2x == 0x7FFFFFFF)
       {
-                std::cout << "Discarding point 2\n";
         continue;
       }
       projection.p2y = (*vertex++);
@@ -140,7 +138,6 @@ if(w<0)
       projection.p3x = (*vertex++);
       if(projection.p3x == 0x7FFFFFFF)
       {
-                std::cout << "Discarding point 3\n";
         continue;
       }
       projection.p3y = (*vertex++);
