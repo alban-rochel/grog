@@ -35,7 +35,8 @@ SOURCES += \
     ../../grog/Matrix.cpp \
     ../../grog/Display.cpp \
     ../../grog/FixedMatrix.cpp \
-    Car.cpp
+    ../../grog/Car.cpp \
+    ../../grog/Road.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,7 +50,9 @@ HEADERS += \
     ../../grog/Display.h \
     ../../grog/trigo.h \
     ../../grog/asset_car.h \
-    Car.h \
+    ../../grog/asset_road.h \
+    ../../grog/Car.h \
+    ../../grog/Road.h \
     ../../../grogold/grog/asset_car.h
 
 FORMS += \

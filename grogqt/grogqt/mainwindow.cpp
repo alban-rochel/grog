@@ -384,7 +384,7 @@ void MainWindow::draw()
                                              grog::floatToFixed(upX), grog::floatToFixed(upY), grog::floatToFixed(upZ)));
 
   engine.projectScene(&scene);
-engine.debugTriangleStack();
+//engine.debugTriangleStack();
   engine.render();
 
   QPixmap coincoin = pix.scaled(320, 256);

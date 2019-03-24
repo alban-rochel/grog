@@ -65,7 +65,7 @@ void Engine::projectScene(const SceneNode* node,
     const int32_t* inVertexBuffer = mesh.vertexBuffer;
     int32_t* outTransformedVertexBuffer = transformedVertexBuffer;
     int32_t inX(0), inY(0), inZ(0);
-    int pouet(0);
+//    int pouet(0);
     for(uint32_t vertexIndex = mesh.vertexCount; vertexIndex; --vertexIndex)
     {
       inX = (*inVertexBuffer++);
@@ -78,8 +78,9 @@ void Engine::projectScene(const SceneNode* node,
           +  mvp.data[15] * 1024) >> 10;
       if(GROG_UNLIKELY(w == 0))
         w = 1;
-
-      if(w >= 0)
+if(w<0)
+  w = -w;
+//      if(w >= 0)
       {
 
         (*outTransformedVertexBuffer++) = (((mvp.data[0] * inX
@@ -95,13 +96,13 @@ void Engine::projectScene(const SceneNode* node,
                                           +  mvp.data[10] * inZ
                                           +  mvp.data[11] * 1024)*1000)/w) >> 10;
       }
-      else
-      {
-        (*outTransformedVertexBuffer++) = 0x7FFFFFFF;
-        outTransformedVertexBuffer++;
-        outTransformedVertexBuffer++;
+//      else
+//      {
+//        (*outTransformedVertexBuffer++) = 0x7FFFFFFF;
+//        outTransformedVertexBuffer++;
+//        outTransformedVertexBuffer++;
 
-      }
+//      }
     }
   }
   // end project all the coordinates in transformedVertexBuffer
@@ -117,6 +118,7 @@ void Engine::projectScene(const SceneNode* node,
       projection.p1x = (*vertex++);
       if(projection.p1x == 0x7FFFFFFF)
       {
+        std::cout << "Discarding point 1\n";
         continue;
       }
       projection.p1y = (*vertex++);
@@ -126,6 +128,7 @@ void Engine::projectScene(const SceneNode* node,
       projection.p2x = (*vertex++);
       if(projection.p2x == 0x7FFFFFFF)
       {
+                std::cout << "Discarding point 2\n";
         continue;
       }
       projection.p2y = (*vertex++);
@@ -137,6 +140,7 @@ void Engine::projectScene(const SceneNode* node,
       projection.p3x = (*vertex++);
       if(projection.p3x == 0x7FFFFFFF)
       {
+                std::cout << "Discarding point 3\n";
         continue;
       }
       projection.p3y = (*vertex++);
@@ -255,8 +259,12 @@ void Engine::pushDebugTriangles()
 
 void Engine::pushTriangle(Triangle& in) noexcept
 {
+
+//  std::cout << "Pushing\n";
+
 if(grog::orient2d(in.p1x, in.p1y, in.p2x, in.p2y, in.p3x, in.p3y) <= 0)
 {
+//  std::cout << "Discarding\n";
   return;
 }
 
