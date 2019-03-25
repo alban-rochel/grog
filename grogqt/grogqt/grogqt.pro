@@ -53,7 +53,8 @@ HEADERS += \
     ../../grog/asset_road.h \
     ../../grog/Car.h \
     ../../grog/Road.h \
-    ../../../grogold/grog/asset_car.h
+    ../../../grogold/grog/asset_car.h \
+    ../../grog/asset_tree.h
 
 FORMS += \
         mainwindow.ui

@@ -481,7 +481,6 @@ void MainWindow::convertObj()
       vertexCoord = atof(sl[2].toStdString().data());
       vertices.push_back(grog::floatToFixed(vertexCoord));
       vertexCoord = atof(sl[3].toStdString().data());
-      std::cout << "plopZ " << vertexCoord << "  - " << sl[3].toStdString().data() << std::endl;
       vertices.push_back(grog::floatToFixed(vertexCoord));
     }
     else if(sl.size() == 4 && sl[0] == "f")
