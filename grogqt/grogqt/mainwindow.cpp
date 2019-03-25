@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //  exit(0);
   ui->setupUi(this);
 
-  engine.init(100, 150, 3, &pix);
+  engine.init(100, 100, 3, &pix);
 
   /*scene.mesh.vertexBuffer = vertices;
   scene.mesh.vertexCount = 8;
@@ -47,10 +47,14 @@ MainWindow::MainWindow(QWidget *parent) :
   scene_bg.mesh.faces = nullptr;
   scene_bg.mesh.faceCount = 0;
   scene_bg.mesh.colors = nullptr;
-  scene_bg.children = new grog::SceneNode*[1];
-  scene_bg.childCount = 1;
+  scene_bg.children = new grog::SceneNode*[3];
+  scene_bg.childCount = 3;
 
   scene_bg.children[0] = new grog::Road();
+  scene_bg.children[1] = new grog::Road();
+  scene_bg.children[1]->transform.identity().translate(16000, 0, 0);
+  scene_bg.children[2] = new grog::Road();
+  scene_bg.children[2]->transform.identity().translate(-16000, 0, 0);
 
 
   ui->eyeXSpinBox->setValue(eyeX);
@@ -94,8 +98,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
   delete ui;
-  delete[] scene_cars.children;
-  delete[] scene_bg.children;
 }
 
 void MainWindow::pwet()
