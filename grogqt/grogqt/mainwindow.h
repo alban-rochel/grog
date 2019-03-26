@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "grog.h"
 #include "Engine.h"
-#include "Colors.h"
 
 namespace Ui {
   class MainWindow;
@@ -17,10 +16,6 @@ class MainWindow : public QMainWindow
   public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
-    QPixmap drawImage(grog::bufferType* buffer) noexcept;
-
-    void pwet();
 
     void generateTrigo();
 

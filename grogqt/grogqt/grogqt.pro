@@ -32,11 +32,10 @@ SOURCES += \
     ../../grog/SceneNode.cpp \
     ../../grog/Mesh.cpp \
     ../../grog/Engine.cpp \
-    ../../grog/Matrix.cpp \
-    ../../grog/Display.cpp \
-    ../../grog/FixedMatrix.cpp \
     ../../grog/Car.cpp \
-    ../../grog/Road.cpp
+    ../../grog/Road.cpp \
+    Display.cpp \
+    ../../grog/Matrix.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -46,15 +45,14 @@ HEADERS += \
     ../../grog/Mesh.h \
     ../../grog/Engine.h \
     ../../grog/Matrix.h \
-    ../../grog/Colors.h \
-    ../../grog/Display.h \
     ../../grog/trigo.h \
     ../../grog/asset_car.h \
     ../../grog/asset_road.h \
     ../../grog/Car.h \
     ../../grog/Road.h \
-    ../../../grogold/grog/asset_car.h \
-    ../../grog/asset_tree.h
+    ../../grog/asset_tree.h \
+    Gamebuino-Meta-stuff.h \
+    Display.h
 
 FORMS += \
         mainwindow.ui

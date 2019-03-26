@@ -1,5 +1,9 @@
 #include "Engine.h"
+#ifdef __linux
+#include "Gamebuino-Meta-stuff.h"
+#else
 #include <Gamebuino-Meta.h>
+#endif
 
 using namespace grog;
 
@@ -183,13 +187,19 @@ void Engine::render(bool finalPass) noexcept
   const Triangle* currentTriangle = triangleStackHead;
   while(currentTriangle)
   {
-    rasterizeTriangle(*currentTriangle, /*display.buffer*/(uint8_t*)gb.display._buffer);
+#ifdef __linux
+    rasterizeTriangle(*currentTriangle, display.buffer);
+#else
+    rasterizeTriangle(*currentTriangle, (uint8_t*)gb.display._buffer);
+#endif
     currentTriangle = currentTriangle->next;
   }
 
   if(finalPass)
   {
-//    display.draw();
+#ifdef __linux
+    display.draw();
+#endif
   }
 
 //  debugTriangleStack();
@@ -226,7 +236,6 @@ void Engine::debugTriangleStack()
 #endif
 }
 
-#include "Colors.h"
 #include <cstdio>
 void Engine::pushDebugTriangles()
 {

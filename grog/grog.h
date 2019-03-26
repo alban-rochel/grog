@@ -1,6 +1,10 @@
 #pragma once
 
+#ifdef __linux
+#include "Gamebuino-Meta-stuff.h"
+#else
 #include <Gamebuino-Meta.h>
+#endif
 #include <cstdint>
 #include "Matrix.h"
 

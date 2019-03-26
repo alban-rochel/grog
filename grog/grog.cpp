@@ -1,5 +1,4 @@
 #include "grog.h"
-#include "Colors.h"
 
 using namespace grog;
 #include <cstdio>
