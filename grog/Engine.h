@@ -1,8 +1,8 @@
 #pragma once
 
 #include "SceneNode.h"
-#include "Display.h"
 #ifdef __linux
+#include "Display.h"
 #include <QPixmap>
 #endif
 

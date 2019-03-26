@@ -1,6 +1,5 @@
 #include <Gamebuino-Meta.h>
 #include "Engine.h"
-#include "Colors.h"
 #include "Car.h"
 #include "Road.h"
 
@@ -20,37 +19,28 @@ void setup()
 
   gb.setFrameRate(25);
 
-  engine.init(39, 100, 3);
+  engine.init(39, 100);
 }
 
 void loop()
 {
-  grog::SceneNode scene_bg;
-  grog::SceneNode scene_cars;
+  grog::SceneNode scene;
 
-  scene_cars.mesh.vertexBuffer = nullptr;
-  scene_cars.mesh.vertexCount = 0;
-  scene_cars.mesh.faces = nullptr;
-  scene_cars.mesh.faceCount = 0;
-  scene_cars.mesh.colors = nullptr;
-  scene_cars.children = new grog::SceneNode*[2];
-  scene_cars.childCount = 2;
+  scene.mesh.vertexBuffer = nullptr;
+  scene.mesh.vertexCount = 0;
+  scene.mesh.faces = nullptr;
+  scene.mesh.faceCount = 0;
+  scene.mesh.colors = nullptr;
+  scene.children = new grog::SceneNode*[3];
+  scene.childCount = 3;
 
   car1=new grog::Car(true);
   car2=new grog::Car(false);
-  scene_cars.children[0] = car1;
-  scene_cars.children[1] = car2;
-  scene_cars.children[1]->transform.identity().translate(1500,0, 1000);
+  scene.children[0] = car1;
+  scene.children[1] = car2;
+  scene.children[1]->transform.identity().translate(1500,0, 1000);
 
-    scene_bg.mesh.vertexBuffer = nullptr;
-  scene_bg.mesh.vertexCount = 0;
-  scene_bg.mesh.faces = nullptr;
-  scene_bg.mesh.faceCount = 0;
-  scene_bg.mesh.colors = nullptr;
-  scene_bg.children = new grog::SceneNode*[1];
-  scene_bg.childCount = 1;
-
-  scene_bg.children[0] = new grog::Road();
+  scene.children[2] = new grog::Road();
   
   engine.setProjection(grog::Matrix::Projection(1.f, 1, 100));
 
@@ -67,21 +57,13 @@ void loop()
                                                0, 0, 0,
                                                grog::floatToFixed(0), grog::floatToFixed(-1.f), 0));
 
-    scene_cars.transform.identity();
-    scene_cars.transform.rotateY(2*ii);
-    scene_bg.transform.identity();
-    scene_bg.transform.rotateY(2*ii);
+    scene.transform.rotateY(2*ii);
 
 car1->setWheelRotation(ii << 6);
 car2->setWheelRotation(ii << 6);
 
-    engine.projectScene(&scene_bg);
-
-    engine.render(false);
-
-    engine.projectScene(&scene_cars);
-
-    engine.render(true);
+    engine.projectScene(&scene, 0x01);
+    engine.projectScene(&scene, 0x02);
 
     ++ii;
 
