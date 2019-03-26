@@ -86,88 +86,88 @@ namespace grog
 		37,	38,	35,
 	};
 
-	static const uint8_t car_colors_main[] {
-	grog::color(grog::Color::White), // Nez
-	grog::color(grog::Color::White), // Nez
-	grog::color(grog::Color::Red), // Aileron avant
-	grog::color(grog::Color::White), // Nez
-	grog::color(grog::Color::Red), // Aileron avant
-	grog::color(grog::Color::Red), // Aileron avant
-	grog::color(grog::Color::Red), // Aileron avant
-	grog::color(grog::Color::Gray), // Pilote
-	grog::color(grog::Color::Gray), // Pilote
-	grog::color(grog::Color::DarkGray), // Entree d'air
-	grog::color(grog::Color::DarkGray), // Entree d'air
-	grog::color(grog::Color::DarkGray), // Moteur
-	grog::color(grog::Color::Red), // Derriere entree d'air
-	grog::color(grog::Color::White), // Cote
-	grog::color(grog::Color::Red),  // Derriere entree d'air
-	grog::color(grog::Color::DarkGray), // Entree d'air laterale
-	grog::color(grog::Color::DarkGray), // Entree d'air laterale
-	grog::color(grog::Color::DarkGray), // Entree d'air laterale
-	grog::color(grog::Color::DarkGray), // Entree d'air laterale
-	grog::color(grog::Color::Red), // Cote
-	grog::color(grog::Color::Red), // Cote
-	grog::color(grog::Color::Red), // Cote
-	grog::color(grog::Color::White), // Cote haut
-	grog::color(grog::Color::White), // Cote haut
-	grog::color(grog::Color::White), // Cote haut
-	grog::color(grog::Color::White), // Cote haut arriere
-	grog::color(grog::Color::Red), // Cote arriere
-	grog::color(grog::Color::Red), // Derriere entree d'air
-	grog::color(grog::Color::White), // Cote haut arriere
-	grog::color(grog::Color::DarkGray), // Moteur
-	grog::color(grog::Color::Red), // Cote arriere
-	grog::color(grog::Color::White), // Sur moteur
-	grog::color(grog::Color::Red), // Aileron
-	grog::color(grog::Color::Red), // Aileron
-	grog::color(grog::Color::Red), // Cote
-	grog::color(grog::Color::Red), // Aileron
-	grog::color(grog::Color::Red), // Aileron
-	grog::color(grog::Color::White),
-	grog::color(grog::Color::White),
+	static const Gamebuino_Meta::ColorIndex car_colors_main[] {
+	Gamebuino_Meta::ColorIndex::white, // Nez
+	Gamebuino_Meta::ColorIndex::white, // Nez
+	Gamebuino_Meta::ColorIndex::red, // Aileron avant
+	Gamebuino_Meta::ColorIndex::white, // Nez
+	Gamebuino_Meta::ColorIndex::red, // Aileron avant
+	Gamebuino_Meta::ColorIndex::red, // Aileron avant
+	Gamebuino_Meta::ColorIndex::red, // Aileron avant
+	Gamebuino_Meta::ColorIndex::gray, // Pilote
+	Gamebuino_Meta::ColorIndex::gray, // Pilote
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air
+	Gamebuino_Meta::ColorIndex::darkgray, // Moteur
+	Gamebuino_Meta::ColorIndex::red, // Derriere entree d'air
+	Gamebuino_Meta::ColorIndex::white, // Cote
+	Gamebuino_Meta::ColorIndex::red,  // Derriere entree d'air
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air laterale
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air laterale
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air laterale
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air laterale
+	Gamebuino_Meta::ColorIndex::red, // Cote
+	Gamebuino_Meta::ColorIndex::red, // Cote
+	Gamebuino_Meta::ColorIndex::red, // Cote
+	Gamebuino_Meta::ColorIndex::white, // Cote haut
+	Gamebuino_Meta::ColorIndex::white, // Cote haut
+	Gamebuino_Meta::ColorIndex::white, // Cote haut
+	Gamebuino_Meta::ColorIndex::white, // Cote haut arriere
+	Gamebuino_Meta::ColorIndex::red, // Cote arriere
+	Gamebuino_Meta::ColorIndex::red, // Derriere entree d'air
+	Gamebuino_Meta::ColorIndex::white, // Cote haut arriere
+	Gamebuino_Meta::ColorIndex::darkgray, // Moteur
+	Gamebuino_Meta::ColorIndex::red, // Cote arriere
+	Gamebuino_Meta::ColorIndex::white, // Sur moteur
+	Gamebuino_Meta::ColorIndex::red, // Aileron
+	Gamebuino_Meta::ColorIndex::red, // Aileron
+	Gamebuino_Meta::ColorIndex::red, // Cote
+	Gamebuino_Meta::ColorIndex::red, // Aileron
+	Gamebuino_Meta::ColorIndex::red, // Aileron
+	Gamebuino_Meta::ColorIndex::white,
+	Gamebuino_Meta::ColorIndex::white,
 	};
 
-	static const uint8_t car_colors_other[] {
-	grog::color(grog::Color::White), // Nez
-	grog::color(grog::Color::White), // Nez
-	grog::color(grog::Color::Blue), // Aileron avant
-	grog::color(grog::Color::White), // Nez
-	grog::color(grog::Color::Blue), // Aileron avant
-	grog::color(grog::Color::Blue), // Aileron avant
-	grog::color(grog::Color::Blue), // Aileron avant
-	grog::color(grog::Color::Gray), // Pilote
-	grog::color(grog::Color::Gray), // Pilote
-	grog::color(grog::Color::DarkGray), // Entree d'air
-	grog::color(grog::Color::DarkGray), // Entree d'air
-	grog::color(grog::Color::DarkGray), // Moteur
-	grog::color(grog::Color::Blue), // Derriere entree d'air
-	grog::color(grog::Color::White), // Cote
-	grog::color(grog::Color::Blue),  // Derriere entree d'air
-	grog::color(grog::Color::DarkGray), // Entree d'air laterale
-	grog::color(grog::Color::DarkGray), // Entree d'air laterale
-	grog::color(grog::Color::DarkGray), // Entree d'air laterale
-	grog::color(grog::Color::DarkGray), // Entree d'air laterale
-	grog::color(grog::Color::Blue), // Cote
-	grog::color(grog::Color::Blue), // Cote
-	grog::color(grog::Color::Blue), // Cote
-	grog::color(grog::Color::White), // Cote haut
-	grog::color(grog::Color::White), // Cote haut
-	grog::color(grog::Color::White), // Cote haut
-	grog::color(grog::Color::White), // Cote haut arriere
-	grog::color(grog::Color::Blue), // Cote arriere
-	grog::color(grog::Color::Blue), // Derriere entree d'air
-	grog::color(grog::Color::White), // Cote haut arriere
-	grog::color(grog::Color::DarkGray), // Moteur
-	grog::color(grog::Color::Blue), // Cote arriere
-	grog::color(grog::Color::White), // Sur moteur
-	grog::color(grog::Color::Blue), // Aileron
-	grog::color(grog::Color::Blue), // Aileron
-	grog::color(grog::Color::Blue), // Cote
-	grog::color(grog::Color::Blue), // Aileron
-	grog::color(grog::Color::Blue), // Aileron
-	grog::color(grog::Color::White),
-	grog::color(grog::Color::White),
+	static const Gamebuino_Meta::ColorIndex car_colors_other[] {
+	Gamebuino_Meta::ColorIndex::white, // Nez
+	Gamebuino_Meta::ColorIndex::white, // Nez
+	Gamebuino_Meta::ColorIndex::blue, // Aileron avant
+	Gamebuino_Meta::ColorIndex::white, // Nez
+	Gamebuino_Meta::ColorIndex::blue, // Aileron avant
+	Gamebuino_Meta::ColorIndex::blue, // Aileron avant
+	Gamebuino_Meta::ColorIndex::blue, // Aileron avant
+	Gamebuino_Meta::ColorIndex::gray, // Pilote
+	Gamebuino_Meta::ColorIndex::gray, // Pilote
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air
+	Gamebuino_Meta::ColorIndex::darkgray, // Moteur
+	Gamebuino_Meta::ColorIndex::blue, // Derriere entree d'air
+	Gamebuino_Meta::ColorIndex::white, // Cote
+	Gamebuino_Meta::ColorIndex::blue,  // Derriere entree d'air
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air laterale
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air laterale
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air laterale
+	Gamebuino_Meta::ColorIndex::darkgray, // Entree d'air laterale
+	Gamebuino_Meta::ColorIndex::blue, // Cote
+	Gamebuino_Meta::ColorIndex::blue, // Cote
+	Gamebuino_Meta::ColorIndex::blue, // Cote
+	Gamebuino_Meta::ColorIndex::white, // Cote haut
+	Gamebuino_Meta::ColorIndex::white, // Cote haut
+	Gamebuino_Meta::ColorIndex::white, // Cote haut
+	Gamebuino_Meta::ColorIndex::white, // Cote haut arriere
+	Gamebuino_Meta::ColorIndex::blue, // Cote arriere
+	Gamebuino_Meta::ColorIndex::blue, // Derriere entree d'air
+	Gamebuino_Meta::ColorIndex::white, // Cote haut arriere
+	Gamebuino_Meta::ColorIndex::darkgray, // Moteur
+	Gamebuino_Meta::ColorIndex::blue, // Cote arriere
+	Gamebuino_Meta::ColorIndex::white, // Sur moteur
+	Gamebuino_Meta::ColorIndex::blue, // Aileron
+	Gamebuino_Meta::ColorIndex::blue, // Aileron
+	Gamebuino_Meta::ColorIndex::blue, // Cote
+	Gamebuino_Meta::ColorIndex::blue, // Aileron
+	Gamebuino_Meta::ColorIndex::blue, // Aileron
+	Gamebuino_Meta::ColorIndex::white,
+	Gamebuino_Meta::ColorIndex::white,
 	};
 
 	static const uint32_t car_vertexCount {39};
@@ -211,27 +211,27 @@ namespace grog
 		2,	4,	6,
 	};
 
-	static const uint8_t wheel_colors[] {
-	grog::color(grog::Color::Gray), // Bande 1
-	grog::color(grog::Color::DarkGray), // Bande 2
-	grog::color(grog::Color::Gray),    // Bande 3
-	grog::color(grog::Color::DarkGray), // Bande 4
-	grog::color(grog::Color::Black), // Cote 1
-	grog::color(grog::Color::Gray), // Bande 5
-	grog::color(grog::Color::DarkGray), // Bande 6
-	grog::color(grog::Color::Black), // Cote 2
-	grog::color(grog::Color::Gray), // Bande 1
-	grog::color(grog::Color::DarkGray), // Bande 2
-	grog::color(grog::Color::Gray),    // Bande 3
-	grog::color(grog::Color::DarkGray), // Bande 4
-	grog::color(grog::Color::Black), // Cote 1
-	grog::color(grog::Color::Black),   // Cote 1
-	grog::color(grog::Color::Black), // Cote 1
-	grog::color(grog::Color::Gray), // Bande 5
-	grog::color(grog::Color::DarkGray), // Bande 6
-	grog::color(grog::Color::Black), // Cote 2
-	grog::color(grog::Color::Black),// Cote 2
-	grog::color(grog::Color::Black),// Cote 2
+	static const Gamebuino_Meta::ColorIndex wheel_colors[] {
+	Gamebuino_Meta::ColorIndex::gray, // Bande 1
+	Gamebuino_Meta::ColorIndex::darkgray, // Bande 2
+	Gamebuino_Meta::ColorIndex::gray,    // Bande 3
+	Gamebuino_Meta::ColorIndex::darkgray, // Bande 4
+	Gamebuino_Meta::ColorIndex::black, // Cote 1
+	Gamebuino_Meta::ColorIndex::gray, // Bande 5
+	Gamebuino_Meta::ColorIndex::darkgray, // Bande 6
+	Gamebuino_Meta::ColorIndex::black, // Cote 2
+	Gamebuino_Meta::ColorIndex::gray, // Bande 1
+	Gamebuino_Meta::ColorIndex::darkgray, // Bande 2
+	Gamebuino_Meta::ColorIndex::gray,    // Bande 3
+	Gamebuino_Meta::ColorIndex::darkgray, // Bande 4
+	Gamebuino_Meta::ColorIndex::black, // Cote 1
+	Gamebuino_Meta::ColorIndex::black,   // Cote 1
+	Gamebuino_Meta::ColorIndex::black, // Cote 1
+	Gamebuino_Meta::ColorIndex::gray, // Bande 5
+	Gamebuino_Meta::ColorIndex::darkgray, // Bande 6
+	Gamebuino_Meta::ColorIndex::black, // Cote 2
+	Gamebuino_Meta::ColorIndex::black,// Cote 2
+	Gamebuino_Meta::ColorIndex::black,// Cote 2
 	};
 
 	static const uint32_t wheel_vertexCount {12};

@@ -57,7 +57,7 @@ namespace grog
       uint32_t triangleCount {0};
       uint32_t maxTriangles {0};
 
-      Display display {};
+      //Display display {};
 
   };
 }

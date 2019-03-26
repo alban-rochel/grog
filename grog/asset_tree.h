@@ -25,11 +25,11 @@ namespace grog
     3,	4,	0,
   };
 
-  static const uint8_t tree_colors[] {
-  grog::color(grog::Color::Green),
-  grog::color(grog::Color::LightGreen),
-  grog::color(grog::Color::Green),
-  grog::color(grog::Color::LightGreen),
+  static const Gamebuino_Meta::ColorIndex tree_colors[] {
+  Gamebuino_Meta::ColorIndex::green,
+  Gamebuino_Meta::ColorIndex::lightgreen,
+  Gamebuino_Meta::ColorIndex::green,
+  Gamebuino_Meta::ColorIndex::lightgreen,
   };
 
   static const uint32_t tree_vertexCount {5};

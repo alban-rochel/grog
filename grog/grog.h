@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include <Gamebuino-Meta.h>
 #include <cstdint>
 #include "Matrix.h"
 
@@ -38,7 +38,7 @@ namespace grog
         int32_t p3x{0};
         int32_t p3y{0};
         int32_t z{0}; // used for ordering only
-        uint8_t color{0};
+        Gamebuino_Meta::ColorIndex color{Gamebuino_Meta::ColorIndex::black};
         Triangle* next {nullptr};
     } ;
 

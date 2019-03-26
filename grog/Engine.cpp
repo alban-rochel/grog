@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include <Gamebuino-Meta.h>
 
 using namespace grog;
 
@@ -111,24 +112,24 @@ if(w<0)
   {
     Triangle projection;
     const uint32_t* faceIter = mesh.faces;
-    const uint8_t* colorIter = mesh.colors;
+    const Gamebuino_Meta::ColorIndex* colorIter = mesh.colors;
     for(uint32_t faceIndex = mesh.faceCount; faceIndex; --faceIndex)
     {
       int32_t* vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p1x = (*vertex++);
-      if(projection.p1x == 0x7FFFFFFF)
+      /*if(projection.p1x == 0x7FFFFFFF)
       {
         continue;
-      }
+      }*/
       projection.p1y = (*vertex++);
       projection.z = (*vertex++);
 
       vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p2x = (*vertex++);
-      if(projection.p2x == 0x7FFFFFFF)
+      /*if(projection.p2x == 0x7FFFFFFF)
       {
         continue;
-      }
+      }*/
       projection.p2y = (*vertex++);
       //int32_t z = (*vertex++);
       //projection.z = max2(projection.z, z);
@@ -136,10 +137,10 @@ if(w<0)
 
       vertex = transformedVertexBuffer + 3 * (*faceIter++);
       projection.p3x = (*vertex++);
-      if(projection.p3x == 0x7FFFFFFF)
+      /*if(projection.p3x == 0x7FFFFFFF)
       {
         continue;
-      }
+      }*/
       projection.p3y = (*vertex++);
       /*z = (*vertex++);
       projection.z = max2(projection.z, z);*/
@@ -182,13 +183,13 @@ void Engine::render(bool finalPass) noexcept
   const Triangle* currentTriangle = triangleStackHead;
   while(currentTriangle)
   {
-    rasterizeTriangle(*currentTriangle, display.buffer);
+    rasterizeTriangle(*currentTriangle, /*display.buffer*/(uint8_t*)gb.display._buffer);
     currentTriangle = currentTriangle->next;
   }
 
   if(finalPass)
   {
-    display.draw();
+//    display.draw();
   }
 
 //  debugTriangleStack();
@@ -237,7 +238,7 @@ void Engine::pushDebugTriangles()
   t1.p3x = 5;
   t1.p3y = 5;
   t1.z = 10;
-  t1.color = grog::color(grog::Color::Green);
+  t1.color = Gamebuino_Meta::ColorIndex::green;
 
   std::printf("color %x\n", t1.color);
 

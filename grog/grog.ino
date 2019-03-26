@@ -15,11 +15,12 @@ void setup()
 {
   gb.begin();
   // We aren't using the normal screen buffer, so initialize it to 0px × 0px.
-  gb.display.init(0, 0, ColorMode::index);
+  //gb.display.init(0, 0, ColorMode::index);
+  gb.display.init(80, 64, ColorMode::index);
 
   gb.setFrameRate(25);
 
-  engine.init(100, 100, 3);
+  engine.init(39, 100, 3);
 }
 
 void loop()
@@ -58,6 +59,9 @@ void loop()
   while(true)
   {
     while(!gb.update());
+
+    gb.display.setColor(Gamebuino_Meta::ColorIndex::black);
+    gb.display._fill();
 
     engine.setView(grog::TransformMatrix::View(grog::floatToFixed(-1.f), grog::floatToFixed(0.5f), grog::floatToFixed(-0.4f),
                                                0, 0, 0,

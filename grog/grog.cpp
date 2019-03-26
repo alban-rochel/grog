@@ -43,7 +43,7 @@ void grog::rasterizeTriangle(const Triangle& triangle,
   int w1(0), w2(0), w3(0);
   bufferType* lineStart = frameBuffer + (minY * screenWidth + minX) / 2;
   bool upperNibbleStart = (minY * screenWidth + minX) & 0x1;
-  const uint8_t& col1 = triangle.color & 0x0F;
+  const uint8_t& col1 = (uint8_t)(triangle.color) & 0x0F;
 #ifdef DITHERING_ENABLED
   bool ditheringStepStart = (minX + minY) & 0x1;
   const uint8_t& col2 = triangle.color >> 4;
@@ -77,11 +77,11 @@ void grog::rasterizeTriangle(const Triangle& triangle,
 #else
         if(upperNibble)
         {
-          *tmp = (*tmp & 0x0F) | (col1 << 4) ;
+          *tmp = (*tmp & 0xF0) | col1;
         }
         else
         {
-          *tmp = (*tmp & 0xF0) | col1;
+          *tmp = (*tmp & 0x0F) | (col1 << 4);
         }
 #endif
         wasOk = true;
