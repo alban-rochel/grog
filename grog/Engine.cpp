@@ -29,8 +29,7 @@ Engine::~Engine() noexcept
 }
 
 void Engine::init(uint32_t maxVerticesPerMesh,
-                  uint32_t maxTriangles,
-                  uint32_t maxTransforms
+                  uint32_t maxTriangles
 #ifdef __linux
                   , QPixmap* pixmap
 #endif
@@ -55,7 +54,8 @@ void Engine::init(uint32_t maxVerticesPerMesh,
 }
 
 void Engine::projectScene(const SceneNode* node,
-                          const Matrix& parentMvp)noexcept
+                          const Matrix& parentMvp,
+                          uint32_t pass) noexcept
 {
   if(GROG_UNLIKELY(node == nullptr))
     return;
@@ -63,103 +63,106 @@ void Engine::projectScene(const SceneNode* node,
   Matrix mvp;
   Matrix::Transform(parentMvp, node->transform, mvp);
 
-  const Mesh& mesh = node->mesh;
-
-  // project all the coordinates in transformedVertexBuffer
+  if(pass & node->renderPass)
   {
-    const int32_t* inVertexBuffer = mesh.vertexBuffer;
-    int32_t* outTransformedVertexBuffer = transformedVertexBuffer;
-    int32_t inX(0), inY(0), inZ(0);
-//    int pouet(0);
-    for(uint32_t vertexIndex = mesh.vertexCount; vertexIndex; --vertexIndex)
+    const Mesh& mesh = node->mesh;
+
+    // project all the coordinates in transformedVertexBuffer
     {
-      inX = (*inVertexBuffer++);
-      inY = (*inVertexBuffer++);
-      inZ = (*inVertexBuffer++);
-
-      int32_t w = (mvp.data[12] * inX
-          +  mvp.data[13] * inY
-          +  mvp.data[14] * inZ
-          +  mvp.data[15] * 1024) >> 10;
-      if(GROG_UNLIKELY(w == 0))
-        w = 1;
-if(w<0)
-  w = -w;
-//      if(w >= 0)
+      const int32_t* inVertexBuffer = mesh.vertexBuffer;
+      int32_t* outTransformedVertexBuffer = transformedVertexBuffer;
+      int32_t inX(0), inY(0), inZ(0);
+      //    int pouet(0);
+      for(uint32_t vertexIndex = mesh.vertexCount; vertexIndex; --vertexIndex)
       {
+        inX = (*inVertexBuffer++);
+        inY = (*inVertexBuffer++);
+        inZ = (*inVertexBuffer++);
 
-        (*outTransformedVertexBuffer++) = (((mvp.data[0] * inX
-                                          +  mvp.data[1] * inY
-                                          +  mvp.data[2] * inZ
-                                          +  mvp.data[3] * 1024)/w) >> 10) + 40;
-        (*outTransformedVertexBuffer++) = (((mvp.data[4] * inX
-                                          +  mvp.data[5] * inY
-                                          +  mvp.data[6] * inZ
-                                          +  mvp.data[7] * 1024)/w) >> 10) + 32;
-        (*outTransformedVertexBuffer++) = (((mvp.data[8] * inX
-                                          +  mvp.data[9] * inY
-                                          +  mvp.data[10] * inZ
-                                          +  mvp.data[11] * 1024)*1000)/w) >> 10;
+        int32_t w = (mvp.data[12] * inX
+            +  mvp.data[13] * inY
+            +  mvp.data[14] * inZ
+            +  mvp.data[15] * 1024) >> 10;
+        if(GROG_UNLIKELY(w == 0))
+          w = 1;
+        if(w<0)
+          w = -w;
+        //      if(w >= 0)
+        {
+
+          (*outTransformedVertexBuffer++) = (((mvp.data[0] * inX
+                                              +  mvp.data[1] * inY
+                                             +  mvp.data[2] * inZ
+              +  mvp.data[3] * 1024)/w) >> 10) + 40;
+          (*outTransformedVertexBuffer++) = (((mvp.data[4] * inX
+                                              +  mvp.data[5] * inY
+                                             +  mvp.data[6] * inZ
+              +  mvp.data[7] * 1024)/w) >> 10) + 32;
+          (*outTransformedVertexBuffer++) = (((mvp.data[8] * inX
+                                              +  mvp.data[9] * inY
+                                             +  mvp.data[10] * inZ
+              +  mvp.data[11] * 1024)*1000)/w) >> 10;
+        }
+        //      else
+        //      {
+        //        (*outTransformedVertexBuffer++) = 0x7FFFFFFF;
+        //        outTransformedVertexBuffer++;
+        //        outTransformedVertexBuffer++;
+
+        //      }
       }
-//      else
-//      {
-//        (*outTransformedVertexBuffer++) = 0x7FFFFFFF;
-//        outTransformedVertexBuffer++;
-//        outTransformedVertexBuffer++;
-
-//      }
     }
-  }
-  // end project all the coordinates in transformedVertexBuffer
+    // end project all the coordinates in transformedVertexBuffer
 
-  // push triangles
-  {
-    Triangle projection;
-    const uint32_t* faceIter = mesh.faces;
-    const Gamebuino_Meta::ColorIndex* colorIter = mesh.colors;
-    for(uint32_t faceIndex = mesh.faceCount; faceIndex; --faceIndex)
+    // push triangles
     {
-      int32_t* vertex = transformedVertexBuffer + 3 * (*faceIter++);
-      projection.p1x = (*vertex++);
-      /*if(projection.p1x == 0x7FFFFFFF)
+      Triangle projection;
+      const uint32_t* faceIter = mesh.faces;
+      const Gamebuino_Meta::ColorIndex* colorIter = mesh.colors;
+      for(uint32_t faceIndex = mesh.faceCount; faceIndex; --faceIndex)
+      {
+        int32_t* vertex = transformedVertexBuffer + 3 * (*faceIter++);
+        projection.p1x = (*vertex++);
+        /*if(projection.p1x == 0x7FFFFFFF)
       {
         continue;
       }*/
-      projection.p1y = (*vertex++);
-      projection.z = (*vertex++);
+        projection.p1y = (*vertex++);
+        projection.z = (*vertex++);
 
-      vertex = transformedVertexBuffer + 3 * (*faceIter++);
-      projection.p2x = (*vertex++);
-      /*if(projection.p2x == 0x7FFFFFFF)
+        vertex = transformedVertexBuffer + 3 * (*faceIter++);
+        projection.p2x = (*vertex++);
+        /*if(projection.p2x == 0x7FFFFFFF)
       {
         continue;
       }*/
-      projection.p2y = (*vertex++);
-      //int32_t z = (*vertex++);
-      //projection.z = max2(projection.z, z);
-      projection.z += (*vertex++);
+        projection.p2y = (*vertex++);
+        //int32_t z = (*vertex++);
+        //projection.z = max2(projection.z, z);
+        projection.z += (*vertex++);
 
-      vertex = transformedVertexBuffer + 3 * (*faceIter++);
-      projection.p3x = (*vertex++);
-      /*if(projection.p3x == 0x7FFFFFFF)
+        vertex = transformedVertexBuffer + 3 * (*faceIter++);
+        projection.p3x = (*vertex++);
+        /*if(projection.p3x == 0x7FFFFFFF)
       {
         continue;
       }*/
-      projection.p3y = (*vertex++);
-      /*z = (*vertex++);
+        projection.p3y = (*vertex++);
+        /*z = (*vertex++);
       projection.z = max2(projection.z, z);*/
-      projection.z += (*vertex++);
+        projection.z += (*vertex++);
 
-      // TODO check that triangle covers some part of the screen
+        // TODO check that triangle covers some part of the screen
 
-      projection.color = (*colorIter++);
-//      std::cout << "Pushing ";
-//      PRINT_TRIANGLE((&projection));
-      pushTriangle(projection);
-//      debugTriangleStack();
+        projection.color = (*colorIter++);
+        //      std::cout << "Pushing ";
+        //      PRINT_TRIANGLE((&projection));
+        pushTriangle(projection);
+        //      debugTriangleStack();
+      }
     }
-  }
-  // end push triangles
+    // end push triangles
+  } // end if(pass & node->renderPass)
 
   // recursive call to children
   {
@@ -168,21 +171,23 @@ if(w<0)
         childIndex;
         --childIndex, ++child)
     {
-      projectScene(*child, mvp);
+      projectScene(*child, mvp, pass);
     }
   }
   // end recursive call
 }
 
-void Engine::projectScene(const SceneNode *node) noexcept
+void Engine::projectScene(const SceneNode *node, uint32_t pass) noexcept
 {
   Matrix mvp;
   Matrix::Transform(projection, view, mvp);
 
-  projectScene(node, mvp);
+  projectScene(node, mvp, pass);
+
+  render();
 }
 
-void Engine::render(bool finalPass) noexcept
+void Engine::render() noexcept
 {
   const Triangle* currentTriangle = triangleStackHead;
   while(currentTriangle)
@@ -195,16 +200,10 @@ void Engine::render(bool finalPass) noexcept
     currentTriangle = currentTriangle->next;
   }
 
-  if(finalPass)
-  {
-#ifdef __linux
-    display.draw();
-#endif
-  }
+
 
 //  debugTriangleStack();
-  newFrame(); // TODO newPass
-//  exit(0);
+  passDone();
 }
 
 void Engine::setProjection(const Matrix& projection) noexcept
@@ -217,9 +216,9 @@ void Engine::setView(const TransformMatrix& view) noexcept
   this->view = view;
 }
 
+#ifdef __linux
 void Engine::debugTriangleStack()
 {
-#ifdef __linux
   std::cout << "Triangle count: " << triangleCount << std::endl;
   std::cout << "Head ";
   PRINT_TRIANGLE(triangleStackHead);
@@ -233,7 +232,6 @@ void Engine::debugTriangleStack()
     current = current->next;
     ++count;
   }
-#endif
 }
 
 #include <cstdio>
@@ -266,6 +264,7 @@ void Engine::pushDebugTriangles()
 
   debugTriangleStack();
 }
+#endif
 
 void Engine::pushTriangle(Triangle& in) noexcept
 {
@@ -328,9 +327,8 @@ if(grog::orient2d(in.p1x, in.p1y, in.p2x, in.p2y, in.p3x, in.p3y) <= 0)
   }
 }
 
-void Engine::newFrame()
+void Engine::passDone() noexcept
 {
   triangleCount = 0;
   triangleStackHead = nullptr;
-  //katenextTransformIndex = 0;
 }

@@ -7,6 +7,7 @@ using namespace grog;
 Road::Road():
   SceneNode()
 {
+  renderPass = 0x01;
   mesh.vertexBuffer = grog::road_vertices;
   mesh.vertexCount = grog::road_vertexCount;
   mesh.faces = grog::road_faces;
@@ -24,6 +25,7 @@ Road::Road():
     children[ii]->mesh.faces = grog::tree_faces;
     children[ii]->mesh.faceCount = grog::tree_faceCount;
     children[ii]->mesh.colors = grog::tree_colors;
+    children[ii]->renderPass = 0x02;
   }
 
   children[0]->transform.identity().translate(6000, 0, -6000);

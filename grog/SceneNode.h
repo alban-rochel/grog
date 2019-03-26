@@ -12,6 +12,8 @@ namespace grog
 
       ~SceneNode() noexcept;
 
+      uint32_t renderPass {0x01};
+
       Mesh mesh;
       TransformMatrix transform;
 

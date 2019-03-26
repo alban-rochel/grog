@@ -50,8 +50,7 @@ class MainWindow : public QMainWindow
     double upX {0.}, upY {-1.}, upZ {0.};
     double fov {1.}, near {/*1.*/0}, far {10.};
 
-    grog::SceneNode scene_bg {};
-    grog::SceneNode scene_cars {};
+    grog::SceneNode scene {};
     grog::Engine engine {};
     QPixmap pix {80, 64};
 

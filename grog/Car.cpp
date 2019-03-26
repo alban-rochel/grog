@@ -6,6 +6,7 @@ using namespace grog;
 Car::Car(bool mainCar):
   SceneNode()
 {
+  renderPass = 0x02;
   mesh.vertexBuffer = grog::car_vertices;
   mesh.vertexCount = grog::car_vertexCount;
   mesh.faces = grog::car_faces;
@@ -19,36 +20,19 @@ Car::Car(bool mainCar):
     mesh.colors = grog::car_colors_other;
   }
 
-  children = new grog::SceneNode*[4];
   childCount = 4;
+  children = new grog::SceneNode*[childCount];
 
-  children[0] = new grog::SceneNode;
-  children[0]->mesh.vertexBuffer = grog::wheel_vertices;
-  children[0]->mesh.vertexCount = grog::wheel_vertexCount;
-  children[0]->mesh.faces = grog::wheel_faces;
-  children[0]->mesh.faceCount = grog::wheel_faceCount;
-  children[0]->mesh.colors = grog::wheel_colors;
-
-  children[1] = new grog::SceneNode;
-  children[1]->mesh.vertexBuffer = grog::wheel_vertices;
-  children[1]->mesh.vertexCount = grog::wheel_vertexCount;
-  children[1]->mesh.faces = grog::wheel_faces;
-  children[1]->mesh.faceCount = grog::wheel_faceCount;
-  children[1]->mesh.colors = grog::wheel_colors;
-
-  children[2] = new grog::SceneNode;
-  children[2]->mesh.vertexBuffer = grog::wheel_vertices;
-  children[2]->mesh.vertexCount = grog::wheel_vertexCount;
-  children[2]->mesh.faces = grog::wheel_faces;
-  children[2]->mesh.faceCount = grog::wheel_faceCount;
-  children[2]->mesh.colors = grog::wheel_colors;
-
-  children[3] = new grog::SceneNode;
-  children[3]->mesh.vertexBuffer = grog::wheel_vertices;
-  children[3]->mesh.vertexCount = grog::wheel_vertexCount;
-  children[3]->mesh.faces = grog::wheel_faces;
-  children[3]->mesh.faceCount = grog::wheel_faceCount;
-  children[3]->mesh.colors = grog::wheel_colors;
+  for(uint32_t childIndex = 0; childIndex < childCount; ++childIndex)
+  {
+    children[childIndex] = new grog::SceneNode;
+    children[childIndex]->mesh.vertexBuffer = grog::wheel_vertices;
+    children[childIndex]->mesh.vertexCount = grog::wheel_vertexCount;
+    children[childIndex]->mesh.faces = grog::wheel_faces;
+    children[childIndex]->mesh.faceCount = grog::wheel_faceCount;
+    children[childIndex]->mesh.colors = grog::wheel_colors;
+    children[childIndex]->renderPass = 0x02;
+  }
 
   setWheelRotation(0);
 }

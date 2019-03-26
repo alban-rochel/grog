@@ -16,32 +16,34 @@ namespace grog
       ~Engine() noexcept;
 
       void init(uint32_t maxVerticesPerMesh,
-                uint32_t maxTriangles,
-                uint32_t maxTransforms
+                uint32_t maxTriangles
 #ifdef __linux
                 , QPixmap* pixmap
 #endif
                 ) noexcept;
 
-      void projectScene(const SceneNode* node) noexcept;
-
-      void render(bool finalPass) noexcept;
+      void projectScene(const SceneNode* node, uint32_t pass) noexcept;
 
       void setProjection(const Matrix& projection) noexcept;
       void setView(const TransformMatrix& view) noexcept;
 
+#ifdef __linux
       void debugTriangleStack();
 
       void pushDebugTriangles();
+#endif
 
     protected:
 
+      void render() noexcept;
+
       void projectScene(const SceneNode* node,
-                        const Matrix& parentMvp)noexcept;
+                        const Matrix& parentMvp,
+                        uint32_t pass) noexcept;
 
       void pushTriangle(Triangle& in) noexcept;
 
-      void newFrame();
+      void passDone() noexcept;
 
       int32_t* transformedVertexBuffer {nullptr};
 
@@ -58,6 +60,7 @@ namespace grog
       uint32_t maxTriangles {0};
 
 #ifdef __linux
+    public:
       Display display {};
 #endif
 

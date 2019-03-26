@@ -18,39 +18,25 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
-  engine.init(100, 100, 3, &pix);
+  engine.init(100, 100, &pix);
 
-  /*scene.mesh.vertexBuffer = vertices;
-  scene.mesh.vertexCount = 8;
-  scene.mesh.faces = faces;
-  scene.mesh.faceCount = 12;
-  scene.mesh.colors = colors;*/
+  scene.mesh.vertexBuffer = nullptr;
+  scene.mesh.vertexCount = 0;
+  scene.mesh.faces = nullptr;
+  scene.mesh.faceCount = 0;
+  scene.mesh.colors = nullptr;
+  scene.children = new grog::SceneNode*[5];
+  scene.childCount = 5;
 
-  scene_cars.mesh.vertexBuffer = nullptr;
-  scene_cars.mesh.vertexCount = 0;
-  scene_cars.mesh.faces = nullptr;
-  scene_cars.mesh.faceCount = 0;
-  scene_cars.mesh.colors = nullptr;
-  scene_cars.children = new grog::SceneNode*[2];
-  scene_cars.childCount = 2;
+  scene.children[0] = new grog::Car(true);
+  scene.children[1] = new grog::Car(false);
+  scene.children[1]->transform.identity().translate(1500,0, 1000);
 
-  scene_cars.children[0] = new grog::Car(true);
-  scene_cars.children[1] = new grog::Car(false);
-  scene_cars.children[1]->transform.identity().translate(1500,0, 1000);
-
-  scene_bg.mesh.vertexBuffer = nullptr;
-  scene_bg.mesh.vertexCount = 0;
-  scene_bg.mesh.faces = nullptr;
-  scene_bg.mesh.faceCount = 0;
-  scene_bg.mesh.colors = nullptr;
-  scene_bg.children = new grog::SceneNode*[3];
-  scene_bg.childCount = 3;
-
-  scene_bg.children[0] = new grog::Road();
-  scene_bg.children[1] = new grog::Road();
-  scene_bg.children[1]->transform.identity().translate(16000, 0, 0);
-  scene_bg.children[2] = new grog::Road();
-  scene_bg.children[2]->transform.identity().translate(-16000, 0, 0);
+  scene.children[2] = new grog::Road();
+  scene.children[3] = new grog::Road();
+  scene.children[3]->transform.identity().translate(16000, 0, 0);
+  scene.children[4] = new grog::Road();
+  scene.children[4]->transform.identity().translate(-16000, 0, 0);
 
 
   ui->eyeXSpinBox->setValue(eyeX);
@@ -201,11 +187,10 @@ void MainWindow::draw()
                                              grog::floatToFixed(targetX), grog::floatToFixed(targetY), grog::floatToFixed(targetZ),
                                              grog::floatToFixed(upX), grog::floatToFixed(upY), grog::floatToFixed(upZ)));
 
-  engine.projectScene(&scene_bg);
-  engine.render(false);
+  engine.projectScene(&scene, 0x01);
+  engine.projectScene(&scene, 0x02);
 
-  engine.projectScene(&scene_cars);
-  engine.render(true);
+  engine.display.draw();
 
   QPixmap coincoin = pix.scaled(320, 256);
 
