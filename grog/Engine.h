@@ -24,7 +24,10 @@ namespace grog
 
       void projectScene(const SceneNode* node, uint32_t pass) noexcept;
 
-      void setProjection(const Matrix& projection) noexcept;
+      //void setProjection(const Matrix& projection) noexcept;
+      void setProjection(float fov,
+                         float near,
+                         float far) noexcept;
       void setView(const TransformMatrix& view) noexcept;
 
 #ifdef __linux
@@ -58,6 +61,8 @@ namespace grog
       Triangle* triangleStackHead {nullptr};
       uint32_t triangleCount {0};
       uint32_t maxTriangles {0};
+
+      uint32_t near{0};
 
 #ifdef __linux
     public:

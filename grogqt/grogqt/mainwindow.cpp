@@ -230,7 +230,7 @@ void MainWindow::draw()
 {
 //  plop();
 //grog::Matrix::Projection(fov, near, far).print();
-  engine.setProjection(grog::Matrix::Projection(fov, near, far));
+  engine.setProjection(fov, near, far);
 
 //  grog::Matrix proj = grog::Matrix::Projection(fov, near, far);
 //  int32_t nearFixed = grog::floatToFixed(near);

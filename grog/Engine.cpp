@@ -38,7 +38,7 @@ void Engine::init(uint32_t maxVerticesPerMesh,
   if(transformedVertexBuffer)
     delete[] transformedVertexBuffer;
 
-  transformedVertexBuffer = new /*(std::nothrow)*/ int32_t[maxVerticesPerMesh*3];
+  transformedVertexBuffer = new /*(std::nothrow)*/ int32_t[maxVerticesPerMesh*4];
 
   if(triangleStack)
     delete[] triangleStack;
@@ -79,17 +79,17 @@ void Engine::projectScene(const SceneNode* node,
         inY = (*inVertexBuffer++);
         inZ = (*inVertexBuffer++);
 
-        int32_t w = (mvp.data[12] * inX
-            +  mvp.data[13] * inY
-            +  mvp.data[14] * inZ
-            +  mvp.data[15] * 1024) >> 10;
-        if(GROG_UNLIKELY(w == 0))
-          w = 1;
+//        int32_t w = (mvp.data[12] * inX
+//            +  mvp.data[13] * inY
+//            +  mvp.data[14] * inZ
+//            +  mvp.data[15] * 1024) >> 10;
+//        if(GROG_UNLIKELY(w == 0))
+//          w = 1;
 //        if(w<0)
 //          w = -w;
         //      if(w >= 0)
         {
-
+#ifdef BEFORE
           (*outTransformedVertexBuffer++) = (((mvp.data[0] * inX
                                               +  mvp.data[1] * inY
                                              +  mvp.data[2] * inZ
@@ -102,14 +102,32 @@ void Engine::projectScene(const SceneNode* node,
                                               +  mvp.data[9] * inY
                                              +  mvp.data[10] * inZ
               +  mvp.data[11] * 1024))/w);
-        }
-        //      else
-        //      {
-        //        (*outTransformedVertexBuffer++) = 0x7FFFFFFF;
-        //        outTransformedVertexBuffer++;
-        //        outTransformedVertexBuffer++;
+#else
+          // X_ndc * 1024
+          (*outTransformedVertexBuffer++) =    mvp.data[0] * inX
+                                            +  mvp.data[1] * inY
+                                            +  mvp.data[2] * inZ
+                                            +  mvp.data[3] * 1024;
 
-        //      }
+          // Y_ndc * 1024
+          (*outTransformedVertexBuffer++) =    mvp.data[4] * inX
+                                            +  mvp.data[5] * inY
+                                            +  mvp.data[6] * inZ
+                                            +  mvp.data[7] * 1024;
+
+          // Z_ndc * 1024
+          (*outTransformedVertexBuffer++) =    mvp.data[8] * inX
+                                            +  mvp.data[9] * inY
+                                            +  mvp.data[10] * inZ
+                                            +  mvp.data[11] * 1024;
+
+          // W_ndc * 1024
+          (*outTransformedVertexBuffer++) =    mvp.data[12] * inX
+                                            +  mvp.data[13] * inY
+                                            +  mvp.data[14] * inZ
+                                            +  mvp.data[15] * 1024;
+#endif
+        }
       }
     }
     // end project all the coordinates in transformedVertexBuffer
@@ -122,49 +140,50 @@ void Engine::projectScene(const SceneNode* node,
       const Gamebuino_Meta::ColorIndex* colorIter = mesh.colors;
       for(uint32_t faceIndex = mesh.faceCount; faceIndex; --faceIndex)
       {
-        int32_t* vertex = transformedVertexBuffer + 3 * (*faceIter++);
+        uint32_t ndcFlag(0);
+        int32_t* vertex = transformedVertexBuffer + 4 * (*faceIter++);
         projection.p1x = (*vertex++);
-        /*if(projection.p1x == 0x7FFFFFFF)
-      {
-        continue;
-      }*/
         projection.p1y = (*vertex++);
         int32_t z = (*vertex++);
-        bool isInNDC = (z>=-1024 && z < 1024);
-        projection.z = /*(*vertex++)*/z;
+        projection.z = z;
+        int32_t w = (*vertex++) >> 10;
+        if(GROG_UNLIKELY(w == 0))
+          w = 1;
+        projection.p1x = ((projection.p1x/w) >> 10) + 40;
+        projection.p1y = ((projection.p1y/w) >> 10) + 32;
+        if(z > -1024)
+          ndcFlag = 0b001;
 
-        vertex = transformedVertexBuffer + 3 * (*faceIter++);
+        vertex = transformedVertexBuffer + 4 * (*faceIter++);
         projection.p2x = (*vertex++);
-        /*if(projection.p2x == 0x7FFFFFFF)
-      {
-        continue;
-      }*/
         projection.p2y = (*vertex++);
-        //int32_t z = (*vertex++);
-        //projection.z = max2(projection.z, z);
-        isInNDC = (isInNDC && (z>=-1024 && z < 1024));
         z = (*vertex++);
-        projection.z += /*(*vertex++)*/z;
+        projection.z += z;
+        w = (*vertex++) >> 10;
+        if(GROG_UNLIKELY(w == 0))
+          w = 1;
+        projection.p2x = ((projection.p2x/w) >> 10) + 40;
+        projection.p2y = ((projection.p2y/w) >> 10) + 32;
+        if(z > -1024)
+          ndcFlag |= 0b010;
 
-        vertex = transformedVertexBuffer + 3 * (*faceIter++);
+        vertex = transformedVertexBuffer + 4 * (*faceIter++);
         projection.p3x = (*vertex++);
-        /*if(projection.p3x == 0x7FFFFFFF)
-      {
-        continue;
-      }*/
         projection.p3y = (*vertex++);
-        /*z = (*vertex++);
-      projection.z = max2(projection.z, z);*/
         z = (*vertex++);
-        isInNDC = (isInNDC && (z>=-1024 && z < 1024));
-        projection.z += /*(*vertex++)*/ z;
-
-        // TODO check that triangle covers some part of the screen
+        projection.z += z;
+        w = (*vertex++) >> 10;
+        if(GROG_UNLIKELY(w == 0))
+          w = 1;
+        projection.p3x = ((projection.p3x/w) >> 10) + 40;
+        projection.p3y = ((projection.p3y/w) >> 10) + 32;
+        if(z > -1024)
+          ndcFlag |= 0b100;
 
         projection.color = (*colorIter++);
         //      std::cout << "Pushing ";
         //      PRINT_TRIANGLE((&projection));
-        if(isInNDC)
+        if(ndcFlag == 0b111)
           pushTriangle(projection);
         //      debugTriangleStack();
       }
@@ -214,9 +233,15 @@ void Engine::render() noexcept
   passDone();
 }
 
-void Engine::setProjection(const Matrix& projection) noexcept
+/*void Engine::setProjection(const Matrix& projection) noexcept
 {
   this->projection = projection;
+}*/
+
+void Engine::setProjection(float fov, float near, float far) noexcept
+{
+  this->projection = Matrix::Projection(fov, near, far);
+  this->near = grog::floatToFixed(near);
 }
 
 void Engine::setView(const TransformMatrix& view) noexcept
