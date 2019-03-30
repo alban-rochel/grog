@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
-  engine.init(100, 100, &pix);
+  engine.init(100, 150, &pix);
 
   scene.mesh.vertexBuffer = nullptr;
   scene.mesh.vertexCount = 0;
@@ -174,10 +174,98 @@ void MainWindow::farChanged(double val)
   draw();
 }
 
+void plop()
+{
+  grog::Matrix proj = grog::Matrix::Projection(1., 0.5f, 10.f);
+  std::cout << "Projection\n";
+  proj.print();
+
+  grog::TransformMatrix view = grog::TransformMatrix::View(0, 0, 0,
+                                                           0, 0, 1024,
+                                                           0, 1024, 0);
+  std::cout << "View\n";
+  view.print();
+
+  grog::Matrix mvp;
+  grog::Matrix::Transform(proj, view, mvp);
+
+  ///// NEAR
+  int32_t inX(0), inY(0), inZ(512);
+  int32_t w = (mvp.data[12] * inX
+      +  mvp.data[13] * inY
+      +  mvp.data[14] * inZ
+      +  mvp.data[15] * 1024) >> 10;
+
+//    int32_t z = (((mvp.data[8] * inX
+//                  +  mvp.data[9] * inY
+//                 +  mvp.data[10] * inZ
+//+  mvp.data[11] * 1024)*1000)/w) >> 10;
+  int32_t z = (mvp.data[8] * inX
+                +  mvp.data[9] * inY
+               +  mvp.data[10] * inZ
++  mvp.data[11] * 1024)/w;
+  std::cout << "w near " << w << " - z " << z << std::endl;
+
+  ///// FAR
+  inZ = 10*1024;
+  w = (mvp.data[12] * inX
+      +  mvp.data[13] * inY
+      +  mvp.data[14] * inZ
+      +  mvp.data[15] * 1024) >> 10;
+
+//    z = (((mvp.data[8] * inX
+//                  +  mvp.data[9] * inY
+//                 +  mvp.data[10] * inZ
+//+  mvp.data[11] * 1024)*1000)/w) >> 10;
+  z = (mvp.data[8] * inX
+                +  mvp.data[9] * inY
+               +  mvp.data[10] * inZ
++  mvp.data[11] * 1024)/w;
+  std::cout << "w far " << w << " - z " << z << std::endl;
+
+  exit(0);
+}
+
 void MainWindow::draw()
 {
+//  plop();
 //grog::Matrix::Projection(fov, near, far).print();
   engine.setProjection(grog::Matrix::Projection(fov, near, far));
+
+//  grog::Matrix proj = grog::Matrix::Projection(fov, near, far);
+//  int32_t nearFixed = grog::floatToFixed(near);
+//  int32_t farFixed = grog::floatToFixed(far);
+
+//  {
+//    int32_t x = 42*1024;
+//    int32_t y = 24*1024;
+//    int32_t z = nearFixed;
+//    int32_t w = 1024;
+
+//    std::cout << "near\n";
+//    int32_t projz = proj.data[8]*x + proj.data[9]*y + proj.data[10]*z + proj.data[11]*w;
+//    projz/=1024;
+//    int32_t projw = proj.data[12]*x + proj.data[13]*y + proj.data[14]*z + proj.data[15]*w;
+//    projw/=1024;
+//    std::cout << "z " << projz << " w " << projw << std::endl;
+//    std::cout << projz/(float)projw << std::endl;
+//  }
+
+//  {
+//    int32_t x = 42*1024;
+//    int32_t y = 24*1024;
+//    int32_t z = farFixed;
+//    int32_t w = 1024;
+
+//    std::cout << "far\n";
+//    int32_t projz = proj.data[8]*x + proj.data[9]*y + proj.data[10]*z + proj.data[11]*w;
+//    projz/=1024;
+//    int32_t projw = proj.data[12]*x + proj.data[13]*y + proj.data[14]*z + proj.data[15]*w;
+//    projw/=1024;
+//    std::cout << "z " << projz << " w " << projw << std::endl;
+//    std::cout << projz/(float)projw << std::endl;
+//  }
+//  std::cout.flush();
 
 //  grog::TransformMatrix::View(grog::floatToFixed(eyeX), grog::floatToFixed(eyeY), grog::floatToFixed(eyeZ),
 //                                               grog::floatToFixed(targetX), grog::floatToFixed(targetY), grog::floatToFixed(targetZ),

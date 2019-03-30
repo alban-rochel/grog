@@ -48,7 +48,7 @@ class MainWindow : public QMainWindow
     double eyeX {/*-2.*/2.60}, eyeY {1.}, eyeZ {-0.4};
     double targetX {0.}, targetY {0.}, targetZ {0.};
     double upX {0.}, upY {-1.}, upZ {0.};
-    double fov {1.}, near {/*1.*/0}, far {10.};
+    double fov {1.}, near {.001}, far {10.};
 
     grog::SceneNode scene {};
     grog::Engine engine {};

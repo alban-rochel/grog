@@ -85,8 +85,8 @@ void Engine::projectScene(const SceneNode* node,
             +  mvp.data[15] * 1024) >> 10;
         if(GROG_UNLIKELY(w == 0))
           w = 1;
-        if(w<0)
-          w = -w;
+//        if(w<0)
+//          w = -w;
         //      if(w >= 0)
         {
 
@@ -101,7 +101,7 @@ void Engine::projectScene(const SceneNode* node,
           (*outTransformedVertexBuffer++) = (((mvp.data[8] * inX
                                               +  mvp.data[9] * inY
                                              +  mvp.data[10] * inZ
-              +  mvp.data[11] * 1024)*1000)/w) >> 10;
+              +  mvp.data[11] * 1024))/w);
         }
         //      else
         //      {
@@ -116,6 +116,7 @@ void Engine::projectScene(const SceneNode* node,
 
     // push triangles
     {
+//      bool isInNDC(true);
       Triangle projection;
       const uint32_t* faceIter = mesh.faces;
       const Gamebuino_Meta::ColorIndex* colorIter = mesh.colors;
@@ -128,7 +129,9 @@ void Engine::projectScene(const SceneNode* node,
         continue;
       }*/
         projection.p1y = (*vertex++);
-        projection.z = (*vertex++);
+        int32_t z = (*vertex++);
+        bool isInNDC = (z>=-1024 && z < 1024);
+        projection.z = /*(*vertex++)*/z;
 
         vertex = transformedVertexBuffer + 3 * (*faceIter++);
         projection.p2x = (*vertex++);
@@ -139,7 +142,9 @@ void Engine::projectScene(const SceneNode* node,
         projection.p2y = (*vertex++);
         //int32_t z = (*vertex++);
         //projection.z = max2(projection.z, z);
-        projection.z += (*vertex++);
+        isInNDC = (isInNDC && (z>=-1024 && z < 1024));
+        z = (*vertex++);
+        projection.z += /*(*vertex++)*/z;
 
         vertex = transformedVertexBuffer + 3 * (*faceIter++);
         projection.p3x = (*vertex++);
@@ -150,14 +155,17 @@ void Engine::projectScene(const SceneNode* node,
         projection.p3y = (*vertex++);
         /*z = (*vertex++);
       projection.z = max2(projection.z, z);*/
-        projection.z += (*vertex++);
+        z = (*vertex++);
+        isInNDC = (isInNDC && (z>=-1024 && z < 1024));
+        projection.z += /*(*vertex++)*/ z;
 
         // TODO check that triangle covers some part of the screen
 
         projection.color = (*colorIter++);
         //      std::cout << "Pushing ";
         //      PRINT_TRIANGLE((&projection));
-        pushTriangle(projection);
+        if(isInNDC)
+          pushTriangle(projection);
         //      debugTriangleStack();
       }
     }
