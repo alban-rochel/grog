@@ -43,8 +43,10 @@ namespace grog
       void projectScene(const SceneNode* node,
                         const Matrix& parentMvp,
                         uint32_t pass) noexcept;
-
+public:
       void pushTriangle(Triangle& in) noexcept;
+
+    protected:
 
       void passDone() noexcept;
 

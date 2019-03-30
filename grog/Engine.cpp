@@ -53,6 +53,65 @@ void Engine::init(uint32_t maxVerticesPerMesh,
 #endif
 }
 
+GROG_INLINE void pushClippedTriangle1(grog::Engine* engine,
+                                      int32_t* v1 /* inside */,
+                                      int32_t* v2 /* outside */,
+                                      int32_t* v3 /* outside */,
+                                      const Gamebuino_Meta::ColorIndex& color)
+{
+
+}
+
+GROG_INLINE void pushClippedTriangle2(grog::Engine* engine,
+                                      int32_t* v1 /* inside */,
+                                      int32_t* v2 /* inside */,
+                                      int32_t* v3 /* outside */,
+                                      const Gamebuino_Meta::ColorIndex& color)
+{
+
+}
+
+
+GROG_INLINE void pushUnclippedTriangle(grog::Engine* engine,
+                                       int32_t* v1,
+                                       int32_t* v2,
+                                       int32_t* v3,
+                                       const Gamebuino_Meta::ColorIndex& color)
+{
+  Triangle projection;
+
+  projection.p1x = (*v1++);
+  projection.p1y = (*v1++);
+  projection.z = (*v1++);
+  int32_t w = (*v1++) >> 10;
+  if(GROG_UNLIKELY(w == 0))
+    w = 1;
+  projection.p1x = ((projection.p1x/w) >> 10) + 40;
+  projection.p1y = ((projection.p1y/w) >> 10) + 32;
+
+  projection.p2x = (*v2++);
+  projection.p2y = (*v2++);
+  projection.z += (*v2++);
+  w = (*v2++) >> 10;
+  if(GROG_UNLIKELY(w == 0))
+    w = 1;
+  projection.p2x = ((projection.p2x/w) >> 10) + 40;
+  projection.p2y = ((projection.p2y/w) >> 10) + 32;
+
+  projection.p3x = (*v3++);
+  projection.p3y = (*v3++);
+  projection.z += (*v3++);
+  w = (*v3++) >> 10;
+  if(GROG_UNLIKELY(w == 0))
+    w = 1;
+  projection.p3x = ((projection.p3x/w) >> 10) + 40;
+  projection.p3y = ((projection.p3y/w) >> 10) + 32;
+
+  projection.color = color;
+
+    engine->pushTriangle(projection);
+}
+
 void Engine::projectScene(const SceneNode* node,
                           const Matrix& parentMvp,
                           uint32_t pass) noexcept
@@ -135,56 +194,106 @@ void Engine::projectScene(const SceneNode* node,
     // push triangles
     {
 //      bool isInNDC(true);
-      Triangle projection;
+
       const uint32_t* faceIter = mesh.faces;
       const Gamebuino_Meta::ColorIndex* colorIter = mesh.colors;
+      int32_t* v1, *v2, *v3;
       for(uint32_t faceIndex = mesh.faceCount; faceIndex; --faceIndex)
       {
         uint32_t ndcFlag(0);
-        int32_t* vertex = transformedVertexBuffer + 4 * (*faceIter++);
-        projection.p1x = (*vertex++);
-        projection.p1y = (*vertex++);
-        int32_t z = (*vertex++);
-        projection.z = z;
-        int32_t w = (*vertex++) >> 10;
-        if(GROG_UNLIKELY(w == 0))
-          w = 1;
-        projection.p1x = ((projection.p1x/w) >> 10) + 40;
-        projection.p1y = ((projection.p1y/w) >> 10) + 32;
-        if(z > -1024)
+        v1 = transformedVertexBuffer + 4 * (*faceIter++);
+        v2 = transformedVertexBuffer + 4 * (*faceIter++);
+        v3 = transformedVertexBuffer + 4 * (*faceIter++);
+
+        if(v1[2] > -1024)
           ndcFlag = 0b001;
-
-        vertex = transformedVertexBuffer + 4 * (*faceIter++);
-        projection.p2x = (*vertex++);
-        projection.p2y = (*vertex++);
-        z = (*vertex++);
-        projection.z += z;
-        w = (*vertex++) >> 10;
-        if(GROG_UNLIKELY(w == 0))
-          w = 1;
-        projection.p2x = ((projection.p2x/w) >> 10) + 40;
-        projection.p2y = ((projection.p2y/w) >> 10) + 32;
-        if(z > -1024)
+        if(v2[2] > -1024)
           ndcFlag |= 0b010;
-
-        vertex = transformedVertexBuffer + 4 * (*faceIter++);
-        projection.p3x = (*vertex++);
-        projection.p3y = (*vertex++);
-        z = (*vertex++);
-        projection.z += z;
-        w = (*vertex++) >> 10;
-        if(GROG_UNLIKELY(w == 0))
-          w = 1;
-        projection.p3x = ((projection.p3x/w) >> 10) + 40;
-        projection.p3y = ((projection.p3y/w) >> 10) + 32;
-        if(z > -1024)
+        if(v3[2] > -1024)
           ndcFlag |= 0b100;
 
-        projection.color = (*colorIter++);
-        //      std::cout << "Pushing ";
-        //      PRINT_TRIANGLE((&projection));
-        if(ndcFlag == 0b111)
-          pushTriangle(projection);
+        switch(ndcFlag)
+        {
+          case 0b000:
+            ++colorIter;
+            break;
+
+          case 0b001:
+            pushClippedTriangle1(this, v1, v2, v3, (*colorIter++));
+            break;
+
+          case 0b010:
+            pushClippedTriangle1(this, v2, v3, v1, (*colorIter++));
+            break;
+
+          case 0b011:
+            pushClippedTriangle2(this, v1, v2, v3, (*colorIter++));
+            break;
+
+          case 0b100:
+            pushClippedTriangle1(this, v3, v1, v2, (*colorIter++));
+            break;
+
+          case 0b101:
+            pushClippedTriangle2(this, v3, v1, v2, (*colorIter++));
+            break;
+
+          case 0b110:
+            pushClippedTriangle2(this, v2, v3, v1, (*colorIter++));
+            break;
+
+          case 0b111:
+            pushUnclippedTriangle(this, v1, v2, v3, (*colorIter++));
+            break;
+
+          default:
+            break;
+        }
+
+//        int32_t* vertex = transformedVertexBuffer + 4 * (*faceIter++);
+//        projection.p1x = (*vertex++);
+//        projection.p1y = (*vertex++);
+//        int32_t z = (*vertex++);
+//        projection.z = z;
+//        int32_t w = (*vertex++) >> 10;
+//        if(GROG_UNLIKELY(w == 0))
+//          w = 1;
+//        projection.p1x = ((projection.p1x/w) >> 10) + 40;
+//        projection.p1y = ((projection.p1y/w) >> 10) + 32;
+//        if(z > -1024)
+//          ndcFlag = 0b001;
+
+//        vertex = transformedVertexBuffer + 4 * (*faceIter++);
+//        projection.p2x = (*vertex++);
+//        projection.p2y = (*vertex++);
+//        z = (*vertex++);
+//        projection.z += z;
+//        w = (*vertex++) >> 10;
+//        if(GROG_UNLIKELY(w == 0))
+//          w = 1;
+//        projection.p2x = ((projection.p2x/w) >> 10) + 40;
+//        projection.p2y = ((projection.p2y/w) >> 10) + 32;
+//        if(z > -1024)
+//          ndcFlag |= 0b010;
+
+//        vertex = transformedVertexBuffer + 4 * (*faceIter++);
+//        projection.p3x = (*vertex++);
+//        projection.p3y = (*vertex++);
+//        z = (*vertex++);
+//        projection.z += z;
+//        w = (*vertex++) >> 10;
+//        if(GROG_UNLIKELY(w == 0))
+//          w = 1;
+//        projection.p3x = ((projection.p3x/w) >> 10) + 40;
+//        projection.p3y = ((projection.p3y/w) >> 10) + 32;
+//        if(z > -1024)
+//          ndcFlag |= 0b100;
+
+//        projection.color = (*colorIter++);
+//        //      std::cout << "Pushing ";
+//        //      PRINT_TRIANGLE((&projection));
+//        if(ndcFlag == 0b111)
+//          pushTriangle(projection);
         //      debugTriangleStack();
       }
     }
