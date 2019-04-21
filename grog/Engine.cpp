@@ -76,7 +76,6 @@ GROG_INLINE void pushClippedTriangle1(grog::Engine* engine,
 //  int32_t z;
 
   {
-    std::cout.flush();
     // Process v1 (in) vs v2 (out)
 #define Z1 v1[2]
 #define W1 v1[3]
