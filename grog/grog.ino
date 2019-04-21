@@ -42,7 +42,7 @@ void loop()
 
   scene.children[2] = new grog::Road();
   
-  engine.setProjection(grog::Matrix::Projection(1.f, 1, 100));
+  engine.setProjection(1.f, 0.01, 100);
 
   int ii = 0;
 
@@ -57,7 +57,7 @@ void loop()
                                                0, 0, 0,
                                                grog::floatToFixed(0), grog::floatToFixed(-1.f), 0));
 
-    scene.transform.rotateY(2*ii);
+    scene.transform.rotateY(1);
 
 car1->setWheelRotation(ii << 6);
 car2->setWheelRotation(ii << 6);
