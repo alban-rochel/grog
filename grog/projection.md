@@ -52,8 +52,8 @@ $\gamma$ such that $\gamma * P1 + (1-\gamma) * P2 = Pn$.
 $(2) Zn = \gamma * Z1 + (1-\gamma) * Z2 = \gamma * (Z1 - Z2) + Z2$
 $(3) Wn = \gamma * W1 + (1-\gamma) * W2 = \gamma * (W1 - W2) + W2$
 Thus $(2) = -(3)$
-$\gamma * (Z1 - Z2 - W1 + W2) = Z2 - W2$
-$\gamma = \frac{Z2 - W2}{Z1 - Z2 - W1 + W2}$
+$\gamma * (Z1 - Z2 - W2 + W1) = - W2 - Z2$
+$\gamma = \frac{- W2 - Z2}{Z1 - Z2 - W2 + W1}$
 
 $pos_{proj_{20}}$ is transformed for screen through the following steps:
 

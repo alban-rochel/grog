@@ -76,34 +76,51 @@ GROG_INLINE void pushClippedTriangle1(grog::Engine* engine,
 //  int32_t z;
 
   {
+    std::cout.flush();
     // Process v1 (in) vs v2 (out)
-     gamma_num = - v2[3] - v2[2];
-     gamma_den = v1[2] - v2[2] + v1[3] - v2[3];
+#define Z1 v1[2]
+#define W1 v1[3]
+#define Z2 v2[2]
+#define W2 v2[3]
+     gamma_num = - W2 - Z2;
+     gamma_den = Z1 - Z2 - W2 + W1;
+#undef Z1
+#undef W1
+#undef Z2
+#undef W2
      w = -(gamma_num * ((v1[2] - v2[2]) / gamma_den) + v2[2]) >> 10;
      if(GROG_UNLIKELY(w==0))
        w = 1;
 
      projection.p2x = gamma_num * ((v1[0] - v2[0]) / gamma_den) + v2[0];
      projection.p2x = ((projection.p2x/w) >> 10) + 40;
-     projection.p2y = gamma_num * ((v1[1] - v2[1]) / gamma_den) + v2[0];
+     projection.p2y = gamma_num * ((v1[1] - v2[1]) / gamma_den) + v2[1];
      projection.p2y = ((projection.p2y/w) >> 10) + 32;
   }
 
   {
     // Process v1 (in) vs v3 (out)
-     gamma_num = - v3[3] - v3[2];
-     gamma_den = v1[2] - v3[2] + v1[3] - v3[3];
+#define Z1 v1[2]
+#define W1 v1[3]
+#define Z2 v3[2]
+#define W2 v3[3]
+     gamma_num = - W2 - Z2;
+     gamma_den = Z1 - Z2 - W2 + W1;
+#undef Z1
+#undef W1
+#undef Z2
+#undef W2
      w = -(gamma_num * ((v1[2] - v3[2]) / gamma_den) + v3[2]) >> 10;
      if(GROG_UNLIKELY(w==0))
        w = 1;
 
      projection.p3x = gamma_num * ((v1[0] - v3[0]) / gamma_den) + v3[0];
      projection.p3x = ((projection.p3x/w) >> 10) + 40;
-     projection.p3y = gamma_num * ((v1[1] - v3[1]) / gamma_den) + v3[0];
+     projection.p3y = gamma_num * ((v1[1] - v3[1]) / gamma_den) + v3[1];
      projection.p3y = ((projection.p3y/w) >> 10) + 32;
   }
 
-  projection.color = /*color*/Gamebuino_Meta::ColorIndex::beige;
+  projection.color = color;
 
   engine->pushTriangle(projection);
 }
@@ -137,38 +154,53 @@ GROG_INLINE void pushClippedTriangle2(grog::Engine* engine,
 
   {
     // Process v2 (in) vs v3 (out)
-     gamma_num = - v3[3] - v3[2];
-     gamma_den = v2[2] - v3[2] + v2[3] - v3[3];
+#define Z1 v2[2]
+#define W1 v2[3]
+#define Z2 v3[2]
+#define W2 v3[3]
+     gamma_num = - W2 - Z2;
+     gamma_den = Z1 - Z2 - W2 + W1;
+#undef Z1
+#undef W1
+#undef Z2
+#undef W2
      w = -(gamma_num * ((v2[2] - v3[2]) / gamma_den) + v3[2]) >> 10;
      if(GROG_UNLIKELY(w==0))
        w = 1;
 
-     projection1.p3x = gamma_num * ((v1[0] - v3[0]) / gamma_den) + v3[0];
+     projection1.p3x = gamma_num * ((v2[0] - v3[0]) / gamma_den) + v3[0];
      projection1.p3x = projection2.p2x = ((projection1.p3x/w) >> 10) + 40;
-     projection1.p3y = gamma_num * ((v1[1] - v3[1]) / gamma_den) + v3[0];
+     projection1.p3y = gamma_num * ((v2[1] - v3[1]) / gamma_den) + v3[1];
      projection1.p3y = projection2.p2y = ((projection1.p3y/w) >> 10) + 32;
   }
 
 
   {
     // Process v1 (in) vs v3 (out)
-     gamma_num = - v3[3] - v3[2];
-     gamma_den = v1[2] - v3[2] + v1[3] - v3[3];
+#define Z1 v1[2]
+#define W1 v1[3]
+#define Z2 v3[2]
+#define W2 v3[3]
+     gamma_num = - W2 - Z2;
+     gamma_den = Z1 - Z2 - W2 + W1;
+#undef Z1
+#undef W1
+#undef Z2
+#undef W2
      w = -(gamma_num * ((v1[2] - v3[2]) / gamma_den) + v3[2]) >> 10;
      if(GROG_UNLIKELY(w==0))
        w = 1;
 
      projection2.p3x = gamma_num * ((v1[0] - v3[0]) / gamma_den) + v3[0];
      projection2.p3x = ((projection2.p3x/w) >> 10) + 40;
-     projection2.p3y = gamma_num * ((v1[1] - v3[1]) / gamma_den) + v3[0];
+     projection2.p3y = gamma_num * ((v1[1] - v3[1]) / gamma_den) + v3[1];
      projection2.p3y = ((projection2.p3y/w) >> 10) + 32;
   }
 
-  projection1.color = /*color*/Gamebuino_Meta::ColorIndex::purple;
-  projection2.color = Gamebuino_Meta::ColorIndex::pink;
+  projection1.color = projection2.color = color;
 
   engine->pushTriangle(projection1);
-//  engine->pushTriangle(projection2);
+  engine->pushTriangle(projection2);
 }
 
 
