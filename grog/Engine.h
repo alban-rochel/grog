@@ -40,6 +40,10 @@ namespace grog
 
       void render() noexcept;
 
+      void projectSceneOld(const SceneNode* node,
+                        const Matrix& parentMvp,
+                        uint32_t pass) noexcept;
+
       void projectScene(const SceneNode* node,
                         const Matrix& parentMvp,
                         uint32_t pass) noexcept;

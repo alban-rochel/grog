@@ -54,3 +54,9 @@ $(3) Wn = \gamma * W1 + (1-\gamma) * W2 = \gamma * (W1 - W2) + W2$
 Thus $(2) = -(3)$
 $\gamma * (Z1 - Z2 - W1 + W2) = Z2 - W2$
 $\gamma = \frac{Z2 - W2}{Z1 - Z2 - W1 + W2}$
+
+$pos_{proj_{20}}$ is transformed for screen through the following steps:
+
+ - $W_{10} = W_{scale_{20}} >> 10$
+ - $X_{screen} = \frac{X_{scale_{20}}}{W_{10}} >> 10 + 40$
+ - $Y_{screen} = \frac{Y_{scale_{20}}}{W_{10}} >> 10 + 32$

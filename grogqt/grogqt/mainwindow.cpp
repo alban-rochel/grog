@@ -18,8 +18,36 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
+  //debug();
+
   engine.init(100, 150, &pix);
 
+#ifdef DEBUG_ALBAN
+  static const int32_t vertexBuffer [] =
+  {
+    grog::floatToFixed(0), grog::floatToFixed(0), grog::floatToFixed(0),
+    grog::floatToFixed(20), grog::floatToFixed(-5), grog::floatToFixed(0),
+    grog::floatToFixed(5), grog::floatToFixed(5), grog::floatToFixed(0),
+  };
+
+  static const uint32_t faces [] =
+  {
+    0, 1, 2
+  };
+
+  static const Gamebuino_Meta::ColorIndex colors [] =
+  {
+    Gamebuino_Meta::ColorIndex::white
+  };
+
+  scene.mesh.vertexBuffer = vertexBuffer;
+  scene.mesh.vertexCount = 3;
+  scene.mesh.faces = faces;
+  scene.mesh.faceCount = 1;
+  scene.mesh.colors = colors;
+  scene.children = nullptr;
+  scene.childCount = 0;
+#else
   scene.mesh.vertexBuffer = nullptr;
   scene.mesh.vertexCount = 0;
   scene.mesh.faces = nullptr;
@@ -37,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent) :
   scene.children[3]->transform.identity().translate(16000, 0, 0);
   scene.children[4] = new grog::Road();
   scene.children[4]->transform.identity().translate(-16000, 0, 0);
+#endif
 
 
   ui->eyeXSpinBox->setValue(eyeX);
@@ -80,6 +109,138 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
   delete ui;
+}
+
+void MainWindow::debug()
+{
+  grog::Matrix projection = grog::Matrix::Projection(1.f, 1.f, 10.f);
+
+  std::cout << "Projection\n";
+  projection.print();
+
+  grog::TransformMatrix view = grog::TransformMatrix::View(0, 0, 0,
+                                                           0, 0, 1024,
+                                                           0, 1024, 0);
+
+  std::cout << "View\n";
+  view.print();
+
+  int32_t p_in_10[] = {grog::floatToFixed(1.f),
+                    grog::floatToFixed(0.2f),
+                   grog::floatToFixed(8.f),
+                   grog::floatToFixed(1.f)};
+
+  int32_t p_out_10[] = {grog::floatToFixed(12.f),
+                    grog::floatToFixed(0.8f),
+                   grog::floatToFixed(-3.f),
+                   grog::floatToFixed(1.f)};
+
+#define PVECT(v) std::cout << "[" << v[0] << ", " << v[1] << ", " << v[2] << ", " << v[3] <<"] = [" << \
+                            v[0]/1024.f << ", " << v[1]/1024.f << ", " << v[2]/1024.f << ", " << v[3]/1024.f << "]\n";
+#define PVECT2(v) std::cout << "[" << v[0] << ", " << v[1] << ", " << v[2] << ", " << v[3] <<"] = [" << \
+                            v[0]/40.f/1024.f/1024.f << ", " << v[1]/32.f/1024.f/1024.f << ", " << v[2]/1024.f/1024.f << ", " << v[3]/1024.f/1024.f << "]\n";
+
+  std::cout << "p_in\n";
+  PVECT(p_in_10);
+  std::cout << "p_out\n";
+  PVECT(p_out_10);
+
+  grog::Matrix mvp;
+  grog::Matrix::Transform(projection, view, mvp);
+
+  int32_t p_in_trans_20_shift[4];
+  int32_t inX = p_in_10[0];
+  int32_t inY = p_in_10[1];
+  int32_t inZ = p_in_10[2];
+
+  p_in_trans_20_shift[0] = mvp.data[0] * inX
+      +  mvp.data[1] * inY
+      +  mvp.data[2] * inZ
+      +  mvp.data[3] * 1024;
+
+  p_in_trans_20_shift[1] = mvp.data[4] * inX
+      +  mvp.data[5] * inY
+      +  mvp.data[6] * inZ
+      +  mvp.data[7] * 1024;
+
+  p_in_trans_20_shift[2] = mvp.data[8] * inX
+      +  mvp.data[9] * inY
+      +  mvp.data[10] * inZ
+      +  mvp.data[11] * 1024;
+
+  p_in_trans_20_shift[3] = mvp.data[12] * inX
+      +  mvp.data[13] * inY
+      +  mvp.data[14] * inZ
+      +  mvp.data[15] * 1024;
+
+  std::cout << "p_in_trans ";
+  PVECT2(p_in_trans_20_shift);
+
+  int32_t p_out_trans_20_shift[4];
+  inX = p_out_10[0];
+  inY = p_out_10[1];
+  inZ = p_out_10[2];
+
+  p_out_trans_20_shift[0] = mvp.data[0] * inX
+      +  mvp.data[1] * inY
+      +  mvp.data[2] * inZ
+      +  mvp.data[3] * 1024;
+
+  p_out_trans_20_shift[1] = mvp.data[4] * inX
+      +  mvp.data[5] * inY
+      +  mvp.data[6] * inZ
+      +  mvp.data[7] * 1024;
+
+  p_out_trans_20_shift[2] = mvp.data[8] * inX
+      +  mvp.data[9] * inY
+      +  mvp.data[10] * inZ
+      +  mvp.data[11] * 1024;
+
+  p_out_trans_20_shift[3] = mvp.data[12] * inX
+      +  mvp.data[13] * inY
+      +  mvp.data[14] * inZ
+      +  mvp.data[15] * 1024;
+
+  std::cout << "p_out_trans ";
+PVECT2(p_out_trans_20_shift);
+
+  // p_out_trans < -1024
+
+
+  int32_t gamma_num = - p_out_trans_20_shift[3] - p_out_trans_20_shift[2];
+  int32_t gamma_den = p_in_trans_20_shift[2] - p_out_trans_20_shift[2] + p_in_trans_20_shift[3] - p_out_trans_20_shift[3];
+
+  float gamma =  gamma_num/(float)gamma_den;
+  std::cout << "Gamma " << gamma << " = " << gamma_num << "/" << gamma_den <<std::endl;
+  int32_t p_res_20_shift[4];
+
+  p_res_20_shift[0] = gamma_num * ((p_in_trans_20_shift[0] - p_out_trans_20_shift[0]) / gamma_den) + p_out_trans_20_shift[0];
+  p_res_20_shift[1] = gamma_num * ((p_in_trans_20_shift[1] - p_out_trans_20_shift[1]) / gamma_den) + p_out_trans_20_shift[1];
+  p_res_20_shift[2] = gamma_num * ((p_in_trans_20_shift[2] - p_out_trans_20_shift[2]) / gamma_den) + p_out_trans_20_shift[2];
+  p_res_20_shift[3] = -p_res_20_shift[2];
+  std::cout << p_in_trans_20_shift[0] << "/40 = " << (p_in_trans_20_shift[0])/40. << "/1024/1024=" << (p_in_trans_20_shift[0])/40./1024./1024. << std::endl;
+  std::cout << p_out_trans_20_shift[0] << "/40 = " << (p_out_trans_20_shift[0])/40. << "/1024/1024=" << (p_out_trans_20_shift[0])/40./1024./1024. << std::endl;
+
+  std::cout << "Res\n";
+  PVECT2(p_res_20_shift);
+  /*std::cout << "{" << p_res[0]/(float)p_res[3] << ", "
+                   << p_res[1]/(float)p_res[3] << ", "
+                   << p_res[2]/(float)p_res[3] << "}\n";*/
+
+//  int32_t p_in_proj[3];
+//  p_in_proj[0] = (p_in_trans[0]/p_in_trans[3])/* >> 10*/;
+//  p_in_proj[1] = (p_in_trans[1]/p_in_trans[3])/* >> 10*/;
+//  p_in_proj[2] = (p_in_trans[2]/p_in_trans[3])/* >> 10*/;
+
+//  std::cout << "In proj (" << p_in_proj[0] << ", " << p_in_proj[1] << ", " << p_in_proj[2] << ")\n";
+
+//  int32_t p_res_proj[3];
+//  p_res_proj[0] = (p_res[0]/p_res[3])/1024.;
+//  p_res_proj[1] = (p_res[1]/p_res[3])/1024.;
+//  p_res_proj[2] = (p_res[2]/p_res[3])/1024.;
+//  std::cout << "Res proj (" << p_res_proj[0] << ", " << p_res_proj[1] << ", " << p_res_proj[2] << ")\n";
+
+  exit(0);
 }
 
 void MainWindow::generateTrigo()
@@ -270,6 +431,20 @@ void MainWindow::draw()
 //  grog::TransformMatrix::View(grog::floatToFixed(eyeX), grog::floatToFixed(eyeY), grog::floatToFixed(eyeZ),
 //                                               grog::floatToFixed(targetX), grog::floatToFixed(targetY), grog::floatToFixed(targetZ),
 //                                               grog::floatToFixed(upX), grog::floatToFixed(upY), grog::floatToFixed(upZ)).print();
+
+#ifdef DEBUG_ALBAN
+  eyeX = 10.;
+  eyeY = 0.;
+  eyeZ = 10.;
+
+  targetX = 0.;
+  targetY = 0.;
+  targetZ = 0.;
+
+  upX = 0.;
+  upY = 0.;
+  upZ = 1.;
+#endif
 
   engine.setView(grog::TransformMatrix::View(grog::floatToFixed(eyeX), grog::floatToFixed(eyeY), grog::floatToFixed(eyeZ),
                                              grog::floatToFixed(targetX), grog::floatToFixed(targetY), grog::floatToFixed(targetZ),

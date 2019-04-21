@@ -7,6 +7,8 @@
 
 using namespace grog;
 
+#define INVALID_I32 (0x7FFFFFFF)
+
 #include <string.h>
 
 #ifdef __linux
@@ -59,7 +61,51 @@ GROG_INLINE void pushClippedTriangle1(grog::Engine* engine,
                                       int32_t* v3 /* outside */,
                                       const Gamebuino_Meta::ColorIndex& color)
 {
+//  std::cout << "*** Clipped 1\n";
+  Triangle projection;
 
+  int32_t w = v1[3] >> 10;
+  if(GROG_UNLIKELY(w==0))
+    w = 1;
+  projection.p1x = ((v1[0]/w) >> 10) + 40;
+  projection.p1y = ((v1[1]/w) >> 10) + 32;
+  projection.z = v1[2] / w;
+
+  int32_t gamma_num;
+  int32_t gamma_den;
+//  int32_t z;
+
+  {
+    // Process v1 (in) vs v2 (out)
+     gamma_num = - v2[3] - v2[2];
+     gamma_den = v1[2] - v2[2] + v1[3] - v2[3];
+     w = -(gamma_num * ((v1[2] - v2[2]) / gamma_den) + v2[2]) >> 10;
+     if(GROG_UNLIKELY(w==0))
+       w = 1;
+
+     projection.p2x = gamma_num * ((v1[0] - v2[0]) / gamma_den) + v2[0];
+     projection.p2x = ((projection.p2x/w) >> 10) + 40;
+     projection.p2y = gamma_num * ((v1[1] - v2[1]) / gamma_den) + v2[0];
+     projection.p2y = ((projection.p2y/w) >> 10) + 32;
+  }
+
+  {
+    // Process v1 (in) vs v3 (out)
+     gamma_num = - v3[3] - v3[2];
+     gamma_den = v1[2] - v3[2] + v1[3] - v3[3];
+     w = -(gamma_num * ((v1[2] - v3[2]) / gamma_den) + v3[2]) >> 10;
+     if(GROG_UNLIKELY(w==0))
+       w = 1;
+
+     projection.p3x = gamma_num * ((v1[0] - v3[0]) / gamma_den) + v3[0];
+     projection.p3x = ((projection.p3x/w) >> 10) + 40;
+     projection.p3y = gamma_num * ((v1[1] - v3[1]) / gamma_den) + v3[0];
+     projection.p3y = ((projection.p3y/w) >> 10) + 32;
+  }
+
+  projection.color = /*color*/Gamebuino_Meta::ColorIndex::beige;
+
+  engine->pushTriangle(projection);
 }
 
 GROG_INLINE void pushClippedTriangle2(grog::Engine* engine,
@@ -68,7 +114,61 @@ GROG_INLINE void pushClippedTriangle2(grog::Engine* engine,
                                       int32_t* v3 /* outside */,
                                       const Gamebuino_Meta::ColorIndex& color)
 {
+//  std::cout << "*** Clipped 2\n";
+  Triangle projection1 /*(v1, v2, vn)*/, projection2 /*(v1, vn, vm)*/;
 
+  int32_t w = v1[3] >> 10;
+  if(GROG_UNLIKELY(w==0))
+    w = 1;
+  projection1.p1x = projection2.p1x = ((v1[0]/w) >> 10) + 40;
+  projection1.p1y = projection2.p1y = ((v1[1]/w) >> 10) + 32;
+  projection1.z = projection2.z = v1[2] / w;
+
+  w = v2[3] >> 10;
+  if(GROG_UNLIKELY(w==0))
+    w = 1;
+  projection1.p2x = ((v2[0]/w) >> 10) + 40;
+  projection1.p2y = ((v2[1]/w) >> 10) + 32;
+  projection1.z = v2[2] / w;
+
+  int32_t gamma_num;
+  int32_t gamma_den;
+//  int32_t z;
+
+  {
+    // Process v2 (in) vs v3 (out)
+     gamma_num = - v3[3] - v3[2];
+     gamma_den = v2[2] - v3[2] + v2[3] - v3[3];
+     w = -(gamma_num * ((v2[2] - v3[2]) / gamma_den) + v3[2]) >> 10;
+     if(GROG_UNLIKELY(w==0))
+       w = 1;
+
+     projection1.p3x = gamma_num * ((v1[0] - v3[0]) / gamma_den) + v3[0];
+     projection1.p3x = projection2.p2x = ((projection1.p3x/w) >> 10) + 40;
+     projection1.p3y = gamma_num * ((v1[1] - v3[1]) / gamma_den) + v3[0];
+     projection1.p3y = projection2.p2y = ((projection1.p3y/w) >> 10) + 32;
+  }
+
+
+  {
+    // Process v1 (in) vs v3 (out)
+     gamma_num = - v3[3] - v3[2];
+     gamma_den = v1[2] - v3[2] + v1[3] - v3[3];
+     w = -(gamma_num * ((v1[2] - v3[2]) / gamma_den) + v3[2]) >> 10;
+     if(GROG_UNLIKELY(w==0))
+       w = 1;
+
+     projection2.p3x = gamma_num * ((v1[0] - v3[0]) / gamma_den) + v3[0];
+     projection2.p3x = ((projection2.p3x/w) >> 10) + 40;
+     projection2.p3y = gamma_num * ((v1[1] - v3[1]) / gamma_den) + v3[0];
+     projection2.p3y = ((projection2.p3y/w) >> 10) + 32;
+  }
+
+  projection1.color = /*color*/Gamebuino_Meta::ColorIndex::purple;
+  projection2.color = Gamebuino_Meta::ColorIndex::pink;
+
+  engine->pushTriangle(projection1);
+//  engine->pushTriangle(projection2);
 }
 
 
@@ -78,6 +178,7 @@ GROG_INLINE void pushUnclippedTriangle(grog::Engine* engine,
                                        int32_t* v3,
                                        const Gamebuino_Meta::ColorIndex& color)
 {
+//  std::cout << "*** unclipped\n";
   Triangle projection;
 
   projection.p1x = (*v1++);
@@ -109,10 +210,161 @@ GROG_INLINE void pushUnclippedTriangle(grog::Engine* engine,
 
   projection.color = color;
 
-    engine->pushTriangle(projection);
+  engine->pushTriangle(projection);
 }
 
-void Engine::projectScene(const SceneNode* node,
+void Engine::projectScene(const SceneNode *node, const Matrix &parentMvp, uint32_t pass) noexcept
+{
+  if(GROG_UNLIKELY(node == nullptr))
+    return;
+
+  Matrix mvp;
+  Matrix::Transform(parentMvp, node->transform, mvp);
+
+  if(pass & node->renderPass)
+  {
+    const Mesh& mesh = node->mesh;
+
+    // project all the coordinates in transformedVertexBuffer
+    {
+      const int32_t* inVertexBuffer = mesh.vertexBuffer;
+      int32_t* outTransformedVertexBuffer = transformedVertexBuffer;
+      int32_t inX(0), inY(0), inZ(0);
+      int32_t outZ(0);
+      //    int pouet(0);
+      for(uint32_t vertexIndex = mesh.vertexCount; vertexIndex; --vertexIndex)
+      {
+        inX = (*inVertexBuffer++);
+        inY = (*inVertexBuffer++);
+        inZ = (*inVertexBuffer++);
+
+
+
+        {
+          outZ =  mvp.data[8] * inX +
+                  mvp.data[9] * inY +
+                  mvp.data[10] * inZ +
+                  mvp.data[11] * 1024;
+
+            // X_ndc * 1024
+            (*outTransformedVertexBuffer++) =    mvp.data[0] * inX
+                                              +  mvp.data[1] * inY
+                                              +  mvp.data[2] * inZ
+                                              +  mvp.data[3] * 1024;
+
+            // Y_ndc * 1024
+            (*outTransformedVertexBuffer++) =    mvp.data[4] * inX
+                                              +  mvp.data[5] * inY
+                                              +  mvp.data[6] * inZ
+                                              +  mvp.data[7] * 1024;
+
+            // Z_ndc * 1024
+            (*outTransformedVertexBuffer++) = outZ;
+
+            // W_ndc * 1024
+            (*outTransformedVertexBuffer++) =    mvp.data[12] * inX
+                                              +  mvp.data[13] * inY
+                                              +  mvp.data[14] * inZ
+                                              +  mvp.data[15] * 1024;
+        }
+      }
+    }
+    // end project all the coordinates in transformedVertexBuffer
+
+    // push triangles
+    {
+      const uint32_t* faceIter = mesh.faces;
+      const Gamebuino_Meta::ColorIndex* colorIter = mesh.colors;
+      int32_t* v1, *v2, *v3;
+      for(uint32_t faceIndex = mesh.faceCount; faceIndex; --faceIndex)
+      {
+        uint32_t ndcFlag(0);
+        v1 = transformedVertexBuffer + 4 * (*faceIter++);
+        v2 = transformedVertexBuffer + 4 * (*faceIter++);
+        v3 = transformedVertexBuffer + 4 * (*faceIter++);
+
+        if(v1[2] > -v1[3])
+          ndcFlag = 0b001;
+        if(v2[2] > -v2[3])
+          ndcFlag |= 0b010;
+        if(v3[2] > -v3[3])
+          ndcFlag |= 0b100;
+
+//        std::cout << "*** triangle\n";
+//        std::cout << "v1\t" << v1[0] << " - " << v1[0]/((float)v1[3]) << std::endl;
+//        std::cout << "  \t" << v1[1] << " - " << v1[1]/((float)v1[3]) << std::endl;
+//        std::cout << "  \t" << v1[2] << " - " << v1[2]/((float)v1[3]) << std::endl;
+//        std::cout << "  \t" << v1[3] << " - " << v1[3]/1024. << std::endl;
+//        std::cout << std::endl;
+//        std::cout << "v2\t" << v2[0] << " - " << v2[0]/((float)v2[3]) << std::endl;
+//        std::cout << "  \t" << v2[1] << " - " << v2[1]/((float)v2[3]) << std::endl;
+//        std::cout << "  \t" << v2[2] << " - " << v2[2]/((float)v2[3]) << std::endl;
+//        std::cout << "  \t" << v2[3] << " - " << v2[3]/1024. << std::endl;
+//        std::cout << std::endl;
+//        std::cout << "v3\t" << v3[0] << " - " << v3[0]/((float)v3[3]) << std::endl;
+//        std::cout << "  \t" << v3[1] << " - " << v3[1]/((float)v3[3]) << std::endl;
+//        std::cout << "  \t" << v3[2] << " - " << v3[2]/((float)v3[3]) << std::endl;
+//        std::cout << "  \t" << v3[3] << " - " << v3[3]/1024. << std::endl;
+//        std::cout << std::endl;
+
+        switch(ndcFlag)
+        {
+          case 0b000:
+            ++colorIter;
+            break;
+
+          case 0b001:
+            pushClippedTriangle1(this, v1, v2, v3, (*colorIter++));
+            break;
+
+          case 0b010:
+            pushClippedTriangle1(this, v2, v3, v1, (*colorIter++));
+            break;
+
+          case 0b011:
+            pushClippedTriangle2(this, v1, v2, v3, (*colorIter++));
+            break;
+
+          case 0b100:
+            pushClippedTriangle1(this, v3, v1, v2, (*colorIter++));
+            break;
+
+          case 0b101:
+            pushClippedTriangle2(this, v3, v1, v2, (*colorIter++));
+            break;
+
+          case 0b110:
+            pushClippedTriangle2(this, v2, v3, v1, (*colorIter++));
+            break;
+
+          case 0b111:
+            pushUnclippedTriangle(this, v1, v2, v3, (*colorIter++));
+            break;
+
+          default:
+            ++colorIter;
+            break;
+        }
+      }
+    }
+  }
+
+
+
+  // recursive call to children
+  {
+    SceneNode** child = node->children;
+    for(uint32_t childIndex = node->childCount;
+        childIndex;
+        --childIndex, ++child)
+    {
+      projectScene(*child, mvp, pass);
+    }
+  }
+  // end recursive call
+}
+
+void Engine::projectSceneOld(const SceneNode* node,
                           const Matrix& parentMvp,
                           uint32_t pass) noexcept
 {
@@ -138,30 +390,8 @@ void Engine::projectScene(const SceneNode* node,
         inY = (*inVertexBuffer++);
         inZ = (*inVertexBuffer++);
 
-//        int32_t w = (mvp.data[12] * inX
-//            +  mvp.data[13] * inY
-//            +  mvp.data[14] * inZ
-//            +  mvp.data[15] * 1024) >> 10;
-//        if(GROG_UNLIKELY(w == 0))
-//          w = 1;
-//        if(w<0)
-//          w = -w;
-        //      if(w >= 0)
         {
-#ifdef BEFORE
-          (*outTransformedVertexBuffer++) = (((mvp.data[0] * inX
-                                              +  mvp.data[1] * inY
-                                             +  mvp.data[2] * inZ
-              +  mvp.data[3] * 1024)/w) >> 10) + 40;
-          (*outTransformedVertexBuffer++) = (((mvp.data[4] * inX
-                                              +  mvp.data[5] * inY
-                                             +  mvp.data[6] * inZ
-              +  mvp.data[7] * 1024)/w) >> 10) + 32;
-          (*outTransformedVertexBuffer++) = (((mvp.data[8] * inX
-                                              +  mvp.data[9] * inY
-                                             +  mvp.data[10] * inZ
-              +  mvp.data[11] * 1024))/w);
-#else
+
           // X_ndc * 1024
           (*outTransformedVertexBuffer++) =    mvp.data[0] * inX
                                             +  mvp.data[1] * inY
@@ -185,7 +415,7 @@ void Engine::projectScene(const SceneNode* node,
                                             +  mvp.data[13] * inY
                                             +  mvp.data[14] * inZ
                                             +  mvp.data[15] * 1024;
-#endif
+
         }
       }
     }
@@ -193,7 +423,6 @@ void Engine::projectScene(const SceneNode* node,
 
     // push triangles
     {
-//      bool isInNDC(true);
 
       const uint32_t* faceIter = mesh.faces;
       const Gamebuino_Meta::ColorIndex* colorIter = mesh.colors;
@@ -205,11 +434,11 @@ void Engine::projectScene(const SceneNode* node,
         v2 = transformedVertexBuffer + 4 * (*faceIter++);
         v3 = transformedVertexBuffer + 4 * (*faceIter++);
 
-        if(v1[2] > -1024)
+        if(v1[2] > -v1[3])
           ndcFlag = 0b001;
-        if(v2[2] > -1024)
+        if(v2[2] > -v2[3])
           ndcFlag |= 0b010;
-        if(v3[2] > -1024)
+        if(v3[2] > -v3[3])
           ndcFlag |= 0b100;
 
         switch(ndcFlag)
@@ -412,6 +641,10 @@ void Engine::pushTriangle(Triangle& in) noexcept
 {
 
 //  std::cout << "Pushing\n";
+
+//  std::cout << "("  << in.p1x/1024. << ", " << in.p1y/1024. << ") ("
+//                    << in.p2x/1024. << ", " << in.p2y/1024. << ") ("
+//                    << in.p3x/1024. << ", " << in.p3y/1024. << ")\n";
 
 if(grog::orient2d(in.p1x, in.p1y, in.p2x, in.p2y, in.p3x, in.p3y) <= 0)
 {
