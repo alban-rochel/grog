@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
   //debug();
 
-  engine.init(100, 150, &pix);
+  engine.init(100, 100, &pix);
 
 #ifdef DEBUG_ALBAN
   static const int32_t vertexBuffer [] =
@@ -53,8 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
   scene.mesh.faces = nullptr;
   scene.mesh.faceCount = 0;
   scene.mesh.colors = nullptr;
-  scene.children = new grog::SceneNode*[5];
-  scene.childCount = 5;
+  scene.children = new grog::SceneNode*[7];
+  scene.childCount = 7;
 
   scene.children[0] = new grog::Car(true);
   scene.children[1] = new grog::Car(false);
@@ -62,9 +62,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
   scene.children[2] = new grog::Road();
   scene.children[3] = new grog::Road();
-  scene.children[3]->transform.identity().translate(16000, 0, 0);
+  scene.children[3]->transform.identity().translate(48000, 0, 0);
   scene.children[4] = new grog::Road();
-  scene.children[4]->transform.identity().translate(-16000, 0, 0);
+  scene.children[4]->transform.identity().translate(16000, 0, 0);
+  scene.children[5] = new grog::Road();
+  scene.children[5]->transform.identity().translate(-16000, 0, 0);
+  scene.children[6] = new grog::Road();
+  scene.children[6]->transform.identity().translate(-48000, 0, 0);
 #endif
 
 
@@ -103,12 +107,30 @@ MainWindow::MainWindow(QWidget *parent) :
   connect(ui->actionDefault, SIGNAL(triggered(bool)), this, SLOT(defaultScene()));
   connect(ui->actionLoad, SIGNAL(triggered(bool)), this, SLOT(convertObj()));
 
-  draw();
+  timer.setInterval(40);
+  connect(&timer, SIGNAL(timeout()), this, SLOT(step()));
+
+  timer.start();
+//  draw();
 }
 
 MainWindow::~MainWindow()
 {
   delete ui;
+}
+
+void MainWindow::step()
+{
+  static int32_t shift[] = {-32000, -16000, 0, 16000, 32000};
+  for(uint32_t roadIndex = 0; roadIndex < 5; ++roadIndex)
+  {
+    scene.children[2 + roadIndex]->transform.identity().translate(shift[roadIndex], 0, 0);
+    shift[roadIndex] += 300;
+    if(shift[roadIndex] >= 48000)
+      shift[roadIndex] -= 80000;
+  }
+
+  draw();
 }
 
 void MainWindow::debug()
@@ -389,62 +411,7 @@ void plop()
 
 void MainWindow::draw()
 {
-//  plop();
-//grog::Matrix::Projection(fov, near, far).print();
   engine.setProjection(fov, near, far);
-
-//  grog::Matrix proj = grog::Matrix::Projection(fov, near, far);
-//  int32_t nearFixed = grog::floatToFixed(near);
-//  int32_t farFixed = grog::floatToFixed(far);
-
-//  {
-//    int32_t x = 42*1024;
-//    int32_t y = 24*1024;
-//    int32_t z = nearFixed;
-//    int32_t w = 1024;
-
-//    std::cout << "near\n";
-//    int32_t projz = proj.data[8]*x + proj.data[9]*y + proj.data[10]*z + proj.data[11]*w;
-//    projz/=1024;
-//    int32_t projw = proj.data[12]*x + proj.data[13]*y + proj.data[14]*z + proj.data[15]*w;
-//    projw/=1024;
-//    std::cout << "z " << projz << " w " << projw << std::endl;
-//    std::cout << projz/(float)projw << std::endl;
-//  }
-
-//  {
-//    int32_t x = 42*1024;
-//    int32_t y = 24*1024;
-//    int32_t z = farFixed;
-//    int32_t w = 1024;
-
-//    std::cout << "far\n";
-//    int32_t projz = proj.data[8]*x + proj.data[9]*y + proj.data[10]*z + proj.data[11]*w;
-//    projz/=1024;
-//    int32_t projw = proj.data[12]*x + proj.data[13]*y + proj.data[14]*z + proj.data[15]*w;
-//    projw/=1024;
-//    std::cout << "z " << projz << " w " << projw << std::endl;
-//    std::cout << projz/(float)projw << std::endl;
-//  }
-//  std::cout.flush();
-
-//  grog::TransformMatrix::View(grog::floatToFixed(eyeX), grog::floatToFixed(eyeY), grog::floatToFixed(eyeZ),
-//                                               grog::floatToFixed(targetX), grog::floatToFixed(targetY), grog::floatToFixed(targetZ),
-//                                               grog::floatToFixed(upX), grog::floatToFixed(upY), grog::floatToFixed(upZ)).print();
-
-#ifdef DEBUG_ALBAN
-  eyeX = 10.;
-  eyeY = 0.;
-  eyeZ = 10.;
-
-  targetX = 0.;
-  targetY = 0.;
-  targetZ = 0.;
-
-  upX = 0.;
-  upY = 0.;
-  upZ = 1.;
-#endif
 
   engine.setView(grog::TransformMatrix::View(grog::floatToFixed(eyeX), grog::floatToFixed(eyeY), grog::floatToFixed(eyeZ),
                                              grog::floatToFixed(targetX), grog::floatToFixed(targetY), grog::floatToFixed(targetZ),

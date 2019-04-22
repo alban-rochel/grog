@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 #include "grog.h"
 #include "Engine.h"
 
@@ -42,6 +43,8 @@ class MainWindow : public QMainWindow
     void defaultScene();
     void convertObj();
 
+    void step();
+
   private:
     Ui::MainWindow *ui;
 
@@ -53,6 +56,7 @@ class MainWindow : public QMainWindow
     grog::SceneNode scene {};
     grog::Engine engine {};
     QPixmap pix {80, 64};
+    QTimer timer;
 
     void draw();
 

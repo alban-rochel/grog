@@ -69,7 +69,7 @@ GROG_INLINE void pushClippedTriangle1(grog::Engine* engine,
     w = 1;
   projection.p1x = ((v1[0]/w) >> 10) + 40;
   projection.p1y = ((v1[1]/w) >> 10) + 32;
-  projection.z = v1[2] / w;
+  projection.z = 3 * v1[2];
 
   int32_t gamma_num;
   int32_t gamma_den;
@@ -145,7 +145,7 @@ GROG_INLINE void pushClippedTriangle2(grog::Engine* engine,
     w = 1;
   projection1.p2x = ((v2[0]/w) >> 10) + 40;
   projection1.p2y = ((v2[1]/w) >> 10) + 32;
-  projection1.z = v2[2] / w;
+  projection1.z = 3 * v2[2];
 
   int32_t gamma_num;
   int32_t gamma_den;
@@ -634,6 +634,9 @@ void Engine::debugTriangleStack()
     current = current->next;
     ++count;
   }
+
+  if(triangleCount)
+    exit(0);
 }
 
 #include <cstdio>
@@ -668,6 +671,14 @@ void Engine::pushDebugTriangles()
 }
 #endif
 
+constexpr bool displayable(const Triangle& in) noexcept
+{
+  return !((in.p1x < 0 && in.p2x < 0 && in.p3x < 0) ||
+           (in.p1y < 0 && in.p2y < 0 && in.p3y < 0) ||
+           (in.p1x > 79 && in.p2x > 79 && in.p3x > 79) ||
+           (in.p1y > 63 && in.p2y > 63 && in.p3y > 63));
+}
+
 void Engine::pushTriangle(Triangle& in) noexcept
 {
 
@@ -679,13 +690,43 @@ void Engine::pushTriangle(Triangle& in) noexcept
 
 if(grog::orient2d(in.p1x, in.p1y, in.p2x, in.p2y, in.p3x, in.p3y) <= 0)
 {
-//  std::cout << "Discarding\n";
   return;
 }
+
+if(!displayable(in))
+{
+  return;
+}
+
 
   if(triangleCount == maxTriangles)
   {
     // replace triangles
+
+    // The new head is the second = triangleStackHead;
+    Triangle* insertedTriangle = triangleStackHead;
+    triangleStackHead = triangleStackHead->next;
+    *insertedTriangle = in;
+
+    {
+      Triangle* current = triangleStackHead;
+      while(current->next && current->next->z > insertedTriangle->z)
+      {
+        current = current->next;
+      }
+
+      if(GROG_UNLIKELY(current->next == nullptr))
+      {
+        insertedTriangle->next = nullptr;
+        current->next = insertedTriangle;
+      }
+      else // current->z > insertedTriangle->z && current->next->z <= insertedTriangle->z
+      {
+        insertedTriangle->next= current->next;
+        current->next = insertedTriangle;
+      }
+    }
+
   }
   else
   {
