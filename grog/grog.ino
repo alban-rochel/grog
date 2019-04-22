@@ -50,8 +50,8 @@ void loop()
 
   int32_t shift[] = {-16000, 0, 16000};
 
-  int32_t azimut = 0;
-  int32_t tilt = 150;
+  int32_t azimut = 60;
+  int32_t tilt = 50;
   int32_t distance = 2 << 3;
 
   while(true)
@@ -84,7 +84,7 @@ void loop()
       distance += 1;
     }
 
-    tilt = grog::min2(grog::max2(150, tilt), 400);
+    tilt = grog::min2(grog::max2(50, tilt), 200);
     distance = grog::min2(grog::max2(2 << 3, distance), 10 << 3);
 
     gb.display.setColor(Gamebuino_Meta::ColorIndex::black);
