@@ -586,7 +586,7 @@ void Engine::projectScene(const SceneNode *node, uint32_t pass) noexcept
 void Engine::render() noexcept
 {
   const Triangle* currentTriangle = triangleStackHead;
-  while(currentTriangle)
+  while(GROG_LIKELY(currentTriangle != nullptr))
   {
 #ifdef __linux
     rasterizeTriangle(*currentTriangle, display.buffer);
@@ -671,7 +671,7 @@ void Engine::pushDebugTriangles()
 }
 #endif
 
-constexpr bool displayable(const Triangle& in) noexcept
+GROG_INLINE bool displayable(const Triangle& in) noexcept
 {
   return !((in.p1x < 0 && in.p2x < 0 && in.p3x < 0) ||
            (in.p1y < 0 && in.p2y < 0 && in.p3y < 0) ||

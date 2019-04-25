@@ -1,5 +1,7 @@
 #pragma once
 
+#include "grog.h"
+
 namespace grog
 {
   static constexpr int32_t cosines[] = {
@@ -40,12 +42,12 @@ namespace grog
   static constexpr int32_t Pi = 512;
   static constexpr int32_t Pi_2 = 256;
 
-  constexpr int32_t Cos(int32_t angle) noexcept
+  GROG_INLINE int32_t Cos(int32_t angle) noexcept
   {
     return cosines[angle & 0x3FF];
   }
 
-  constexpr int32_t Sin(int32_t angle) noexcept
+  GROG_INLINE int32_t Sin(int32_t angle) noexcept
   {
     return -cosines[(angle + Pi_2) & 0x3FF];
   }

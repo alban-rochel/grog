@@ -55,7 +55,7 @@ void grog::rasterizeTriangle(const Triangle& triangle,
     w3 = w3_row;
     /*bool lineDone(false);*/
     bool wasOk(false);
-    for(int x = maxX - minX + 1; x /*&& !lineDone*/; --x, /*++tmp,*/ w1 += _A23, w2 += _A31, w3 += _A12)
+    for(int x = maxX - minX + 1; GROG_LIKELY(x); --x, w1 += _A23, w2 += _A31, w3 += _A12)
     {
       if((w1|w2|w3) >= 0)
       {
@@ -87,32 +87,6 @@ void grog::rasterizeTriangle(const Triangle& triangle,
       upperNibble = ! upperNibble;
 
     }
-  }
-}
-
-void oldgrog::normalize(float* io) noexcept
-{
-  float norm =  (io[0] * io[0]) +
-      (io[1] * io[1]) +
-      (io[2] * io[2]);
-  float invSqrt = 1.f/sqrtf(norm);
-  io[0] *= invSqrt;
-  io[1] *= invSqrt;
-  io[2] *= invSqrt;
-}
-
-void oldgrog::crossProd(float* left,
-                     float* right,
-                     float* out,
-                     bool normalize) noexcept
-{
-  out[0] = left[1] * right[2] - right[1] * left[2];
-  out[1] = left[2] * right[0] - right[2] * left[0];
-  out[2] = left[0] * right[1] - right[0] * left[1];
-
-  if(normalize)
-  {
-    oldgrog::normalize(out);
   }
 }
 

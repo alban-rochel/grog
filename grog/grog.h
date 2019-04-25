@@ -13,7 +13,7 @@ typedef int32_t Fixed;
 
 namespace grog
 {
-    constexpr int32_t floatToFixed(float val) noexcept
+    GROG_INLINE int32_t floatToFixed(float val) noexcept
     {
       return (int32_t)(val * 1024.f + 0.5f);
     }
@@ -46,27 +46,27 @@ namespace grog
         Triangle* next {nullptr};
     } ;
 
-    constexpr const int& min2(const int &t1, const int &t2) noexcept
+    GROG_INLINE const int& min2(const int &t1, const int &t2) noexcept
     {
         return (t1 < t2 ? t1 : t2);
     }
 
-    constexpr const int& max2(const int &t1, const int &t2) noexcept
+    GROG_INLINE const int& max2(const int &t1, const int &t2) noexcept
     {
         return (t1 > t2 ? t1 : t2);
     }
 
-    constexpr const int& min3(const int& t1, const int &t2, const int &t3) noexcept
+    GROG_INLINE const int& min3(const int& t1, const int &t2, const int &t3) noexcept
     {
         return (t1 < t2 ? min2(t1, t3) : min2(t2, t3));
     }
 
-    constexpr const int& max3(const int &t1, const int &t2, const int &t3) noexcept
+    GROG_INLINE const int& max3(const int &t1, const int &t2, const int &t3) noexcept
     {
         return (t1 > t2 ? max2(t1, t3) : max2(t2, t3));
     }
 
-    constexpr int orient2d(const int& p1x, const int& p1y,
+    GROG_INLINE int orient2d(const int& p1x, const int& p1y,
                            const int& p2x, const int& p2y,
                            const int& p3x, const int& p3y) noexcept
     {
@@ -84,12 +84,3 @@ namespace grog
                    bool normalize) noexcept;
 }
 
-namespace oldgrog
-{
-  void normalize(float* io) noexcept;
-
-  void crossProd(float* left,
-                 float* right,
-                 float* out,
-                 bool normalize) noexcept;
-}
