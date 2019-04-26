@@ -22,17 +22,6 @@ namespace grog
     constexpr unsigned int screenHeight = 64;
     using bufferType = uint8_t;
 
-    using vec4f = float[4];
-    using mat44f = float[4*4];
-    using vec4i = int[4];
-    using mat44i = int[4*4];
-
-    using trianglef = vec4f[3];
-    using trianglei = vec4i[3];
-
-//    using coord = int32_t;
-//    using vertex = coord[3];
-
     struct Triangle// in normalized cube
     {
         int32_t p1x{0};

@@ -21,8 +21,6 @@ class MainWindow : public QMainWindow
     void generateTrigo();
 
   protected slots:
-    /*void animate();*/
-    void debug();
 
     void eyeXChanged(double);
     void eyeYChanged(double);

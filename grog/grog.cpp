@@ -1,7 +1,7 @@
 #include "grog.h"
 
 using namespace grog;
-#include <cstdio>
+
 void grog::rasterizeTriangle(const Triangle& triangle,
                              bufferType* __restrict frameBuffer) noexcept
 {
@@ -11,15 +11,6 @@ void grog::rasterizeTriangle(const Triangle& triangle,
   int32_t maxX = max3(triangle.p1x, triangle.p2x, triangle.p3x);
   int32_t minY = min3(triangle.p1y, triangle.p2y, triangle.p3y);
   int32_t maxY = max3(triangle.p1y, triangle.p2y, triangle.p3y);
-
-//  if(maxY < 0)
-//    return;
-//  if(maxX < 0)
-//    return;
-//  if(minX > (int32_t)screenWidth - 1)
-//    return;
-//  if(minY > (int32_t)screenHeight - 1)
-//    return;
 
   // Clip against screen bounds;
 
@@ -42,8 +33,8 @@ void grog::rasterizeTriangle(const Triangle& triangle,
   int w1(0), w2(0), w3(0);
   bufferType* lineStart = frameBuffer + (minY * screenWidth + minX) / 2;
   bool upperNibbleStart = (minY * screenWidth + minX) & 0x1;
-  const uint8_t& col1 = (uint8_t)(triangle.color) & 0x0F;
-  uint8_t colShift = col1 << 4;
+  const uint8_t& colorLower = (uint8_t)(triangle.color) & 0x0F;
+  uint8_t colorUpper = colorLower << 4;
 
   for(int y = maxY - minY + 1; y; --y, lineStart += screenWidth/2, w1_row += _B23, w2_row += _B31, w3_row += _B12)
   {
@@ -53,7 +44,7 @@ void grog::rasterizeTriangle(const Triangle& triangle,
     w1 = w1_row;
     w2 = w2_row;
     w3 = w3_row;
-    /*bool lineDone(false);*/
+
     bool wasOk(false);
     for(int x = maxX - minX + 1; GROG_LIKELY(x); --x, w1 += _A23, w2 += _A31, w3 += _A12)
     {
@@ -61,12 +52,12 @@ void grog::rasterizeTriangle(const Triangle& triangle,
       {
         if(upperNibble)
         {
-          *tmp = (*tmp & 0xF0) | col1;
+          *tmp = (*tmp & 0xF0) | colorLower;
           ++tmp;
         }
         else
         {
-          *tmp = (*tmp & 0x0F) | colShift;
+          *tmp = (*tmp & 0x0F) | colorUpper;
         }
         wasOk = true;
       }
@@ -74,7 +65,6 @@ void grog::rasterizeTriangle(const Triangle& triangle,
       {
         if(wasOk)
         {
-          //lineDone = true;
           break;
         }
         if(upperNibble)
@@ -82,7 +72,6 @@ void grog::rasterizeTriangle(const Triangle& triangle,
           ++tmp;
         }
       }
-
 
       upperNibble = ! upperNibble;
 
@@ -92,16 +81,6 @@ void grog::rasterizeTriangle(const Triangle& triangle,
 
 void grog::normalize(int32_t* io) noexcept
 {
-  /*int32_t norm =  (io[0] * io[0]) +
-                  (io[1] * io[1]) +
-                  (io[2] * io[2]);
-  float invSqrt = 1.f/(1024.f * sqrtf(norm));
-  io[0] *= invSqrt;
-  io[1] *= invSqrt;
-  io[2] *= invSqrt;*/
-  /*float norm =  ((io[0] * io[0]) +
-                (io[1] * io[1]) +
-                (io[2] * io[2]));*/
   float sqrtNorm = sqrtf((io[0] * io[0]) +
                           (io[1] * io[1]) +
                           (io[2] * io[2])); // =sqrt norm << 5
