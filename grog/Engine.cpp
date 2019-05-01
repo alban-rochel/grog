@@ -8,296 +8,317 @@
 
 using namespace grog;
 
-#define INVALID_I32 (0x7FFFFFFF)
-
-#include <string.h>
-
 #ifdef __linux
 #include <iostream>
 #define PRINT_TRIANGLE(t) if(!t) std::cout << "NULL\n"; else std::cout << t->z << " - (" << t->p1x/1024. << "," << t->p1y/1024. <<") - ("<< t->p2x/1024. << "," << t->p2y/1024. <<") - ("<< t->p3x/1024. << "," << t->p3y/1024. <<") " << (t->next ? "+next\n" : "+end\n");
 #endif
 
-Engine::Engine() noexcept
-{
-
-}
-
 Engine::~Engine() noexcept
 {
-  if(transformedVertexBuffer)
-    delete[] transformedVertexBuffer;
+  if(m_transformedVertexBuffer)
+    delete[] m_transformedVertexBuffer;
 
-  if(triangleStack)
-    delete[] triangleStack;
+  if(m_triangleStack)
+    delete[] m_triangleStack;
 }
 
-void Engine::init(uint32_t maxVerticesPerMesh,
-                  uint32_t maxTriangles
-#ifdef __linux
+void Engine::init(uint32_t in_maxVerticesPerMesh,
+                  uint32_t in_maxTriangles
+                  #ifdef __linux
                   , QPixmap* pixmap
-#endif
+                  #endif
                   ) noexcept
 {
-  if(transformedVertexBuffer)
-    delete[] transformedVertexBuffer;
+  if(m_transformedVertexBuffer)
+    delete[] m_transformedVertexBuffer;
 
-  transformedVertexBuffer = new /*(std::nothrow)*/ int32_t[maxVerticesPerMesh*4];
+  m_transformedVertexBuffer = new int32_t[in_maxVerticesPerMesh*4];
 
-  if(triangleStack)
-    delete[] triangleStack;
+  if(m_triangleStack)
+    delete[] m_triangleStack;
 
-  triangleStack = new /*(std::nothrow)*/ Triangle[maxTriangles];
-  triangleStackHead = nullptr;
-  triangleCount = 0;
-  this->maxTriangles = maxTriangles;
+  m_triangleStack = new Triangle[in_maxTriangles];
+  m_triangleStackHead = nullptr;
+  m_triangleCount = 0;
+  m_maxTriangles = in_maxTriangles;
 
 #ifdef __linux
   display.pixmap = pixmap;
 #endif
 }
 
-GROG_INLINE void pushClippedTriangle1(grog::Engine* engine,
-                                      int32_t* v1 /* inside */,
-                                      int32_t* v2 /* outside */,
-                                      int32_t* v3 /* outside */,
-                                      const Gamebuino_Meta::ColorIndex& color)
+/**
+ * @brief Computes and pushes the triangle in the clipping area (farther than the near plane), when only 1 vertex of the input triangle is within the clipping area.
+ * @param in_engine The engine.
+ * @param in_v1 The MVP-transformed vertex in homogenous coordinates that is within the clipping area (farther than the near plane).
+ * @param in_v2 An MVP-transformed vertex in homogenous coordinates that is outside the clipping area (closer than the near plane, or behind camera).
+ * @param in_v3 An MVP-transformed vertex in homogenous coordinates that is outside the clipping area (closer than the near plane, or behind camera).
+ * @param in_color The triangle color.
+ */
+GROG_INLINE void pushClippedTriangle1(grog::Engine* in_engine,
+                                      int32_t* in_v1 /* inside */,
+                                      int32_t* in_v2 /* outside */,
+                                      int32_t* in_v3 /* outside */,
+                                      const Gamebuino_Meta::ColorIndex& in_color)
 {
-//  std::cout << "*** Clipped 1\n";
-  Triangle projection;
+  Triangle projection; // This is the triangle within the clipping area that we are going to compute.
 
-  int32_t w = v1[3] >> 10;
+  // The first vertex is unchanged.
+  // Apply perspective, scale in the [-40,40] and [-32,32] domain, to fit the screen
+  int32_t w = in_v1[3] >> 10;
   if(GROG_UNLIKELY(w==0))
     w = 1;
-  projection.p1x = ((v1[0]/w) >> 10) + 40;
-  projection.p1y = ((v1[1]/w) >> 10) + 32;
-  projection.z = 3 * v1[2];
+  projection.m_p1x = ((in_v1[0]/w) >> 10) + 40;
+  projection.m_p1y = ((in_v1[1]/w) >> 10) + 32;
+  projection.m_z = 3 * in_v1[2];
 
+  // Now we are looking for gamma = gamma_num/gamma_den, such that gamma * v1 + (1-gamma) * v2 lies on the near plane, ie w=-z.
   int32_t gamma_num;
   int32_t gamma_den;
-//  int32_t z;
 
   {
     // Process v1 (in) vs v2 (out)
-#define Z1 v1[2]
-#define W1 v1[3]
-#define Z2 v2[2]
-#define W2 v2[3]
-     gamma_num = - W2 - Z2;
-     gamma_den = Z1 - Z2 - W2 + W1;
+#define Z1 in_v1[2]
+#define W1 in_v1[3]
+#define Z2 in_v2[2]
+#define W2 in_v2[3]
+    gamma_num = - W2 - Z2;
+    gamma_den = Z1 - Z2 - W2 + W1;
 #undef Z1
 #undef W1
 #undef Z2
 #undef W2
-     w = -(gamma_num * ((v1[2] - v2[2]) / gamma_den) + v2[2]) >> 10;
-     if(GROG_UNLIKELY(w==0))
-       w = 1;
+    w = -(gamma_num * ((in_v1[2] - in_v2[2]) / gamma_den) + in_v2[2]) >> 10;
+    if(GROG_UNLIKELY(w==0))
+      w = 1;
 
-     projection.p2x = gamma_num * ((v1[0] - v2[0]) / gamma_den) + v2[0];
-     projection.p2x = ((projection.p2x/w) >> 10) + 40;
-     projection.p2y = gamma_num * ((v1[1] - v2[1]) / gamma_den) + v2[1];
-     projection.p2y = ((projection.p2y/w) >> 10) + 32;
+    // We have our second vertex
+    // Apply perspective, scale in the [-40,40] and [-32,32] domain, to fit the screen
+    projection.m_p2x = gamma_num * ((in_v1[0] - in_v2[0]) / gamma_den) + in_v2[0];
+    projection.m_p2x = ((projection.m_p2x/w) >> 10) + 40;
+    projection.m_p2y = gamma_num * ((in_v1[1] - in_v2[1]) / gamma_den) + in_v2[1];
+    projection.m_p2y = ((projection.m_p2y/w) >> 10) + 32;
   }
 
+  // Same thing for the third vertex. Fun, ain't it?
   {
     // Process v1 (in) vs v3 (out)
-#define Z1 v1[2]
-#define W1 v1[3]
-#define Z2 v3[2]
-#define W2 v3[3]
-     gamma_num = - W2 - Z2;
-     gamma_den = Z1 - Z2 - W2 + W1;
+#define Z1 in_v1[2]
+#define W1 in_v1[3]
+#define Z2 in_v3[2]
+#define W2 in_v3[3]
+    gamma_num = - W2 - Z2;
+    gamma_den = Z1 - Z2 - W2 + W1;
 #undef Z1
 #undef W1
 #undef Z2
 #undef W2
-     w = -(gamma_num * ((v1[2] - v3[2]) / gamma_den) + v3[2]) >> 10;
-     if(GROG_UNLIKELY(w==0))
-       w = 1;
+    w = -(gamma_num * ((in_v1[2] - in_v3[2]) / gamma_den) + in_v3[2]) >> 10;
+    if(GROG_UNLIKELY(w==0))
+      w = 1;
 
-     projection.p3x = gamma_num * ((v1[0] - v3[0]) / gamma_den) + v3[0];
-     projection.p3x = ((projection.p3x/w) >> 10) + 40;
-     projection.p3y = gamma_num * ((v1[1] - v3[1]) / gamma_den) + v3[1];
-     projection.p3y = ((projection.p3y/w) >> 10) + 32;
+    projection.m_p3x = gamma_num * ((in_v1[0] - in_v3[0]) / gamma_den) + in_v3[0];
+    projection.m_p3x = ((projection.m_p3x/w) >> 10) + 40;
+    projection.m_p3y = gamma_num * ((in_v1[1] - in_v3[1]) / gamma_den) + in_v3[1];
+    projection.m_p3y = ((projection.m_p3y/w) >> 10) + 32;
   }
 
-  projection.color = color;
+  projection.color = in_color;
 
-  engine->pushTriangle(projection);
+  in_engine->pushTriangle(projection);
 }
 
-GROG_INLINE void pushClippedTriangle2(grog::Engine* engine,
-                                      int32_t* v1 /* inside */,
-                                      int32_t* v2 /* inside */,
-                                      int32_t* v3 /* outside */,
-                                      const Gamebuino_Meta::ColorIndex& color)
+/**
+ * @brief Computes and pushes the triangls in the clipping area (farther than the near plane), when only 2 vertices of the input triangle is within the clipping area.
+ * @param in_engine The engine.
+ * @param in_v1 An MVP-transformed vertex in homogenous coordinates that is within the clipping area (farther than the near plane).
+ * @param in_v2 An MVP-transformed vertex in homogenous coordinates that is within the clipping area (farther than the near plane).
+ * @param in_v3 The MVP-transformed vertex in homogenous coordinates that is outside the clipping area (closer than the near plane, or behind camera).
+ * @param in_color The triangle color.
+ */
+GROG_INLINE void pushClippedTriangle2(grog::Engine* in_engine,
+                                      int32_t* in_v1 /* inside */,
+                                      int32_t* in_v2 /* inside */,
+                                      int32_t* in_v3 /* outside */,
+                                      const Gamebuino_Meta::ColorIndex& in_color)
 {
-//  std::cout << "*** Clipped 2\n";
-  Triangle projection1 /*(v1, v2, vn)*/, projection2 /*(v1, vn, vm)*/;
+  Triangle projection1 , projection2;
 
-  int32_t w = v1[3] >> 10;
+  // The first vertex is unchanged.
+  // Apply perspective, scale in the [-40,40] and [-32,32] domain, to fit the screen
+  int32_t w = in_v1[3] >> 10;
   if(GROG_UNLIKELY(w==0))
     w = 1;
-  projection1.p1x = projection2.p1x = ((v1[0]/w) >> 10) + 40;
-  projection1.p1y = projection2.p1y = ((v1[1]/w) >> 10) + 32;
-  projection1.z = projection2.z = v1[2] / w;
+  projection1.m_p1x = projection2.m_p1x = ((in_v1[0]/w) >> 10) + 40;
+  projection1.m_p1y = projection2.m_p1y = ((in_v1[1]/w) >> 10) + 32;
+  projection1.m_z = projection2.m_z = in_v1[2] / w;
 
-  w = v2[3] >> 10;
+  // Same for v2
+  w = in_v2[3] >> 10;
   if(GROG_UNLIKELY(w==0))
     w = 1;
-  projection1.p2x = ((v2[0]/w) >> 10) + 40;
-  projection1.p2y = ((v2[1]/w) >> 10) + 32;
-  projection1.z = 3 * v2[2];
+  projection1.m_p2x = ((in_v2[0]/w) >> 10) + 40;
+  projection1.m_p2y = ((in_v2[1]/w) >> 10) + 32;
+  projection1.m_z = 3 * in_v2[2];
 
+  // Now we are looking for gamma = gamma_num/gamma_den, such that gamma * v2 + (1-gamma) * v3 lies on the near plane, ie w=-z.
   int32_t gamma_num;
   int32_t gamma_den;
-//  int32_t z;
 
   {
     // Process v2 (in) vs v3 (out)
-#define Z1 v2[2]
-#define W1 v2[3]
-#define Z2 v3[2]
-#define W2 v3[3]
-     gamma_num = - W2 - Z2;
-     gamma_den = Z1 - Z2 - W2 + W1;
+#define Z1 in_v2[2]
+#define W1 in_v2[3]
+#define Z2 in_v3[2]
+#define W2 in_v3[3]
+    gamma_num = - W2 - Z2;
+    gamma_den = Z1 - Z2 - W2 + W1;
 #undef Z1
 #undef W1
 #undef Z2
 #undef W2
-     w = -(gamma_num * ((v2[2] - v3[2]) / gamma_den) + v3[2]) >> 10;
-     if(GROG_UNLIKELY(w==0))
-       w = 1;
+    w = -(gamma_num * ((in_v2[2] - in_v3[2]) / gamma_den) + in_v3[2]) >> 10;
+    if(GROG_UNLIKELY(w==0))
+      w = 1;
 
-     projection1.p3x = gamma_num * ((v2[0] - v3[0]) / gamma_den) + v3[0];
-     projection1.p3x = projection2.p2x = ((projection1.p3x/w) >> 10) + 40;
-     projection1.p3y = gamma_num * ((v2[1] - v3[1]) / gamma_den) + v3[1];
-     projection1.p3y = projection2.p2y = ((projection1.p3y/w) >> 10) + 32;
+    // We have our second vertex
+    // Apply perspective, scale in the [-40,40] and [-32,32] domain, to fit the screen
+    projection1.m_p3x = gamma_num * ((in_v2[0] - in_v3[0]) / gamma_den) + in_v3[0];
+    projection1.m_p3x = projection2.m_p2x = ((projection1.m_p3x/w) >> 10) + 40;
+    projection1.m_p3y = gamma_num * ((in_v2[1] - in_v3[1]) / gamma_den) + in_v3[1];
+    projection1.m_p3y = projection2.m_p2y = ((projection1.m_p3y/w) >> 10) + 32;
   }
 
 
+  // Same thing for the 4th vertex.
   {
     // Process v1 (in) vs v3 (out)
-#define Z1 v1[2]
-#define W1 v1[3]
-#define Z2 v3[2]
-#define W2 v3[3]
-     gamma_num = - W2 - Z2;
-     gamma_den = Z1 - Z2 - W2 + W1;
+#define Z1 in_v1[2]
+#define W1 in_v1[3]
+#define Z2 in_v3[2]
+#define W2 in_v3[3]
+    gamma_num = - W2 - Z2;
+    gamma_den = Z1 - Z2 - W2 + W1;
 #undef Z1
 #undef W1
 #undef Z2
 #undef W2
-     w = -(gamma_num * ((v1[2] - v3[2]) / gamma_den) + v3[2]) >> 10;
-     if(GROG_UNLIKELY(w==0))
-       w = 1;
+    w = -(gamma_num * ((in_v1[2] - in_v3[2]) / gamma_den) + in_v3[2]) >> 10;
+    if(GROG_UNLIKELY(w==0))
+      w = 1;
 
-     projection2.p3x = gamma_num * ((v1[0] - v3[0]) / gamma_den) + v3[0];
-     projection2.p3x = ((projection2.p3x/w) >> 10) + 40;
-     projection2.p3y = gamma_num * ((v1[1] - v3[1]) / gamma_den) + v3[1];
-     projection2.p3y = ((projection2.p3y/w) >> 10) + 32;
+    projection2.m_p3x = gamma_num * ((in_v1[0] - in_v3[0]) / gamma_den) + in_v3[0];
+    projection2.m_p3x = ((projection2.m_p3x/w) >> 10) + 40;
+    projection2.m_p3y = gamma_num * ((in_v1[1] - in_v3[1]) / gamma_den) + in_v3[1];
+    projection2.m_p3y = ((projection2.m_p3y/w) >> 10) + 32;
   }
 
-  projection1.color = projection2.color = color;
+  projection1.color = projection2.color = in_color;
 
-  engine->pushTriangle(projection1);
-  engine->pushTriangle(projection2);
+  in_engine->pushTriangle(projection1);
+  in_engine->pushTriangle(projection2);
 }
 
-
-GROG_INLINE void pushUnclippedTriangle(grog::Engine* engine,
-                                       int32_t* v1,
-                                       int32_t* v2,
-                                       int32_t* v3,
-                                       const Gamebuino_Meta::ColorIndex& color)
+/**
+ * @brief Pushes a triangle with all vertices farther than the near plane (no clipping).
+ * @param[in] in_engine The engine.
+ * @param[in] in_v1 An MVP-transformed vertex in homogenous coordinates.
+ * @param[in] in_v2 An MVP-transformed vertex in homogenous coordinates.
+ * @param[in] in_v3 An MVP-transformed vertex in homogenous coordinates.
+ * @param[in] in_color The triangle color.
+ */
+GROG_INLINE void pushUnclippedTriangle(grog::Engine* in_engine,
+                                       int32_t* in_v1,
+                                       int32_t* in_v2,
+                                       int32_t* in_v3,
+                                       const Gamebuino_Meta::ColorIndex& in_color)
 {
-//  std::cout << "*** unclipped\n";
+  //  std::cout << "*** unclipped\n";
   Triangle projection;
 
-  projection.p1x = (*v1++);
-  projection.p1y = (*v1++);
-  projection.z = (*v1++);
-  int32_t w = (*v1++) >> 10;
+  projection.m_p1x = (*in_v1++);
+  projection.m_p1y = (*in_v1++);
+  projection.m_z = (*in_v1++);
+  int32_t w = (*in_v1++) >> 10;
   if(GROG_UNLIKELY(w == 0))
     w = 1;
-  projection.p1x = ((projection.p1x/w) >> 10) + 40;
-  projection.p1y = ((projection.p1y/w) >> 10) + 32;
+  projection.m_p1x = ((projection.m_p1x/w) >> 10) + 40;
+  projection.m_p1y = ((projection.m_p1y/w) >> 10) + 32;
 
-  projection.p2x = (*v2++);
-  projection.p2y = (*v2++);
-  projection.z += (*v2++);
-  w = (*v2++) >> 10;
+  projection.m_p2x = (*in_v2++);
+  projection.m_p2y = (*in_v2++);
+  projection.m_z += (*in_v2++);
+  w = (*in_v2++) >> 10;
   if(GROG_UNLIKELY(w == 0))
     w = 1;
-  projection.p2x = ((projection.p2x/w) >> 10) + 40;
-  projection.p2y = ((projection.p2y/w) >> 10) + 32;
+  projection.m_p2x = ((projection.m_p2x/w) >> 10) + 40;
+  projection.m_p2y = ((projection.m_p2y/w) >> 10) + 32;
 
-  projection.p3x = (*v3++);
-  projection.p3y = (*v3++);
-  projection.z += (*v3++);
-  w = (*v3++) >> 10;
+  projection.m_p3x = (*in_v3++);
+  projection.m_p3y = (*in_v3++);
+  projection.m_z += (*in_v3++);
+  w = (*in_v3++) >> 10;
   if(GROG_UNLIKELY(w == 0))
     w = 1;
-  projection.p3x = ((projection.p3x/w) >> 10) + 40;
-  projection.p3y = ((projection.p3y/w) >> 10) + 32;
+  projection.m_p3x = ((projection.m_p3x/w) >> 10) + 40;
+  projection.m_p3y = ((projection.m_p3y/w) >> 10) + 32;
 
-  projection.color = color;
+  projection.color = in_color;
 
-  engine->pushTriangle(projection);
+  in_engine->pushTriangle(projection);
 }
 
-void Engine::projectScene(const SceneNode *node, const Matrix &parentMvp, uint32_t pass) noexcept
+void Engine::projectScene(const SceneNode *in_node, const Matrix &in_parentMvp, uint32_t in_pass) noexcept
 {
-  if(GROG_UNLIKELY(node == nullptr))
+  if(GROG_UNLIKELY(in_node == nullptr))
     return;
 
   Matrix mvp;
-  Matrix::Transform(parentMvp, node->transform, mvp);
+  Matrix::Transform(in_parentMvp, in_node->m_transform, mvp);
 
-  if(pass & node->renderPass)
+  if(in_pass & in_node->m_renderPass)
   {
-    const Mesh& mesh = node->mesh;
+    const Mesh& mesh = in_node->m_mesh;
 
     // project all the coordinates in transformedVertexBuffer
     {
-      const int32_t* inVertexBuffer = mesh.vertexBuffer;
-      int32_t* outTransformedVertexBuffer = transformedVertexBuffer;
+      const int32_t* inVertexBuffer = mesh.m_vertexBuffer;
+      int32_t* outTransformedVertexBuffer = m_transformedVertexBuffer;
       int32_t inX(0), inY(0), inZ(0);
       int32_t outZ(0);
-      //    int pouet(0);
-      for(uint32_t vertexIndex = mesh.vertexCount; vertexIndex; --vertexIndex)
+
+      for(uint32_t vertexIndex = mesh.m_vertexCount; vertexIndex; --vertexIndex)
       {
         inX = (*inVertexBuffer++);
         inY = (*inVertexBuffer++);
         inZ = (*inVertexBuffer++);
 
-
-
         {
           outZ =  mvp.m_data[8] * inX +
-                  mvp.m_data[9] * inY +
-                  mvp.m_data[10] * inZ +
-                  mvp.m_data[11] * 1024;
+              mvp.m_data[9] * inY +
+              mvp.m_data[10] * inZ +
+              mvp.m_data[11] * 1024;
 
-            // X_ndc * 1024
-            (*outTransformedVertexBuffer++) =    mvp.m_data[0] * inX
-                                              +  mvp.m_data[1] * inY
-                                              +  mvp.m_data[2] * inZ
-                                              +  mvp.m_data[3] * 1024;
+          // X_ndc * 1024
+          (*outTransformedVertexBuffer++) =    mvp.m_data[0] * inX
+              +  mvp.m_data[1] * inY
+              +  mvp.m_data[2] * inZ
+              +  mvp.m_data[3] * 1024;
 
-            // Y_ndc * 1024
-            (*outTransformedVertexBuffer++) =    mvp.m_data[4] * inX
-                                              +  mvp.m_data[5] * inY
-                                              +  mvp.m_data[6] * inZ
-                                              +  mvp.m_data[7] * 1024;
+          // Y_ndc * 1024
+          (*outTransformedVertexBuffer++) =    mvp.m_data[4] * inX
+              +  mvp.m_data[5] * inY
+              +  mvp.m_data[6] * inZ
+              +  mvp.m_data[7] * 1024;
 
-            // Z_ndc * 1024
-            (*outTransformedVertexBuffer++) = outZ;
+          // Z_ndc * 1024
+          (*outTransformedVertexBuffer++) = outZ;
 
-            // W_ndc * 1024
-            (*outTransformedVertexBuffer++) =    mvp.m_data[12] * inX
-                                              +  mvp.m_data[13] * inY
-                                              +  mvp.m_data[14] * inZ
-                                              +  mvp.m_data[15] * 1024;
+          // W_ndc * 1024
+          (*outTransformedVertexBuffer++) =    mvp.m_data[12] * inX
+              +  mvp.m_data[13] * inY
+              +  mvp.m_data[14] * inZ
+              +  mvp.m_data[15] * 1024;
         }
       }
     }
@@ -305,15 +326,17 @@ void Engine::projectScene(const SceneNode *node, const Matrix &parentMvp, uint32
 
     // push triangles
     {
-      const uint32_t* faceIter = mesh.faces;
-      const Gamebuino_Meta::ColorIndex* colorIter = mesh.colors;
+      const uint32_t* faceIter = mesh.m_faces;
+      const Gamebuino_Meta::ColorIndex* colorIter = mesh.m_colors;
       int32_t* v1, *v2, *v3;
-      for(uint32_t faceIndex = mesh.faceCount; faceIndex; --faceIndex)
+      for(uint32_t faceIndex = mesh.m_faceCount; faceIndex; --faceIndex)
       {
-        uint32_t ndcFlag(0);
-        v1 = transformedVertexBuffer + 4 * (*faceIter++);
-        v2 = transformedVertexBuffer + 4 * (*faceIter++);
-        v3 = transformedVertexBuffer + 4 * (*faceIter++);
+        uint32_t ndcFlag(0); // This flag indicates which faces fall within the clipping box.
+        // To make things easier and faster, only worry about faces accross the near plane.
+        // The near plane is such that z=-w in homogenous coordinates (corresponds to z=-1).
+        v1 = m_transformedVertexBuffer + 4 * (*faceIter++);
+        v2 = m_transformedVertexBuffer + 4 * (*faceIter++);
+        v3 = m_transformedVertexBuffer + 4 * (*faceIter++);
 
         if(v1[2] > -v1[3])
           ndcFlag = 0b001;
@@ -322,58 +345,41 @@ void Engine::projectScene(const SceneNode *node, const Matrix &parentMvp, uint32
         if(v3[2] > -v3[3])
           ndcFlag |= 0b100;
 
-//        std::cout << "*** triangle\n";
-//        std::cout << "v1\t" << v1[0] << " - " << v1[0]/((float)v1[3]) << std::endl;
-//        std::cout << "  \t" << v1[1] << " - " << v1[1]/((float)v1[3]) << std::endl;
-//        std::cout << "  \t" << v1[2] << " - " << v1[2]/((float)v1[3]) << std::endl;
-//        std::cout << "  \t" << v1[3] << " - " << v1[3]/1024. << std::endl;
-//        std::cout << std::endl;
-//        std::cout << "v2\t" << v2[0] << " - " << v2[0]/((float)v2[3]) << std::endl;
-//        std::cout << "  \t" << v2[1] << " - " << v2[1]/((float)v2[3]) << std::endl;
-//        std::cout << "  \t" << v2[2] << " - " << v2[2]/((float)v2[3]) << std::endl;
-//        std::cout << "  \t" << v2[3] << " - " << v2[3]/1024. << std::endl;
-//        std::cout << std::endl;
-//        std::cout << "v3\t" << v3[0] << " - " << v3[0]/((float)v3[3]) << std::endl;
-//        std::cout << "  \t" << v3[1] << " - " << v3[1]/((float)v3[3]) << std::endl;
-//        std::cout << "  \t" << v3[2] << " - " << v3[2]/((float)v3[3]) << std::endl;
-//        std::cout << "  \t" << v3[3] << " - " << v3[3]/1024. << std::endl;
-//        std::cout << std::endl;
-
         switch(ndcFlag)
         {
-          case 0b000:
+          case 0b000: // Face outside clipping box
             ++colorIter;
             break;
 
-          case 0b001:
+          case 0b001: // Face partially outside clipping box
             pushClippedTriangle1(this, v1, v2, v3, (*colorIter++));
             break;
 
-          case 0b010:
+          case 0b010: // Face partially outside clipping box
             pushClippedTriangle1(this, v2, v3, v1, (*colorIter++));
             break;
 
-          case 0b011:
+          case 0b011: // Face partially outside clipping box
             pushClippedTriangle2(this, v1, v2, v3, (*colorIter++));
             break;
 
-          case 0b100:
+          case 0b100: // Face partially outside clipping box
             pushClippedTriangle1(this, v3, v1, v2, (*colorIter++));
             break;
 
-          case 0b101:
+          case 0b101: // Face partially outside clipping box
             pushClippedTriangle2(this, v3, v1, v2, (*colorIter++));
             break;
 
-          case 0b110:
+          case 0b110: // Face partially outside clipping box
             pushClippedTriangle2(this, v2, v3, v1, (*colorIter++));
             break;
 
-          case 0b111:
+          case 0b111: // Face within clipping box
             pushUnclippedTriangle(this, v1, v2, v3, (*colorIter++));
             break;
 
-          default:
+          default: // ?
             ++colorIter;
             break;
         }
@@ -381,173 +387,110 @@ void Engine::projectScene(const SceneNode *node, const Matrix &parentMvp, uint32
     }
   }
 
-
-
   // recursive call to children
   {
-    SceneNode** child = node->children;
-    for(uint32_t childIndex = node->childCount;
+    SceneNode** child = in_node->m_children;
+    for(uint32_t childIndex = in_node->m_childCount;
         childIndex;
         --childIndex, ++child)
     {
-      projectScene(*child, mvp, pass);
+      projectScene(*child, mvp, in_pass);
     }
   }
   // end recursive call
 }
 
 
-void Engine::projectScene(const SceneNode *node, uint32_t pass) noexcept
+void Engine::projectScene(const SceneNode *in_node, uint32_t in_pass) noexcept
 {
   Matrix mvp;
-  Matrix::Transform(projection, view, mvp);
+  Matrix::Transform(m_projection, m_view, mvp);
 
-  projectScene(node, mvp, pass);
+  projectScene(in_node, mvp, in_pass); // recursively descends through the whole scene.
 
-  render();
+  render(); // Draw the triangles we've gathered.
 }
 
 void Engine::render() noexcept
 {
-  const Triangle* currentTriangle = triangleStackHead;
-  while(GROG_LIKELY(currentTriangle != nullptr))
+  const Triangle* currentTriangle = m_triangleStackHead;
+  while(GROG_LIKELY(currentTriangle != nullptr)) // painter's algorithm
   {
 #ifdef __linux
     currentTriangle->rasterize(display.buffer);
 #else
     currentTriangle->rasterize((uint8_t*)gb.display._buffer);
 #endif
-    currentTriangle = currentTriangle->next;
+    currentTriangle = currentTriangle->m_next;
   }
 
-
-
-//  debugTriangleStack();
   passDone();
 }
 
-/*void Engine::setProjection(const Matrix& projection) noexcept
+void Engine::setProjection(const Matrix& in_projection) noexcept
 {
-  this->projection = projection;
-}*/
-
-void Engine::setProjection(float fov, float near, float far) noexcept
-{
-  this->projection = Matrix::Projection(fov, near, far);
-  this->near = grog::Math::FloatToFixed(near);
+  m_projection = in_projection;
 }
 
-void Engine::setView(const TransformMatrix& view) noexcept
+void Engine::setView(const TransformMatrix& in_view) noexcept
 {
-  this->view = view;
+  m_view = in_view;
 }
 
-#ifdef __linux
-void Engine::debugTriangleStack()
+/**
+ * @brief Tells whether a triangle is likely to be displayed.
+ * Fast and rough test giving false positives, but no false negative.
+ * @param[in] in_triangle The triangle to test.
+ * @return Whether to bother trying to display this triangle.
+ */
+GROG_INLINE bool displayable(const Triangle& in_triangle) noexcept
 {
-  std::cout << "Triangle count: " << triangleCount << std::endl;
-  std::cout << "Head ";
-  PRINT_TRIANGLE(triangleStackHead);
-  std::cout.flush();
-  Triangle* current = triangleStackHead;
-  uint32_t count(0);
-  while(current)
+  return !((in_triangle.m_p1x < 0 &&  in_triangle.m_p2x < 0 &&  in_triangle.m_p3x < 0) ||
+           (in_triangle.m_p1y < 0 &&  in_triangle.m_p2y < 0 &&  in_triangle.m_p3y < 0) ||
+           (in_triangle.m_p1x > 79 && in_triangle.m_p2x > 79 && in_triangle.m_p3x > 79) ||
+           (in_triangle.m_p1y > 63 && in_triangle.m_p2y > 63 && in_triangle.m_p3y > 63));
+}
+
+
+void Engine::pushTriangle(Triangle& in_triangle) noexcept
+{
+  if(Math::Orient2d(in_triangle.m_p1x, in_triangle.m_p1y,
+                    in_triangle.m_p2x, in_triangle.m_p2y,
+                    in_triangle.m_p3x, in_triangle.m_p3y) <= 0)
   {
-    std::cout << "#" <<count << " ";
-    PRINT_TRIANGLE(current);
-    current = current->next;
-    ++count;
+    // Not visible because of wrong orientation
+    return;
   }
 
-  if(triangleCount)
-    exit(0);
-}
-
-#include <cstdio>
-void Engine::pushDebugTriangles()
-{
-  Triangle t1;
-  t1.p1x = 0;
-  t1.p1y = 0;
-  t1.p2x = 5;
-  t1.p2y = 0;
-  t1.p3x = 5;
-  t1.p3y = 5;
-  t1.z = 10;
-  t1.color = Gamebuino_Meta::ColorIndex::green;
-
-  std::printf("color %x\n", t1.color);
-
-//  Triangle t2;
-//  t2.p1x = 30;
-//  t2.p1y = 20;
-//  t2.p2x = 70;
-//  t2.p2y = 20;
-//  t2.p3x = 70;
-//  t2.p3y = 60;
-//  t2.z = 20;
-//  t2.color = grog::color(grog::Color::Blue);
-
-  pushTriangle(t1);
-//  pushTriangle(t2);
-
-  debugTriangleStack();
-}
-#endif
-
-GROG_INLINE bool displayable(const Triangle& in) noexcept
-{
-  return !((in.p1x < 0 && in.p2x < 0 && in.p3x < 0) ||
-           (in.p1y < 0 && in.p2y < 0 && in.p3y < 0) ||
-           (in.p1x > 79 && in.p2x > 79 && in.p3x > 79) ||
-           (in.p1y > 63 && in.p2y > 63 && in.p3y > 63));
-}
-
-void Engine::pushTriangle(Triangle& in) noexcept
-{
-
-//  std::cout << "Pushing\n";
-
-//  std::cout << "("  << in.p1x/1024. << ", " << in.p1y/1024. << ") ("
-//                    << in.p2x/1024. << ", " << in.p2y/1024. << ") ("
-//                    << in.p3x/1024. << ", " << in.p3y/1024. << ")\n";
-
-if(Math::Orient2d(in.p1x, in.p1y, in.p2x, in.p2y, in.p3x, in.p3y) <= 0)
-{
-  return;
-}
-
-if(!displayable(in))
-{
-  return;
-}
-
-
-  if(triangleCount == maxTriangles)
+  if(!displayable(in_triangle))
   {
-    // replace triangles
+    // Not visible because outside of screen
+    return;
+  }
 
-    // The new head is the second = triangleStackHead;
-    Triangle* insertedTriangle = triangleStackHead;
-    triangleStackHead = triangleStackHead->next;
-    *insertedTriangle = in;
+  if(m_triangleCount == m_maxTriangles) // Replace triangle
+  {
+    // The farthest triangle is removed, move the triangle stack head one step further, and free room for the new triangle.
+    Triangle* insertedTriangle = m_triangleStackHead;
+    m_triangleStackHead = m_triangleStackHead->m_next;
+    *insertedTriangle = in_triangle;
 
     {
-      Triangle* current = triangleStackHead;
-      while(current->next && current->next->z > insertedTriangle->z)
+      Triangle* current = m_triangleStackHead;
+      while(current->m_next && current->m_next->m_z > insertedTriangle->m_z)
       {
-        current = current->next;
+        current = current->m_next;
       }
 
-      if(GROG_UNLIKELY(current->next == nullptr))
+      if(GROG_UNLIKELY(current->m_next == nullptr))
       {
-        insertedTriangle->next = nullptr;
-        current->next = insertedTriangle;
+        insertedTriangle->m_next = nullptr;
+        current->m_next = insertedTriangle;
       }
       else // current->z > insertedTriangle->z && current->next->z <= insertedTriangle->z
       {
-        insertedTriangle->next= current->next;
-        current->next = insertedTriangle;
+        insertedTriangle->m_next= current->m_next;
+        current->m_next = insertedTriangle;
       }
     }
 
@@ -556,50 +499,50 @@ if(!displayable(in))
   {
     // standard insertion
 
-    Triangle* insertedTriangle = triangleStack + triangleCount;
-    *insertedTriangle = in;
+    Triangle* insertedTriangle = m_triangleStack + m_triangleCount;
+    *insertedTriangle = in_triangle;
 
-    if(GROG_UNLIKELY(triangleCount == 0))
+    if(GROG_UNLIKELY(m_triangleCount == 0))
     {
-      insertedTriangle->next = nullptr;
-      triangleStackHead = insertedTriangle;
+      insertedTriangle->m_next = nullptr;
+      m_triangleStackHead = insertedTriangle;
     }
     else
     {
-      Triangle* current = triangleStackHead;
+      Triangle* current = m_triangleStackHead;
 
-      if(GROG_UNLIKELY(current->z <= insertedTriangle->z))
+      if(GROG_UNLIKELY(current->m_z <= insertedTriangle->m_z))
       {
-        insertedTriangle->next = current;
-        triangleStackHead = insertedTriangle;
+        insertedTriangle->m_next = current;
+        m_triangleStackHead = insertedTriangle;
       }
       else
       {
-        while(current->next && current->next->z > insertedTriangle->z)
+        while(current->m_next && current->m_next->m_z > insertedTriangle->m_z)
         {
-          current = current->next;
+          current = current->m_next;
         }
 
-        if(GROG_UNLIKELY(current->next == nullptr))
+        if(GROG_UNLIKELY(current->m_next == nullptr))
         {
-          insertedTriangle->next = nullptr;
-          current->next = insertedTriangle;
+          insertedTriangle->m_next = nullptr;
+          current->m_next = insertedTriangle;
         }
-        else // current->z > insertedTriangle->z && current->next->z <= insertedTriangle->z
+        else
         {
-          insertedTriangle->next= current->next;
-          current->next = insertedTriangle;
+          insertedTriangle->m_next= current->m_next;
+          current->m_next = insertedTriangle;
         }
       }
 
     }
 
-    ++triangleCount;
+    ++m_triangleCount;
   }
 }
 
 void Engine::passDone() noexcept
 {
-  triangleCount = 0;
-  triangleStackHead = nullptr;
+  m_triangleCount = 0;
+  m_triangleStackHead = nullptr;
 }

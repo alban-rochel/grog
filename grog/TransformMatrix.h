@@ -27,9 +27,10 @@ namespace grog
                                                         1 << 10};
 
       /**
-       * @brief Constructor, creates an identity matrix.
+       * @brief Constructor.
        */
-      TransformMatrix() noexcept;
+      TransformMatrix() noexcept = default;
+
       /**
        * @brief Copy constructor.
        * @param[in] in_other The TransformMatrix to copy.

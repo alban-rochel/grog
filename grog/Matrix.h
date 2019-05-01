@@ -21,9 +21,10 @@ namespace grog
                           0, 0, 0, 1 << 10};
 
       /**
-       * @brief Constructor, creates an identity matrix.
+       * @brief Constructor.
        */
-      Matrix() noexcept;
+      Matrix() noexcept = default;
+
       /**
        * @brief Copy constructor.
        * @param[in] in_other The Matrix to copy.

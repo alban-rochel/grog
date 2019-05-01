@@ -81,70 +81,89 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>The <a class="el" href="classgrog_1_1Engine.html" title="The Engine is the entry point to manage the various stages of the rendering process.">Engine</a> is the entry point to manage the various stages of the rendering process.  
+ <a href="classgrog_1_1Engine.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="Engine_8h_source.html">Engine.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for grog::Engine:</div>
 <div class="dyncontent">
 <div class="center"><img src="classgrog_1_1Engine__coll__graph.png" border="0" usemap="#grog_1_1Engine_coll__map" alt="Collaboration graph"/></div>
 <map name="grog_1_1Engine_coll__map" id="grog_1_1Engine_coll__map">
-<area shape="rect" title=" " alt="" coords="179,109,273,136"/>
-<area shape="rect" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ..." alt="" coords="5,5,156,32"/>
-<area shape="rect" href="classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row&#45;major order." alt="" coords="181,5,271,32"/>
-<area shape="rect" href="classgrog_1_1Triangle.html" title=" " alt="" coords="295,5,397,32"/>
+<area shape="rect" title="The Engine is the entry point to manage the various stages of the rendering process." alt="" coords="179,109,273,136"/>
+<area shape="rect" href="$classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ..." alt="" coords="5,5,156,32"/>
+<area shape="rect" href="$classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row&#45;major order." alt="" coords="181,5,271,32"/>
+<area shape="rect" href="$classgrog_1_1Triangle.html" title="The Triangle is a rasterizable triangle (2D, with global Z information for paint ordering)." alt="" coords="295,5,397,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a41e6241f80cc43271d73c319dd24c967"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a41e6241f80cc43271d73c319dd24c967">Engine</a> () noexcept</td></tr>
-<tr class="separator:a41e6241f80cc43271d73c319dd24c967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82d55170616dfa659f0cb4b9b3158ebe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a82d55170616dfa659f0cb4b9b3158ebe">Engine</a> () noexcept=default</td></tr>
+<tr class="memdesc:a82d55170616dfa659f0cb4b9b3158ebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classgrog_1_1Engine.html#a82d55170616dfa659f0cb4b9b3158ebe">More...</a><br /></td></tr>
+<tr class="separator:a82d55170616dfa659f0cb4b9b3158ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa1abf70e06fe0463e7a84282077ecc6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#afa1abf70e06fe0463e7a84282077ecc6">~Engine</a> () noexcept</td></tr>
+<tr class="memdesc:afa1abf70e06fe0463e7a84282077ecc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="classgrog_1_1Engine.html#afa1abf70e06fe0463e7a84282077ecc6">More...</a><br /></td></tr>
 <tr class="separator:afa1abf70e06fe0463e7a84282077ecc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10ca54820210ed4a2a620b949edee1d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a10ca54820210ed4a2a620b949edee1d2">init</a> (uint32_t maxVerticesPerMesh, uint32_t <a class="el" href="classgrog_1_1Engine.html#aa55f8c0d33c489a7c24ba1c16f2f4928">maxTriangles</a>) noexcept</td></tr>
-<tr class="separator:a10ca54820210ed4a2a620b949edee1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1731f608804922b60dbf443c3cc87107"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a1731f608804922b60dbf443c3cc87107">projectScene</a> (const <a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a> *node, uint32_t pass) noexcept</td></tr>
-<tr class="separator:a1731f608804922b60dbf443c3cc87107"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e74b0d6b16eb459fd6786879fcd1ef2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a9e74b0d6b16eb459fd6786879fcd1ef2">setProjection</a> (float fov, float <a class="el" href="classgrog_1_1Engine.html#a8fb707492839458b0984e44086070c98">near</a>, float far) noexcept</td></tr>
-<tr class="separator:a9e74b0d6b16eb459fd6786879fcd1ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33a534cefbfb5cfc6230b4c89b68ebbe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a33a534cefbfb5cfc6230b4c89b68ebbe">setView</a> (const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;<a class="el" href="classgrog_1_1Engine.html#af9e6c3cd0ae84538a6d5e339e0546d0c">view</a>) noexcept</td></tr>
-<tr class="separator:a33a534cefbfb5cfc6230b4c89b68ebbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65295d8576ea74b59df6075898f8d849"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a65295d8576ea74b59df6075898f8d849">pushTriangle</a> (<a class="el" href="classgrog_1_1Triangle.html">Triangle</a> &amp;in) noexcept</td></tr>
-<tr class="separator:a65295d8576ea74b59df6075898f8d849"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5569d4f7acffb2849abec635a66b41e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a5569d4f7acffb2849abec635a66b41e1">init</a> (uint32_t in_maxVerticesPerMesh, uint32_t in_maxTriangles) noexcept</td></tr>
+<tr class="memdesc:a5569d4f7acffb2849abec635a66b41e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the engine by allocating the memory segments it will use.  <a href="classgrog_1_1Engine.html#a5569d4f7acffb2849abec635a66b41e1">More...</a><br /></td></tr>
+<tr class="separator:a5569d4f7acffb2849abec635a66b41e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bb3a4c5f498011974698a2c10c292d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a5bb3a4c5f498011974698a2c10c292d3">projectScene</a> (const <a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a> *in_node, uint32_t in_pass) noexcept</td></tr>
+<tr class="memdesc:a5bb3a4c5f498011974698a2c10c292d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders a node and its children to the frame buffer, if they are the provided pass.  <a href="classgrog_1_1Engine.html#a5bb3a4c5f498011974698a2c10c292d3">More...</a><br /></td></tr>
+<tr class="separator:a5bb3a4c5f498011974698a2c10c292d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4bc5af4cd0bc84039467941cd2adc46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#ad4bc5af4cd0bc84039467941cd2adc46">setProjection</a> (const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;in_projection) noexcept</td></tr>
+<tr class="memdesc:ad4bc5af4cd0bc84039467941cd2adc46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the projection for the next rendering passes.  <a href="classgrog_1_1Engine.html#ad4bc5af4cd0bc84039467941cd2adc46">More...</a><br /></td></tr>
+<tr class="separator:ad4bc5af4cd0bc84039467941cd2adc46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab144fd7c9940fdea8beeaf0850a02a41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#ab144fd7c9940fdea8beeaf0850a02a41">setView</a> (const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;in_view) noexcept</td></tr>
+<tr class="memdesc:ab144fd7c9940fdea8beeaf0850a02a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the view transformation for the next rendering passes.  <a href="classgrog_1_1Engine.html#ab144fd7c9940fdea8beeaf0850a02a41">More...</a><br /></td></tr>
+<tr class="separator:ab144fd7c9940fdea8beeaf0850a02a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f50db1943f53fc688013a2501bf5120"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a3f50db1943f53fc688013a2501bf5120">pushTriangle</a> (<a class="el" href="classgrog_1_1Triangle.html">Triangle</a> &amp;in_triangle) noexcept</td></tr>
+<tr class="memdesc:a3f50db1943f53fc688013a2501bf5120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a triangle to the list of triangles to draw during the current pass.  <a href="classgrog_1_1Engine.html#a3f50db1943f53fc688013a2501bf5120">More...</a><br /></td></tr>
+<tr class="separator:a3f50db1943f53fc688013a2501bf5120"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:adc9cbf671a5d0b48201b14ad017aa63b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#adc9cbf671a5d0b48201b14ad017aa63b">render</a> () noexcept</td></tr>
+<tr class="memdesc:adc9cbf671a5d0b48201b14ad017aa63b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rasterizes the triangles in queue, and closes the current pass.  <a href="classgrog_1_1Engine.html#adc9cbf671a5d0b48201b14ad017aa63b">More...</a><br /></td></tr>
 <tr class="separator:adc9cbf671a5d0b48201b14ad017aa63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a56eb2d15895144e7d79667b3c4687a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a0a56eb2d15895144e7d79667b3c4687a">projectScene</a> (const <a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a> *node, const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;parentMvp, uint32_t pass) noexcept</td></tr>
-<tr class="separator:a0a56eb2d15895144e7d79667b3c4687a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaafe29afa4f5bb1a52b412e825a94e29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#aaafe29afa4f5bb1a52b412e825a94e29">projectScene</a> (const <a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a> *in_node, const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;in_parentMvp, uint32_t in_pass) noexcept</td></tr>
+<tr class="memdesc:aaafe29afa4f5bb1a52b412e825a94e29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms and projects the scene node accordingly to the current transformations.  <a href="classgrog_1_1Engine.html#aaafe29afa4f5bb1a52b412e825a94e29">More...</a><br /></td></tr>
+<tr class="separator:aaafe29afa4f5bb1a52b412e825a94e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c0d5cf50163418d04f9ca3c37493ccf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a8c0d5cf50163418d04f9ca3c37493ccf">passDone</a> () noexcept</td></tr>
+<tr class="memdesc:a8c0d5cf50163418d04f9ca3c37493ccf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans up the current rendering pass.  <a href="classgrog_1_1Engine.html#a8c0d5cf50163418d04f9ca3c37493ccf">More...</a><br /></td></tr>
 <tr class="separator:a8c0d5cf50163418d04f9ca3c37493ccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:aa7119326194dccc8173ae4e8674957f3"><td class="memItemLeft" align="right" valign="top">int32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#aa7119326194dccc8173ae4e8674957f3">transformedVertexBuffer</a> {nullptr}</td></tr>
-<tr class="separator:aa7119326194dccc8173ae4e8674957f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46ba3dbaaba2d01440cf45cf8e1ea901"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a46ba3dbaaba2d01440cf45cf8e1ea901">projection</a></td></tr>
-<tr class="separator:a46ba3dbaaba2d01440cf45cf8e1ea901"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9e6c3cd0ae84538a6d5e339e0546d0c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#af9e6c3cd0ae84538a6d5e339e0546d0c">view</a></td></tr>
-<tr class="separator:af9e6c3cd0ae84538a6d5e339e0546d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8545a55d8a24d606febc9d3fe7147a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#af8545a55d8a24d606febc9d3fe7147a7">triangleStack</a> {nullptr}</td></tr>
-<tr class="separator:af8545a55d8a24d606febc9d3fe7147a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06fd51693a05309fad8acc02ba2dbf1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a06fd51693a05309fad8acc02ba2dbf1a">triangleStackHead</a> {nullptr}</td></tr>
-<tr class="separator:a06fd51693a05309fad8acc02ba2dbf1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77fe0e2fdb2ed28108c8a914b5fe13ab"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a77fe0e2fdb2ed28108c8a914b5fe13ab">triangleCount</a> {0}</td></tr>
-<tr class="separator:a77fe0e2fdb2ed28108c8a914b5fe13ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa55f8c0d33c489a7c24ba1c16f2f4928"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#aa55f8c0d33c489a7c24ba1c16f2f4928">maxTriangles</a> {0}</td></tr>
-<tr class="separator:aa55f8c0d33c489a7c24ba1c16f2f4928"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fb707492839458b0984e44086070c98"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a8fb707492839458b0984e44086070c98">near</a> {0}</td></tr>
-<tr class="separator:a8fb707492839458b0984e44086070c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55ff943d19f2a010dc86ff32f0f87d11"><td class="memItemLeft" align="right" valign="top">int32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a55ff943d19f2a010dc86ff32f0f87d11">m_transformedVertexBuffer</a> {nullptr}</td></tr>
+<tr class="memdesc:a55ff943d19f2a010dc86ff32f0f87d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temporary buffer of vertices transformed according to current Model/View/Projection.  <a href="classgrog_1_1Engine.html#a55ff943d19f2a010dc86ff32f0f87d11">More...</a><br /></td></tr>
+<tr class="separator:a55ff943d19f2a010dc86ff32f0f87d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe7737f62c06b811af58fc654282c984"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#abe7737f62c06b811af58fc654282c984">m_projection</a></td></tr>
+<tr class="memdesc:abe7737f62c06b811af58fc654282c984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Projection (perspective) matrix.  <a href="classgrog_1_1Engine.html#abe7737f62c06b811af58fc654282c984">More...</a><br /></td></tr>
+<tr class="separator:abe7737f62c06b811af58fc654282c984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4a4ae8b2bd887f4be9e48b3eed1286b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#ab4a4ae8b2bd887f4be9e48b3eed1286b">m_view</a></td></tr>
+<tr class="memdesc:ab4a4ae8b2bd887f4be9e48b3eed1286b"><td class="mdescLeft">&#160;</td><td class="mdescRight">View transform matrix.  <a href="classgrog_1_1Engine.html#ab4a4ae8b2bd887f4be9e48b3eed1286b">More...</a><br /></td></tr>
+<tr class="separator:ab4a4ae8b2bd887f4be9e48b3eed1286b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc4a6eeeeb0ee1595476eed85a6ae02"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a1bc4a6eeeeb0ee1595476eed85a6ae02">m_triangleStack</a> {nullptr}</td></tr>
+<tr class="memdesc:a1bc4a6eeeeb0ee1595476eed85a6ae02"><td class="mdescLeft">&#160;</td><td class="mdescRight">A buffer of triangles.  <a href="classgrog_1_1Engine.html#a1bc4a6eeeeb0ee1595476eed85a6ae02">More...</a><br /></td></tr>
+<tr class="separator:a1bc4a6eeeeb0ee1595476eed85a6ae02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb3a1f75ec24c0fe634e8e2ae48a8eda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#afb3a1f75ec24c0fe634e8e2ae48a8eda">m_triangleStackHead</a> {nullptr}</td></tr>
+<tr class="memdesc:afb3a1f75ec24c0fe634e8e2ae48a8eda"><td class="mdescLeft">&#160;</td><td class="mdescRight">The head of the list of triangles to rasterize. The triangles are allocated in m_triangleStack.  <a href="classgrog_1_1Engine.html#afb3a1f75ec24c0fe634e8e2ae48a8eda">More...</a><br /></td></tr>
+<tr class="separator:afb3a1f75ec24c0fe634e8e2ae48a8eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32b15f292b994e4b9f53602b53dcf1cd"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a32b15f292b994e4b9f53602b53dcf1cd">m_triangleCount</a> {0}</td></tr>
+<tr class="memdesc:a32b15f292b994e4b9f53602b53dcf1cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of triangles in stack.  <a href="classgrog_1_1Engine.html#a32b15f292b994e4b9f53602b53dcf1cd">More...</a><br /></td></tr>
+<tr class="separator:a32b15f292b994e4b9f53602b53dcf1cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a526307154d044480589fd927520d3c7a"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a526307154d044480589fd927520d3c7a">m_maxTriangles</a> {0}</td></tr>
+<tr class="memdesc:a526307154d044480589fd927520d3c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of triangles in stack.  <a href="classgrog_1_1Engine.html#a526307154d044480589fd927520d3c7a">More...</a><br /></td></tr>
+<tr class="separator:a526307154d044480589fd927520d3c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00013">13</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<div class="textblock"><p>The <a class="el" href="classgrog_1_1Engine.html" title="The Engine is the entry point to manage the various stages of the rendering process.">Engine</a> is the entry point to manage the various stages of the rendering process. </p>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00016">16</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a41e6241f80cc43271d73c319dd24c967"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41e6241f80cc43271d73c319dd24c967">&#9670;&nbsp;</a></span>Engine()</h2>
+<a id="a82d55170616dfa659f0cb4b9b3158ebe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82d55170616dfa659f0cb4b9b3158ebe">&#9670;&nbsp;</a></span>Engine()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -153,7 +172,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Engine::Engine </td>
+          <td class="memname">grog::Engine::Engine </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -161,12 +180,12 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00020">20</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Constructor. </p>
 
 </div>
 </div>
@@ -193,13 +212,15 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00025">25</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Destructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00016">16</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a10ca54820210ed4a2a620b949edee1d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10ca54820210ed4a2a620b949edee1d2">&#9670;&nbsp;</a></span>init()</h2>
+<a id="a5569d4f7acffb2849abec635a66b41e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5569d4f7acffb2849abec635a66b41e1">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,13 +232,13 @@ Protected Attributes</h2></td></tr>
           <td class="memname">void Engine::init </td>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>maxVerticesPerMesh</em>, </td>
+          <td class="paramname"><em>in_maxVerticesPerMesh</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>maxTriangles</em>&#160;</td>
+          <td class="paramname"><em>in_maxTriangles</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -232,7 +253,29 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00034">34</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Sets up the engine by allocating the memory segments it will use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_maxVerticesPerMesh</td><td>The maximum number of vertices per mesh. This is used to size the buffer of transformed vertices properly </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_maxTriangles</td><td>The maximum number of triangles to draw. This is use to size the queue of triangles to render. Only the closest triangles are kept for rasterization. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>Providing too small a value for in_maxVerticesPerMesh will result in a crash. </dd>
+<dd>
+Providing too large a value for in_maxVerticesPerMesh will eat up more memory than needed. </dd>
+<dd>
+Providing too small a value for in_maxTriangles will result in too few triangles being drawn. </dd>
+<dd>
+Providing too large a value for in_maxTriangles will eat up more memory than needed and result in longer rendering times. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::bad_alloc</td><td>if allocation failed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00025">25</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -259,12 +302,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00601">601</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Cleans up the current rendering pass. </p>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00544">544</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0a56eb2d15895144e7d79667b3c4687a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a56eb2d15895144e7d79667b3c4687a">&#9670;&nbsp;</a></span>projectScene() <span class="overload">[1/2]</span></h2>
+<a id="aaafe29afa4f5bb1a52b412e825a94e29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaafe29afa4f5bb1a52b412e825a94e29">&#9670;&nbsp;</a></span>projectScene() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,19 +321,19 @@ Protected Attributes</h2></td></tr>
           <td class="memname">void Engine::projectScene </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a> *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
+          <td class="paramname"><em>in_node</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>parentMvp</em>, </td>
+          <td class="paramname"><em>in_parentMvp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>pass</em>&#160;</td>
+          <td class="paramname"><em>in_pass</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -303,12 +348,22 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00248">248</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Transforms and projects the scene node accordingly to the current transformations. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in_node</td><td>The node to project. </td></tr>
+    <tr><td class="paramname">in_parentMvp</td><td>The parent Model/View/Projection matrix. </td></tr>
+    <tr><td class="paramname">in_pass</td><td>The current pass. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00271">271</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a1731f608804922b60dbf443c3cc87107"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1731f608804922b60dbf443c3cc87107">&#9670;&nbsp;</a></span>projectScene() <span class="overload">[2/2]</span></h2>
+<a id="a5bb3a4c5f498011974698a2c10c292d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bb3a4c5f498011974698a2c10c292d3">&#9670;&nbsp;</a></span>projectScene() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,13 +375,13 @@ Protected Attributes</h2></td></tr>
           <td class="memname">void Engine::projectScene </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a> *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
+          <td class="paramname"><em>in_node</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>pass</em>&#160;</td>
+          <td class="paramname"><em>in_pass</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -341,12 +396,21 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00400">400</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Renders a node and its children to the frame buffer, if they are the provided pass. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_node</td><td>The node to draw. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_pass</td><td>The pass to draw. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00404">404</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a65295d8576ea74b59df6075898f8d849"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65295d8576ea74b59df6075898f8d849">&#9670;&nbsp;</a></span>pushTriangle()</h2>
+<a id="a3f50db1943f53fc688013a2501bf5120"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f50db1943f53fc688013a2501bf5120">&#9670;&nbsp;</a></span>pushTriangle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -358,7 +422,7 @@ Protected Attributes</h2></td></tr>
           <td class="memname">void Engine::pushTriangle </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a> &amp;&#160;</td>
-          <td class="paramname"><em>in</em></td><td>)</td>
+          <td class="paramname"><em>in_triangle</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -369,7 +433,15 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00506">506</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Adds a triangle to the list of triangles to draw during the current pass. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_triangle</td><td>The triangle to add. The triangle is kept if and only if there are fewer triangles in queue than expected, or it this triangle is closer to another one. In this case, the farthest one will be discarded. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00455">455</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -396,12 +468,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00410">410</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Rasterizes the triangles in queue, and closes the current pass. </p>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00414">414</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a9e74b0d6b16eb459fd6786879fcd1ef2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e74b0d6b16eb459fd6786879fcd1ef2">&#9670;&nbsp;</a></span>setProjection()</h2>
+<a id="ad4bc5af4cd0bc84039467941cd2adc46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4bc5af4cd0bc84039467941cd2adc46">&#9670;&nbsp;</a></span>setProjection()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -412,25 +486,9 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Engine::setProjection </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>fov</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>in_projection</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>near</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>far</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -440,12 +498,20 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00434">434</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Sets the projection for the next rendering passes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_projection</td><td>The new projection. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00430">430</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a33a534cefbfb5cfc6230b4c89b68ebbe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33a534cefbfb5cfc6230b4c89b68ebbe">&#9670;&nbsp;</a></span>setView()</h2>
+<a id="ab144fd7c9940fdea8beeaf0850a02a41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab144fd7c9940fdea8beeaf0850a02a41">&#9670;&nbsp;</a></span>setView()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -457,7 +523,7 @@ Protected Attributes</h2></td></tr>
           <td class="memname">void Engine::setView </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>view</em></td><td>)</td>
+          <td class="paramname"><em>in_view</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -468,13 +534,21 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00440">440</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Sets the view transformation for the next rendering passes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_view</td><td>The new view. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00435">435</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aa55f8c0d33c489a7c24ba1c16f2f4928"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa55f8c0d33c489a7c24ba1c16f2f4928">&#9670;&nbsp;</a></span>maxTriangles</h2>
+<a id="a526307154d044480589fd927520d3c7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a526307154d044480589fd927520d3c7a">&#9670;&nbsp;</a></span>m_maxTriangles</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -483,7 +557,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t grog::Engine::maxTriangles {0}</td>
+          <td class="memname">uint32_t grog::Engine::m_maxTriangles {0}</td>
         </tr>
       </table>
   </td>
@@ -493,12 +567,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00067">67</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p>Maximum number of triangles in stack. </p>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00102">102</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
-<a id="a8fb707492839458b0984e44086070c98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fb707492839458b0984e44086070c98">&#9670;&nbsp;</a></span>near</h2>
+<a id="abe7737f62c06b811af58fc654282c984"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe7737f62c06b811af58fc654282c984">&#9670;&nbsp;</a></span>m_projection</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -507,7 +583,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t grog::Engine::near {0}</td>
+          <td class="memname"><a class="el" href="classgrog_1_1Matrix.html">Matrix</a> grog::Engine::m_projection</td>
         </tr>
       </table>
   </td>
@@ -517,12 +593,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00069">69</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p>Projection (perspective) matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00096">96</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
-<a id="a46ba3dbaaba2d01440cf45cf8e1ea901"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46ba3dbaaba2d01440cf45cf8e1ea901">&#9670;&nbsp;</a></span>projection</h2>
+<a id="a55ff943d19f2a010dc86ff32f0f87d11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55ff943d19f2a010dc86ff32f0f87d11">&#9670;&nbsp;</a></span>m_transformedVertexBuffer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -531,7 +609,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgrog_1_1Matrix.html">Matrix</a> grog::Engine::projection</td>
+          <td class="memname">int32_t* grog::Engine::m_transformedVertexBuffer {nullptr}</td>
         </tr>
       </table>
   </td>
@@ -541,12 +619,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00057">57</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p>Temporary buffer of vertices transformed according to current Model/View/Projection. </p>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00094">94</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
-<a id="aa7119326194dccc8173ae4e8674957f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7119326194dccc8173ae4e8674957f3">&#9670;&nbsp;</a></span>transformedVertexBuffer</h2>
+<a id="a32b15f292b994e4b9f53602b53dcf1cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32b15f292b994e4b9f53602b53dcf1cd">&#9670;&nbsp;</a></span>m_triangleCount</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -555,7 +635,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int32_t* grog::Engine::transformedVertexBuffer {nullptr}</td>
+          <td class="memname">uint32_t grog::Engine::m_triangleCount {0}</td>
         </tr>
       </table>
   </td>
@@ -565,12 +645,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00055">55</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p>Number of triangles in stack. </p>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00101">101</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
-<a id="a77fe0e2fdb2ed28108c8a914b5fe13ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77fe0e2fdb2ed28108c8a914b5fe13ab">&#9670;&nbsp;</a></span>triangleCount</h2>
+<a id="a1bc4a6eeeeb0ee1595476eed85a6ae02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bc4a6eeeeb0ee1595476eed85a6ae02">&#9670;&nbsp;</a></span>m_triangleStack</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -579,7 +661,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t grog::Engine::triangleCount {0}</td>
+          <td class="memname"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a>* grog::Engine::m_triangleStack {nullptr}</td>
         </tr>
       </table>
   </td>
@@ -589,12 +671,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00066">66</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p>A buffer of triangles. </p>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00099">99</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
-<a id="af8545a55d8a24d606febc9d3fe7147a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8545a55d8a24d606febc9d3fe7147a7">&#9670;&nbsp;</a></span>triangleStack</h2>
+<a id="afb3a1f75ec24c0fe634e8e2ae48a8eda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb3a1f75ec24c0fe634e8e2ae48a8eda">&#9670;&nbsp;</a></span>m_triangleStackHead</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -603,7 +687,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a>* grog::Engine::triangleStack {nullptr}</td>
+          <td class="memname"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a>* grog::Engine::m_triangleStackHead {nullptr}</td>
         </tr>
       </table>
   </td>
@@ -613,12 +697,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00064">64</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p>The head of the list of triangles to rasterize. The triangles are allocated in m_triangleStack. </p>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00100">100</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
-<a id="a06fd51693a05309fad8acc02ba2dbf1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06fd51693a05309fad8acc02ba2dbf1a">&#9670;&nbsp;</a></span>triangleStackHead</h2>
+<a id="ab4a4ae8b2bd887f4be9e48b3eed1286b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4a4ae8b2bd887f4be9e48b3eed1286b">&#9670;&nbsp;</a></span>m_view</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -627,7 +713,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a>* grog::Engine::triangleStackHead {nullptr}</td>
+          <td class="memname"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> grog::Engine::m_view</td>
         </tr>
       </table>
   </td>
@@ -637,31 +723,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00065">65</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p>View transform matrix. </p>
 
-</div>
-</div>
-<a id="af9e6c3cd0ae84538a6d5e339e0546d0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9e6c3cd0ae84538a6d5e339e0546d0c">&#9670;&nbsp;</a></span>view</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> grog::Engine::view</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00058">58</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00097">97</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>

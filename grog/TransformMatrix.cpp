@@ -9,9 +9,6 @@
 
 using namespace grog;
 
-TransformMatrix::TransformMatrix() noexcept
-{}
-
 TransformMatrix::TransformMatrix(const TransformMatrix& in_other) noexcept
 {
   memcpy(m_data, in_other.m_data, sizeof(m_data));

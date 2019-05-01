@@ -20,27 +20,27 @@ MainWindow::MainWindow(QWidget *parent) :
 
   engine.init(100, 100, &pix);
 
-  scene.mesh.vertexBuffer = nullptr;
-  scene.mesh.vertexCount = 0;
-  scene.mesh.faces = nullptr;
-  scene.mesh.faceCount = 0;
-  scene.mesh.colors = nullptr;
-  scene.children = new grog::SceneNode*[7];
-  scene.childCount = 7;
+  scene.m_mesh.m_vertexBuffer = nullptr;
+  scene.m_mesh.m_vertexCount = 0;
+  scene.m_mesh.m_faces = nullptr;
+  scene.m_mesh.m_faceCount = 0;
+  scene.m_mesh.m_colors = nullptr;
+  scene.m_children = new grog::SceneNode*[7];
+  scene.m_childCount = 7;
 
-  scene.children[0] = new demo::Car(true);
-  scene.children[1] = new demo::Car(false);
-  scene.children[1]->transform.identity().translate(1500,0, 1000);
+  scene.m_children[0] = new demo::Car(true);
+  scene.m_children[1] = new demo::Car(false);
+  scene.m_children[1]->m_transform.identity().translate(1500,0, 1000);
 
-  scene.children[2] = new demo::Road();
-  scene.children[3] = new demo::Road();
-  scene.children[3]->transform.identity().translate(48000, 0, 0);
-  scene.children[4] = new demo::Road();
-  scene.children[4]->transform.identity().translate(16000, 0, 0);
-  scene.children[5] = new demo::Road();
-  scene.children[5]->transform.identity().translate(-16000, 0, 0);
-  scene.children[6] = new demo::Road();
-  scene.children[6]->transform.identity().translate(-48000, 0, 0);
+  scene.m_children[2] = new demo::Road();
+  scene.m_children[3] = new demo::Road();
+  scene.m_children[3]->m_transform.identity().translate(48000, 0, 0);
+  scene.m_children[4] = new demo::Road();
+  scene.m_children[4]->m_transform.identity().translate(16000, 0, 0);
+  scene.m_children[5] = new demo::Road();
+  scene.m_children[5]->m_transform.identity().translate(-16000, 0, 0);
+  scene.m_children[6] = new demo::Road();
+  scene.m_children[6]->m_transform.identity().translate(-48000, 0, 0);
 
 
   ui->eyeXSpinBox->setValue(eyeX);
@@ -94,7 +94,7 @@ void MainWindow::step()
   static int32_t shift[] = {-32000, -16000, 0, 16000, 32000};
   for(uint32_t roadIndex = 0; roadIndex < 5; ++roadIndex)
   {
-    scene.children[2 + roadIndex]->transform.identity().translate(shift[roadIndex], 0, 0);
+    scene.m_children[2 + roadIndex]->m_transform.identity().translate(shift[roadIndex], 0, 0);
     shift[roadIndex] += 300;
     if(shift[roadIndex] >= 48000)
       shift[roadIndex] -= 80000;
@@ -177,7 +177,7 @@ void MainWindow::farChanged(double val)
 
 void MainWindow::draw()
 {
-  engine.setProjection(fov, near, far);
+  engine.setProjection(grog::Matrix::Projection(fov, near, far));
 
   engine.setView(grog::TransformMatrix::View(grog::Math::FloatToFixed(eyeX),    grog::Math::FloatToFixed(eyeY),     grog::Math::FloatToFixed(eyeZ),
                                              grog::Math::FloatToFixed(targetX), grog::Math::FloatToFixed(targetY),  grog::Math::FloatToFixed(targetZ),

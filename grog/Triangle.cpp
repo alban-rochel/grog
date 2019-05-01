@@ -28,14 +28,14 @@ namespace grog
 
 }
 
-void Triangle::rasterize(uint8_t *frameBuffer) const noexcept
+void Triangle::rasterize(uint8_t *in_frameBuffer) const noexcept
 {
   // Compute bounding boxes
 
-  int32_t minX = Min3(p1x, p2x, p3x);
-  int32_t maxX = Max3(p1x, p2x, p3x);
-  int32_t minY = Min3(p1y, p2y, p3y);
-  int32_t maxY = Max3(p1y, p2y, p3y);
+  int32_t minX = Min3(m_p1x, m_p2x, m_p3x);
+  int32_t maxX = Max3(m_p1x, m_p2x, m_p3x);
+  int32_t minY = Min3(m_p1y, m_p2y, m_p3y);
+  int32_t maxY = Max3(m_p1y, m_p2y, m_p3y);
 
   // Clip against screen bounds;
 
@@ -47,16 +47,16 @@ void Triangle::rasterize(uint8_t *frameBuffer) const noexcept
   // Rasterize
 
   // Triangle setup
-  int _A12 = p1y - p2y, _B12 = p2x - p1x;
-  int _A23 = p2y - p3y, _B23 = p3x - p2x;
-  int _A31 = p3y - p1y, _B31 = p1x - p3x;
+  int _A12 = m_p1y - m_p2y, _B12 = m_p2x - m_p1x;
+  int _A23 = m_p2y - m_p3y, _B23 = m_p3x - m_p2x;
+  int _A31 = m_p3y - m_p1y, _B31 = m_p1x - m_p3x;
 
-  int w1_row = Math::Orient2d(p2x, p2y, p3x, p3y, minX, minY);
-  int w2_row = Math::Orient2d(p3x, p3y, p1x, p1y, minX, minY);
-  int w3_row = Math::Orient2d(p1x, p1y, p2x, p2y, minX, minY);
+  int w1_row = Math::Orient2d(m_p2x, m_p2y, m_p3x, m_p3y, minX, minY);
+  int w2_row = Math::Orient2d(m_p3x, m_p3y, m_p1x, m_p1y, minX, minY);
+  int w3_row = Math::Orient2d(m_p1x, m_p1y, m_p2x, m_p2y, minX, minY);
 
   int w1(0), w2(0), w3(0);
-  uint8_t* lineStart = frameBuffer + (minY * DisplayWidth + minX) / 2;
+  uint8_t* lineStart = in_frameBuffer + (minY * DisplayWidth + minX) / 2;
   bool upperNibbleStart = (minY * DisplayWidth + minX) & 0x1;
   const uint8_t& colorLower = (uint8_t)(color) & 0x0F;
   uint8_t colorUpper = colorLower << 4;

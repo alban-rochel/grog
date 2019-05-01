@@ -9,9 +9,6 @@
 
 using namespace grog;
 
-Matrix::Matrix() noexcept
-{}
-
 Matrix::Matrix(const Matrix& in_other) noexcept
 {
   memcpy(m_data, in_other.m_data, sizeof(m_data));

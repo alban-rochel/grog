@@ -2,25 +2,17 @@
 
 using namespace grog;
 
-SceneNode::SceneNode() noexcept:
-  mesh(),
-  transform(),
-  children(nullptr),
-  childCount(0)
-{
-
-}
 
 SceneNode::~SceneNode() noexcept
 {
-  if(childCount && children)
+  if(m_childCount && m_children)
   {
-    for(uint32_t childIndex = childCount;
+    for(uint32_t childIndex = m_childCount;
         childIndex;
         --childIndex)
     {
-      delete children[childIndex-1];
+      delete m_children[childIndex-1];
     }
-    delete[] children;
+    delete[] m_children;
   }
 }

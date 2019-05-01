@@ -1,7 +1,6 @@
 <map id="Mesh.h" name="Mesh.h">
-<area shape="rect" id="node1" title=" " alt="" coords="209,5,274,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="153,5,218,32"/>
 <area shape="rect" id="node2" href="$SceneNode_8h.html" title=" " alt="" coords="135,80,235,107"/>
-<area shape="rect" id="node10" href="$Mesh_8cpp.html" title=" " alt="" coords="259,80,338,107"/>
 <area shape="rect" id="node3" href="$Car_8h.html" title=" " alt="" coords="21,155,73,181"/>
 <area shape="rect" id="node5" href="$Engine_8h.html" title=" " alt="" coords="103,155,177,181"/>
 <area shape="rect" id="node7" href="$Road_8h.html" title=" " alt="" coords="201,155,263,181"/>

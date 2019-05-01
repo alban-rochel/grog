@@ -1,4 +1,4 @@
 <map id="demo::Road" name="demo::Road">
 <area shape="rect" id="node1" title="The Road class is a scene node containing the full description of a road segment. It contains pointer..." alt="" coords="21,80,113,107"/>
-<area shape="rect" id="node2" href="$classgrog_1_1SceneNode.html" title=" " alt="" coords="5,5,128,32"/>
+<area shape="rect" id="node2" href="$classgrog_1_1SceneNode.html" title="The SceneNode describes a node in the hierarchy of meshes. Each SceneNode contains a (possibly empty)..." alt="" coords="5,5,128,32"/>
 </map>

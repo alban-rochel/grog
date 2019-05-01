@@ -92,9 +92,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a08cc1a0b8c09ec626484245dec130ac9"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Math.html#a08cc1a0b8c09ec626484245dec130ac9">Sin</a> (int32_t in_angle) noexcept</td></tr>
 <tr class="memdesc:a08cc1a0b8c09ec626484245dec130ac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sine function.  <a href="classgrog_1_1Math.html#a08cc1a0b8c09ec626484245dec130ac9">More...</a><br /></td></tr>
 <tr class="separator:a08cc1a0b8c09ec626484245dec130ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3960c5e634258006c8ac8ae5abe805c8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Math.html#a3960c5e634258006c8ac8ae5abe805c8">Orient2d</a> (const int32_t &amp;p1x, const int32_t &amp;p1y, const int32_t &amp;p2x, const int32_t &amp;p2y, const int32_t &amp;p3x, const int32_t &amp;p3y) noexcept</td></tr>
-<tr class="memdesc:a3960c5e634258006c8ac8ae5abe805c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orient2d provides info on triangle p1p2p3 orientation, returning a cross-product of sides p2p1 and p3p1. Named after the similar function presented in <a href="https://fgiesen.wordpress.com/2013/02/10/optimizing-the-basic-rasterizer/">https://fgiesen.wordpress.com/2013/02/10/optimizing-the-basic-rasterizer/</a>.  <a href="classgrog_1_1Math.html#a3960c5e634258006c8ac8ae5abe805c8">More...</a><br /></td></tr>
-<tr class="separator:a3960c5e634258006c8ac8ae5abe805c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c1ad21a241f49f032412d0a2bc14448"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Math.html#a5c1ad21a241f49f032412d0a2bc14448">Orient2d</a> (const int32_t &amp;in_p1x, const int32_t &amp;in_p1y, const int32_t &amp;in_p2x, const int32_t &amp;in_p2y, const int32_t &amp;in_p3x, const int32_t &amp;in_p3y) noexcept</td></tr>
+<tr class="memdesc:a5c1ad21a241f49f032412d0a2bc14448"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orient2d provides info on triangle p1p2p3 orientation, returning a cross-product of sides p2p1 and p3p1. Named after the similar function presented in <a href="https://fgiesen.wordpress.com/2013/02/10/optimizing-the-basic-rasterizer/">https://fgiesen.wordpress.com/2013/02/10/optimizing-the-basic-rasterizer/</a>.  <a href="classgrog_1_1Math.html#a5c1ad21a241f49f032412d0a2bc14448">More...</a><br /></td></tr>
+<tr class="separator:a5c1ad21a241f49f032412d0a2bc14448"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8e78def71f82610807ccad67ec1098d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Math.html#ac8e78def71f82610807ccad67ec1098d">Normalize</a> (int32_t *io_vect) noexcept</td></tr>
 <tr class="memdesc:ac8e78def71f82610807ccad67ec1098d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalizes a vector of 3 Q21.10 values provided.  <a href="classgrog_1_1Math.html#ac8e78def71f82610807ccad67ec1098d">More...</a><br /></td></tr>
 <tr class="separator:ac8e78def71f82610807ccad67ec1098d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -282,8 +282,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3960c5e634258006c8ac8ae5abe805c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3960c5e634258006c8ac8ae5abe805c8">&#9670;&nbsp;</a></span>Orient2d()</h2>
+<a id="a5c1ad21a241f49f032412d0a2bc14448"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c1ad21a241f49f032412d0a2bc14448">&#9670;&nbsp;</a></span>Orient2d()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,37 +295,37 @@ Static Public Member Functions</h2></td></tr>
           <td class="memname">static <a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> int32_t grog::Math::Orient2d </td>
           <td>(</td>
           <td class="paramtype">const int32_t &amp;&#160;</td>
-          <td class="paramname"><em>p1x</em>, </td>
+          <td class="paramname"><em>in_p1x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int32_t &amp;&#160;</td>
-          <td class="paramname"><em>p1y</em>, </td>
+          <td class="paramname"><em>in_p1y</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int32_t &amp;&#160;</td>
-          <td class="paramname"><em>p2x</em>, </td>
+          <td class="paramname"><em>in_p2x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int32_t &amp;&#160;</td>
-          <td class="paramname"><em>p2y</em>, </td>
+          <td class="paramname"><em>in_p2y</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int32_t &amp;&#160;</td>
-          <td class="paramname"><em>p3x</em>, </td>
+          <td class="paramname"><em>in_p3x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int32_t &amp;&#160;</td>
-          <td class="paramname"><em>p3y</em>&#160;</td>
+          <td class="paramname"><em>in_p3y</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

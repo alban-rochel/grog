@@ -80,13 +80,16 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>The <a class="el" href="classgrog_1_1SceneNode.html" title="The SceneNode describes a node in the hierarchy of meshes. Each SceneNode contains a (possibly empty)...">SceneNode</a> describes a node in the hierarchy of meshes. Each <a class="el" href="classgrog_1_1SceneNode.html" title="The SceneNode describes a node in the hierarchy of meshes. Each SceneNode contains a (possibly empty)...">SceneNode</a> contains a (possibly empty) mesh, and a transformation relative to its parent node.  
+ <a href="classgrog_1_1SceneNode.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for grog::SceneNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classgrog_1_1SceneNode__inherit__graph.png" border="0" usemap="#grog_1_1SceneNode_inherit__map" alt="Inheritance graph"/></div>
 <map name="grog_1_1SceneNode_inherit__map" id="grog_1_1SceneNode_inherit__map">
-<area shape="rect" title=" " alt="" coords="41,5,164,32"/>
+<area shape="rect" title="The SceneNode describes a node in the hierarchy of meshes. Each SceneNode contains a (possibly empty)..." alt="" coords="41,5,164,32"/>
 <area shape="rect" href="$classdemo_1_1Car.html" title="The Car class is a scene node containing the full description of a car. It contains pointers to the m..." alt="" coords="5,80,88,107"/>
 <area shape="rect" href="$classdemo_1_1Road.html" title="The Road class is a scene node containing the full description of a road segment. It contains pointer..." alt="" coords="113,80,205,107"/>
 </map>
@@ -96,38 +99,46 @@ Collaboration diagram for grog::SceneNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classgrog_1_1SceneNode__coll__graph.png" border="0" usemap="#grog_1_1SceneNode_coll__map" alt="Collaboration graph"/></div>
 <map name="grog_1_1SceneNode_coll__map" id="grog_1_1SceneNode_coll__map">
-<area shape="rect" title=" " alt="" coords="90,95,213,121"/>
-<area shape="rect" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ..." alt="" coords="5,5,156,32"/>
-<area shape="rect" href="classgrog_1_1Mesh.html" title=" " alt="" coords="180,5,267,32"/>
+<area shape="rect" title="The SceneNode describes a node in the hierarchy of meshes. Each SceneNode contains a (possibly empty)..." alt="" coords="90,95,213,121"/>
+<area shape="rect" href="$classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ..." alt="" coords="5,5,156,32"/>
+<area shape="rect" href="$classgrog_1_1Mesh.html" title="The Mesh contains the info describing a 3D object, as a mesh of triangle faces." alt="" coords="180,5,267,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a30e8b2f227228e4821441137f923190d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#a30e8b2f227228e4821441137f923190d">SceneNode</a> () noexcept</td></tr>
-<tr class="separator:a30e8b2f227228e4821441137f923190d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c7658413deea1e95e73401af1e83be8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#a3c7658413deea1e95e73401af1e83be8">SceneNode</a> () noexcept=default</td></tr>
+<tr class="memdesc:a3c7658413deea1e95e73401af1e83be8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classgrog_1_1SceneNode.html#a3c7658413deea1e95e73401af1e83be8">More...</a><br /></td></tr>
+<tr class="separator:a3c7658413deea1e95e73401af1e83be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bcec7a2ceba3eb174702ebf9ec7943d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#a5bcec7a2ceba3eb174702ebf9ec7943d">~SceneNode</a> () noexcept</td></tr>
+<tr class="memdesc:a5bcec7a2ceba3eb174702ebf9ec7943d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. Deletes the SceneNodes in m_children.  <a href="classgrog_1_1SceneNode.html#a5bcec7a2ceba3eb174702ebf9ec7943d">More...</a><br /></td></tr>
 <tr class="separator:a5bcec7a2ceba3eb174702ebf9ec7943d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a0336dfe0c52774e62e6b5401ee2ea47e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#a0336dfe0c52774e62e6b5401ee2ea47e">renderPass</a> {0x01}</td></tr>
-<tr class="separator:a0336dfe0c52774e62e6b5401ee2ea47e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39226c781d4c84830c541b879d686940"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Mesh.html">Mesh</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#a39226c781d4c84830c541b879d686940">mesh</a></td></tr>
-<tr class="separator:a39226c781d4c84830c541b879d686940"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66b4b7cf3fee7823012965cad8bdb4b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#a66b4b7cf3fee7823012965cad8bdb4b4">transform</a></td></tr>
-<tr class="separator:a66b4b7cf3fee7823012965cad8bdb4b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1e51ae736596258edd58427c2cfd486"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#ac1e51ae736596258edd58427c2cfd486">children</a> {nullptr}</td></tr>
-<tr class="separator:ac1e51ae736596258edd58427c2cfd486"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af79d624685fc7a989b0bdf48567148ff"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#af79d624685fc7a989b0bdf48567148ff">childCount</a> {0}</td></tr>
-<tr class="separator:af79d624685fc7a989b0bdf48567148ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab6b8985b04ec9e252602f743ebc5b98"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#aab6b8985b04ec9e252602f743ebc5b98">m_renderPass</a> {0x01}</td></tr>
+<tr class="memdesc:aab6b8985b04ec9e252602f743ebc5b98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which pass this node should be rasterized on.  <a href="classgrog_1_1SceneNode.html#aab6b8985b04ec9e252602f743ebc5b98">More...</a><br /></td></tr>
+<tr class="separator:aab6b8985b04ec9e252602f743ebc5b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d73907539b4a66e4b51fdfabdc481a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Mesh.html">Mesh</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#a8d73907539b4a66e4b51fdfabdc481a3">m_mesh</a> {}</td></tr>
+<tr class="memdesc:a8d73907539b4a66e4b51fdfabdc481a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The node mesh.  <a href="classgrog_1_1SceneNode.html#a8d73907539b4a66e4b51fdfabdc481a3">More...</a><br /></td></tr>
+<tr class="separator:a8d73907539b4a66e4b51fdfabdc481a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa95a9a3d01fb2297772f107a9c88574a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#aa95a9a3d01fb2297772f107a9c88574a">m_transform</a> {}</td></tr>
+<tr class="memdesc:aa95a9a3d01fb2297772f107a9c88574a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The transformation relative to the parent.  <a href="classgrog_1_1SceneNode.html#aa95a9a3d01fb2297772f107a9c88574a">More...</a><br /></td></tr>
+<tr class="separator:aa95a9a3d01fb2297772f107a9c88574a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dff83f10294508fed6adc866711ddce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#a5dff83f10294508fed6adc866711ddce">m_children</a> {nullptr}</td></tr>
+<tr class="memdesc:a5dff83f10294508fed6adc866711ddce"><td class="mdescLeft">&#160;</td><td class="mdescRight">The children nodes.  <a href="classgrog_1_1SceneNode.html#a5dff83f10294508fed6adc866711ddce">More...</a><br /></td></tr>
+<tr class="separator:a5dff83f10294508fed6adc866711ddce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd96e74f3508400123d8f300c050028e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1SceneNode.html#abd96e74f3508400123d8f300c050028e">m_childCount</a> {0}</td></tr>
+<tr class="memdesc:abd96e74f3508400123d8f300c050028e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of children nodes.  <a href="classgrog_1_1SceneNode.html#abd96e74f3508400123d8f300c050028e">More...</a><br /></td></tr>
+<tr class="separator:abd96e74f3508400123d8f300c050028e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00009">9</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
+<div class="textblock"><p>The <a class="el" href="classgrog_1_1SceneNode.html" title="The SceneNode describes a node in the hierarchy of meshes. Each SceneNode contains a (possibly empty)...">SceneNode</a> describes a node in the hierarchy of meshes. Each <a class="el" href="classgrog_1_1SceneNode.html" title="The SceneNode describes a node in the hierarchy of meshes. Each SceneNode contains a (possibly empty)...">SceneNode</a> contains a (possibly empty) mesh, and a transformation relative to its parent node. </p>
+
+<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00013">13</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a30e8b2f227228e4821441137f923190d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30e8b2f227228e4821441137f923190d">&#9670;&nbsp;</a></span>SceneNode()</h2>
+<a id="a3c7658413deea1e95e73401af1e83be8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c7658413deea1e95e73401af1e83be8">&#9670;&nbsp;</a></span>SceneNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -136,7 +147,7 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">SceneNode::SceneNode </td>
+          <td class="memname">grog::SceneNode::SceneNode </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -144,12 +155,12 @@ Public Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SceneNode_8cpp_source.html#l00005">5</a> of file <a class="el" href="SceneNode_8cpp_source.html">SceneNode.cpp</a>.</p>
+<p>Constructor. </p>
 
 </div>
 </div>
@@ -176,88 +187,100 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SceneNode_8cpp_source.html#l00014">14</a> of file <a class="el" href="SceneNode_8cpp_source.html">SceneNode.cpp</a>.</p>
+<p>Destructor. Deletes the SceneNodes in m_children. </p>
+
+<p class="definition">Definition at line <a class="el" href="SceneNode_8cpp_source.html#l00006">6</a> of file <a class="el" href="SceneNode_8cpp_source.html">SceneNode.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="af79d624685fc7a989b0bdf48567148ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af79d624685fc7a989b0bdf48567148ff">&#9670;&nbsp;</a></span>childCount</h2>
+<a id="abd96e74f3508400123d8f300c050028e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd96e74f3508400123d8f300c050028e">&#9670;&nbsp;</a></span>m_childCount</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t grog::SceneNode::childCount {0}</td>
+          <td class="memname">uint32_t grog::SceneNode::m_childCount {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00022">22</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
+<p>The number of children nodes. </p>
+
+<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00034">34</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
 
 </div>
 </div>
-<a id="ac1e51ae736596258edd58427c2cfd486"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1e51ae736596258edd58427c2cfd486">&#9670;&nbsp;</a></span>children</h2>
+<a id="a5dff83f10294508fed6adc866711ddce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dff83f10294508fed6adc866711ddce">&#9670;&nbsp;</a></span>m_children</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a>** grog::SceneNode::children {nullptr}</td>
+          <td class="memname"><a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a>** grog::SceneNode::m_children {nullptr}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00021">21</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
+<p>The children nodes. </p>
+
+<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00033">33</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
 
 </div>
 </div>
-<a id="a39226c781d4c84830c541b879d686940"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39226c781d4c84830c541b879d686940">&#9670;&nbsp;</a></span>mesh</h2>
+<a id="a8d73907539b4a66e4b51fdfabdc481a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d73907539b4a66e4b51fdfabdc481a3">&#9670;&nbsp;</a></span>m_mesh</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgrog_1_1Mesh.html">Mesh</a> grog::SceneNode::mesh</td>
+          <td class="memname"><a class="el" href="classgrog_1_1Mesh.html">Mesh</a> grog::SceneNode::m_mesh {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00018">18</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
+<p>The node mesh. </p>
+
+<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00030">30</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
 
 </div>
 </div>
-<a id="a0336dfe0c52774e62e6b5401ee2ea47e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0336dfe0c52774e62e6b5401ee2ea47e">&#9670;&nbsp;</a></span>renderPass</h2>
+<a id="aab6b8985b04ec9e252602f743ebc5b98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab6b8985b04ec9e252602f743ebc5b98">&#9670;&nbsp;</a></span>m_renderPass</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t grog::SceneNode::renderPass {0x01}</td>
+          <td class="memname">uint32_t grog::SceneNode::m_renderPass {0x01}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00016">16</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
+<p>Which pass this node should be rasterized on. </p>
+
+<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00028">28</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
 
 </div>
 </div>
-<a id="a66b4b7cf3fee7823012965cad8bdb4b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66b4b7cf3fee7823012965cad8bdb4b4">&#9670;&nbsp;</a></span>transform</h2>
+<a id="aa95a9a3d01fb2297772f107a9c88574a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa95a9a3d01fb2297772f107a9c88574a">&#9670;&nbsp;</a></span>m_transform</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> grog::SceneNode::transform</td>
+          <td class="memname"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> grog::SceneNode::m_transform {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00019">19</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
+<p>The transformation relative to the parent. </p>
+
+<p class="definition">Definition at line <a class="el" href="SceneNode_8h_source.html#l00031">31</a> of file <a class="el" href="SceneNode_8h_source.html">SceneNode.h</a>.</p>
 
 </div>
 </div>

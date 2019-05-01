@@ -79,102 +79,115 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>The <a class="el" href="classgrog_1_1Mesh.html" title="The Mesh contains the info describing a 3D object, as a mesh of triangle faces.">Mesh</a> contains the info describing a 3D object, as a mesh of triangle faces.  
+ <a href="classgrog_1_1Mesh.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="Mesh_8h_source.html">Mesh.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a4f664f374b6776995b69944c21fe8111"><td class="memItemLeft" align="right" valign="top">const int32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Mesh.html#a4f664f374b6776995b69944c21fe8111">vertexBuffer</a> {nullptr}</td></tr>
-<tr class="separator:a4f664f374b6776995b69944c21fe8111"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d7116ca3a26583ab649215456670eb0"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Mesh.html#a8d7116ca3a26583ab649215456670eb0">vertexCount</a> {0}</td></tr>
-<tr class="separator:a8d7116ca3a26583ab649215456670eb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcf82d369ebaf8f625545c66b66b8f0e"><td class="memItemLeft" align="right" valign="top">const uint32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Mesh.html#abcf82d369ebaf8f625545c66b66b8f0e">faces</a> {nullptr}</td></tr>
-<tr class="separator:abcf82d369ebaf8f625545c66b66b8f0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e6170467acbf713bbbee0880f051867"><td class="memItemLeft" align="right" valign="top">const Gamebuino_Meta::ColorIndex *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Mesh.html#a3e6170467acbf713bbbee0880f051867">colors</a> {nullptr}</td></tr>
-<tr class="separator:a3e6170467acbf713bbbee0880f051867"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4be18cccd7c24eedea0a62a5f80e5945"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Mesh.html#a4be18cccd7c24eedea0a62a5f80e5945">faceCount</a> {0}</td></tr>
-<tr class="separator:a4be18cccd7c24eedea0a62a5f80e5945"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85dbb3a9f68485e367c76b3f90f98c40"><td class="memItemLeft" align="right" valign="top">const int32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Mesh.html#a85dbb3a9f68485e367c76b3f90f98c40">m_vertexBuffer</a> {nullptr}</td></tr>
+<tr class="separator:a85dbb3a9f68485e367c76b3f90f98c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68ca24afd7cc6e8dc4c93310c1aab775"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Mesh.html#a68ca24afd7cc6e8dc4c93310c1aab775">m_vertexCount</a> {0}</td></tr>
+<tr class="memdesc:a68ca24afd7cc6e8dc4c93310c1aab775"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of vertices, i.e. one third of the size of m_vertexBuffer.  <a href="classgrog_1_1Mesh.html#a68ca24afd7cc6e8dc4c93310c1aab775">More...</a><br /></td></tr>
+<tr class="separator:a68ca24afd7cc6e8dc4c93310c1aab775"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3a6b4241875c0124619f5fbef06cfab"><td class="memItemLeft" align="right" valign="top">const uint32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Mesh.html#af3a6b4241875c0124619f5fbef06cfab">m_faces</a> {nullptr}</td></tr>
+<tr class="separator:af3a6b4241875c0124619f5fbef06cfab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac178c7590f3416e418e78b6d57295b86"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Mesh.html#ac178c7590f3416e418e78b6d57295b86">m_faceCount</a> {0}</td></tr>
+<tr class="memdesc:ac178c7590f3416e418e78b6d57295b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of faces, i.e. one third of the size of m_faces.  <a href="classgrog_1_1Mesh.html#ac178c7590f3416e418e78b6d57295b86">More...</a><br /></td></tr>
+<tr class="separator:ac178c7590f3416e418e78b6d57295b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee8c046f5ec4a4e5e31e6cbb7dfa8b04"><td class="memItemLeft" align="right" valign="top">const Gamebuino_Meta::ColorIndex *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Mesh.html#aee8c046f5ec4a4e5e31e6cbb7dfa8b04">m_colors</a> {nullptr}</td></tr>
+<tr class="separator:aee8c046f5ec4a4e5e31e6cbb7dfa8b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Mesh_8h_source.html#l00007">7</a> of file <a class="el" href="Mesh_8h_source.html">Mesh.h</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3e6170467acbf713bbbee0880f051867"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e6170467acbf713bbbee0880f051867">&#9670;&nbsp;</a></span>colors</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const Gamebuino_Meta::ColorIndex* grog::Mesh::colors {nullptr}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Mesh_8h_source.html#l00013">13</a> of file <a class="el" href="Mesh_8h_source.html">Mesh.h</a>.</p>
-
-</div>
-</div>
-<a id="a4be18cccd7c24eedea0a62a5f80e5945"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4be18cccd7c24eedea0a62a5f80e5945">&#9670;&nbsp;</a></span>faceCount</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t grog::Mesh::faceCount {0}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Mesh_8h_source.html#l00014">14</a> of file <a class="el" href="Mesh_8h_source.html">Mesh.h</a>.</p>
-
-</div>
-</div>
-<a id="abcf82d369ebaf8f625545c66b66b8f0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcf82d369ebaf8f625545c66b66b8f0e">&#9670;&nbsp;</a></span>faces</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const uint32_t* grog::Mesh::faces {nullptr}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Mesh_8h_source.html#l00012">12</a> of file <a class="el" href="Mesh_8h_source.html">Mesh.h</a>.</p>
-
-</div>
-</div>
-<a id="a4f664f374b6776995b69944c21fe8111"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f664f374b6776995b69944c21fe8111">&#9670;&nbsp;</a></span>vertexBuffer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int32_t* grog::Mesh::vertexBuffer {nullptr}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<div class="textblock"><p>The <a class="el" href="classgrog_1_1Mesh.html" title="The Mesh contains the info describing a 3D object, as a mesh of triangle faces.">Mesh</a> contains the info describing a 3D object, as a mesh of triangle faces. </p>
 
 <p class="definition">Definition at line <a class="el" href="Mesh_8h_source.html#l00010">10</a> of file <a class="el" href="Mesh_8h_source.html">Mesh.h</a>.</p>
-
-</div>
-</div>
-<a id="a8d7116ca3a26583ab649215456670eb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d7116ca3a26583ab649215456670eb0">&#9670;&nbsp;</a></span>vertexCount</h2>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="aee8c046f5ec4a4e5e31e6cbb7dfa8b04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee8c046f5ec4a4e5e31e6cbb7dfa8b04">&#9670;&nbsp;</a></span>m_colors</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t grog::Mesh::vertexCount {0}</td>
+          <td class="memname">const Gamebuino_Meta::ColorIndex* grog::Mesh::m_colors {nullptr}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The colors of each face. </p><dl class="section pre"><dt>Precondition</dt><dd>The buffer size must be at least m_faceCount. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Mesh_8h_source.html#l00030">30</a> of file <a class="el" href="Mesh_8h_source.html">Mesh.h</a>.</p>
+
+</div>
+</div>
+<a id="ac178c7590f3416e418e78b6d57295b86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac178c7590f3416e418e78b6d57295b86">&#9670;&nbsp;</a></span>m_faceCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t grog::Mesh::m_faceCount {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mesh_8h_source.html#l00011">11</a> of file <a class="el" href="Mesh_8h_source.html">Mesh.h</a>.</p>
+<p>The number of faces, i.e. one third of the size of m_faces. </p>
+
+<p class="definition">Definition at line <a class="el" href="Mesh_8h_source.html#l00024">24</a> of file <a class="el" href="Mesh_8h_source.html">Mesh.h</a>.</p>
+
+</div>
+</div>
+<a id="af3a6b4241875c0124619f5fbef06cfab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3a6b4241875c0124619f5fbef06cfab">&#9670;&nbsp;</a></span>m_faces</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint32_t* grog::Mesh::m_faces {nullptr}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The face buffer, containing a series of triplets of 0-based indices for the vertices describing faces. </p><dl class="section warning"><dt>Warning</dt><dd>Faces are oriented. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Mesh_8h_source.html#l00023">23</a> of file <a class="el" href="Mesh_8h_source.html">Mesh.h</a>.</p>
+
+</div>
+</div>
+<a id="a85dbb3a9f68485e367c76b3f90f98c40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85dbb3a9f68485e367c76b3f90f98c40">&#9670;&nbsp;</a></span>m_vertexBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int32_t* grog::Mesh::m_vertexBuffer {nullptr}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The vertex buffer, containing a series of triplets of signed Q21.10 values, storing the vertex coordinates. </p>
+
+<p class="definition">Definition at line <a class="el" href="Mesh_8h_source.html#l00016">16</a> of file <a class="el" href="Mesh_8h_source.html">Mesh.h</a>.</p>
+
+</div>
+</div>
+<a id="a68ca24afd7cc6e8dc4c93310c1aab775"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68ca24afd7cc6e8dc4c93310c1aab775">&#9670;&nbsp;</a></span>m_vertexCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t grog::Mesh::m_vertexCount {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The number of vertices, i.e. one third of the size of m_vertexBuffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="Mesh_8h_source.html#l00017">17</a> of file <a class="el" href="Mesh_8h_source.html">Mesh.h</a>.</p>
 
 </div>
 </div>

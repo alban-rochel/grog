@@ -1,3 +1,3 @@
 <map id="grog::Triangle" name="grog::Triangle">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,107,32"/>
+<area shape="rect" id="node1" title="The Triangle is a rasterizable triangle (2D, with global Z information for paint ordering)." alt="" coords="5,5,107,32"/>
 </map>

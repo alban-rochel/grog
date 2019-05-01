@@ -1,6 +1,6 @@
 <map id="demo::Car" name="demo::Car">
 <area shape="rect" id="node1" title="The Car class is a scene node containing the full description of a car. It contains pointers to the m..." alt="" coords="110,171,193,197"/>
-<area shape="rect" id="node2" href="$classgrog_1_1SceneNode.html" title=" " alt="" coords="90,95,213,121"/>
+<area shape="rect" id="node2" href="$classgrog_1_1SceneNode.html" title="The SceneNode describes a node in the hierarchy of meshes. Each SceneNode contains a (possibly empty)..." alt="" coords="90,95,213,121"/>
 <area shape="rect" id="node3" href="$classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ..." alt="" coords="5,5,156,32"/>
-<area shape="rect" id="node4" href="$classgrog_1_1Mesh.html" title=" " alt="" coords="180,5,267,32"/>
+<area shape="rect" id="node4" href="$classgrog_1_1Mesh.html" title="The Mesh contains the info describing a 3D object, as a mesh of triangle faces." alt="" coords="180,5,267,32"/>
 </map>

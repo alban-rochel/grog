@@ -1,4 +1,5 @@
-#include "grog.h"
+#include "Math.h"
+#include "Engine.h"
 #include "Car.h"
 #include "Road.h"
 
@@ -23,25 +24,25 @@ void loop()
 {
   grog::SceneNode scene;
 
-  scene.mesh.vertexBuffer = nullptr;
-  scene.mesh.vertexCount = 0;
-  scene.mesh.faces = nullptr;
-  scene.mesh.faceCount = 0;
-  scene.mesh.colors = nullptr;
-  scene.children = new grog::SceneNode*[7];
-  scene.childCount = 5;
+  scene.m_mesh.m_vertexBuffer = nullptr;
+  scene.m_mesh.m_vertexCount = 0;
+  scene.m_mesh.m_faces = nullptr;
+  scene.m_mesh.m_faceCount = 0;
+  scene.m_mesh.m_colors = nullptr;
+  scene.m_children = new grog::SceneNode*[7];
+  scene.m_childCount = 5;
 
   car1=new demo::Car(true);
   car2=new demo::Car(false);
-  scene.children[0] = car1;
-  scene.children[1] = car2;
-  scene.children[1]->transform.identity().translate(1500,0, 1000);
+  scene.m_children[0] = car1;
+  scene.m_children[1] = car2;
+  scene.m_children[1]->m_transform.identity().translate(1500,0, 1000);
 
-  scene.children[2] = new demo::Road();
-  scene.children[3] = new demo::Road();
-  scene.children[4] = new demo::Road();
+  scene.m_children[2] = new demo::Road();
+  scene.m_children[3] = new demo::Road();
+  scene.m_children[4] = new demo::Road();
   
-  engine.setProjection(1.f, 0.01, 100);
+  engine.setProjection(grog::Matrix::Projection(1.f, 0.01f, 100.f));
 
   int ii = 0;
 
@@ -81,20 +82,22 @@ void loop()
       distance += 1;
     }
 
-    tilt = grog::Math::Min2(grog::Math::Max2(50, tilt), 200);
-    distance = grog::Math::Min2(grog::Math::Max2(2 << 3, distance), 10 << 3);
+    tilt = (tilt < 50 ? 50 : tilt);
+    tilt = (tilt > 200 ? 200 : tilt);
+    distance = (distance < (2<<3) ? (2<<3) : distance);
+    distance = (distance > (10<<3) ? (10<<3) : distance);
 
     gb.display.setColor(Gamebuino_Meta::ColorIndex::black);
     gb.display._fill();
 
-    engine.setView(grog::TransformMatrix::View((distance * grog::Math::Cos(azimut)) >> 3, (distance * grog::Cos(tilt)) >> 3, (distance * grog::Sin(azimut)) >> 3,
+    engine.setView(grog::TransformMatrix::View((distance * grog::Math::Cos(azimut)) >> 3, (distance * grog::Math::Cos(tilt)) >> 3, (distance * grog::Math::Sin(azimut)) >> 3,
                                                0, 0, 0,
-                                               grog::Math::FloatToFixed(0), grog::Math::floatToFixed(-1.f), 0));
+                                               grog::Math::FloatToFixed(0.f), grog::Math::FloatToFixed(-1.f), 0));
 
 
   for(uint32_t roadIndex = 0; roadIndex < 5; ++roadIndex)
   {
-    scene.children[2 + roadIndex]->transform.identity().translate(shift[roadIndex], 0, 0);
+    scene.m_children[2 + roadIndex]->m_transform.identity().translate(shift[roadIndex], 0, 0);
     shift[roadIndex] += 300;
     if(shift[roadIndex] >= 32000)
       shift[roadIndex] -= 48000;

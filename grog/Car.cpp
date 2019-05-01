@@ -8,35 +8,35 @@ Car::Car(bool mainCar):
 {
   // Cars are rendered in second pass.
   // This makes them appear on top of everything rasterized in first pass, but saves memory.
-  renderPass = 0x02;
+  m_renderPass = 0x02;
 
   // The main node is the car body itself
-  mesh.vertexBuffer = demo::car_vertices;
-  mesh.vertexCount  = demo::car_vertexCount;
-  mesh.faces        = demo::car_faces;
-  mesh.faceCount    = demo::car_faceCount;
+  m_mesh.m_vertexBuffer = demo::car_vertices;
+  m_mesh.m_vertexCount  = demo::car_vertexCount;
+  m_mesh.m_faces        = demo::car_faces;
+  m_mesh.m_faceCount    = demo::car_faceCount;
   if(mainCar)
   {
-    mesh.colors     = demo::car_colors_main;
+    m_mesh.m_colors     = demo::car_colors_main;
   }
   else
   {
-    mesh.colors     = demo::car_colors_other;
+    m_mesh.m_colors     = demo::car_colors_other;
   }
 
   // The children are the wheels
-  childCount = 4;
-  children = new grog::SceneNode*[childCount];
+  m_childCount = 4;
+  m_children = new grog::SceneNode*[m_childCount];
 
-  for(uint32_t childIndex = 0; childIndex < childCount; ++childIndex)
+  for(uint32_t childIndex = 0; childIndex < m_childCount; ++childIndex)
   {
-    children[childIndex] = new grog::SceneNode;
-    children[childIndex]->mesh.vertexBuffer = demo::wheel_vertices;
-    children[childIndex]->mesh.vertexCount  = demo::wheel_vertexCount;
-    children[childIndex]->mesh.faces        = demo::wheel_faces;
-    children[childIndex]->mesh.faceCount    = demo::wheel_faceCount;
-    children[childIndex]->mesh.colors       = demo::wheel_colors;
-    children[childIndex]->renderPass        = 0x02;
+    m_children[childIndex] = new grog::SceneNode;
+    m_children[childIndex]->m_mesh.m_vertexBuffer = demo::wheel_vertices;
+    m_children[childIndex]->m_mesh.m_vertexCount  = demo::wheel_vertexCount;
+    m_children[childIndex]->m_mesh.m_faces        = demo::wheel_faces;
+    m_children[childIndex]->m_mesh.m_faceCount    = demo::wheel_faceCount;
+    m_children[childIndex]->m_mesh.m_colors       = demo::wheel_colors;
+    m_children[childIndex]->m_renderPass        = 0x02;
   }
 
   setWheelRotation(0);
@@ -44,8 +44,8 @@ Car::Car(bool mainCar):
 
 void Car::setWheelRotation(int32_t rotation) noexcept
 {
-    children[0]->transform.identity().rotateZ(rotation).translate(-300, 50, 200);
-    children[1]->transform.identity().rotateZ(rotation).translate(-300, 50, -200);
-    children[2]->transform.identity().rotateZ(rotation).translate(600, 50, 200);
-    children[3]->transform.identity().rotateZ(rotation).translate(600, 50, -200);
+    m_children[0]->m_transform.identity().rotateZ(rotation).translate(-300, 50, 200);
+    m_children[1]->m_transform.identity().rotateZ(rotation).translate(-300, 50, -200);
+    m_children[2]->m_transform.identity().rotateZ(rotation).translate(600, 50, 200);
+    m_children[3]->m_transform.identity().rotateZ(rotation).translate(600, 50, -200);
 }

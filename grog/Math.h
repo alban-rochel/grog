@@ -82,11 +82,11 @@ namespace grog
        * @param[in] in_p3y Y coordinate of p3.
        * @return The cross product of p2p1 and p3p1. Its sign provides indication on triangle orientation, and thus visibility.
        */
-      GROG_INLINE static int32_t Orient2d( const int32_t& p1x, const int32_t& p1y,
-                                           const int32_t& p2x, const int32_t& p2y,
-                                           const int32_t& p3x, const int32_t& p3y) noexcept
+      GROG_INLINE static int32_t Orient2d( const int32_t& in_p1x, const int32_t& in_p1y,
+                                           const int32_t& in_p2x, const int32_t& in_p2y,
+                                           const int32_t& in_p3x, const int32_t& in_p3y) noexcept
       {
-          return (p2x-p1x)*(p3y-p1y) - (p2y-p1y)*(p3x-p1x);
+          return (in_p2x-in_p1x)*(in_p3y-in_p1y) - (in_p2y-in_p1y)*(in_p3x-in_p1x);
       }
 
       /**

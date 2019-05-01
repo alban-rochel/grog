@@ -77,24 +77,22 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="Engine_8h_source.html">Engine.h</a>&quot;</code><br />
 <code>#include &lt;Gamebuino-Meta.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="Math_8h_source.html">Math.h</a>&quot;</code><br />
-<code>#include &lt;string.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Engine.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="Engine_8cpp__incl.png" border="0" usemap="#Engine_8cpp" alt=""/></div>
 <map name="Engine_8cpp" id="Engine_8cpp">
-<area shape="rect" title=" " alt="" coords="452,5,539,32"/>
-<area shape="rect" href="Engine_8h.html" title=" " alt="" coords="283,80,356,107"/>
-<area shape="rect" title=" " alt="" coords="414,453,546,480"/>
-<area shape="rect" href="Math_8h.html" title=" " alt="" coords="420,155,483,181"/>
-<area shape="rect" title=" " alt="" coords="559,80,624,107"/>
-<area shape="rect" href="grog_8h.html" title=" " alt="" coords="288,379,346,405"/>
-<area shape="rect" href="SceneNode_8h.html" title=" " alt="" coords="206,155,306,181"/>
-<area shape="rect" href="Triangle_8h.html" title=" " alt="" coords="354,229,432,256"/>
-<area shape="rect" title=" " alt="" coords="286,453,348,480"/>
-<area shape="rect" href="Mesh_8h.html" title=" " alt="" coords="36,304,102,331"/>
-<area shape="rect" href="Matrix_8h.html" title=" " alt="" coords="209,229,278,256"/>
-<area shape="rect" href="TransformMatrix_8h.html" title=" " alt="" coords="126,304,254,331"/>
+<area shape="rect" title=" " alt="" coords="408,5,495,32"/>
+<area shape="rect" href="$Engine_8h.html" title=" " alt="" coords="273,80,347,107"/>
+<area shape="rect" title=" " alt="" coords="413,453,545,480"/>
+<area shape="rect" href="$Math_8h.html" title=" " alt="" coords="420,155,483,181"/>
+<area shape="rect" href="$grog_8h.html" title=" " alt="" coords="287,379,346,405"/>
+<area shape="rect" href="$SceneNode_8h.html" title=" " alt="" coords="205,155,305,181"/>
+<area shape="rect" href="$Triangle_8h.html" title=" " alt="" coords="353,229,432,256"/>
+<area shape="rect" title=" " alt="" coords="286,453,347,480"/>
+<area shape="rect" href="$Mesh_8h.html" title=" " alt="" coords="36,304,101,331"/>
+<area shape="rect" href="$Matrix_8h.html" title=" " alt="" coords="209,229,278,256"/>
+<area shape="rect" href="$TransformMatrix_8h.html" title=" " alt="" coords="126,304,254,331"/>
 </map>
 </div>
 </div>
@@ -102,69 +100,55 @@ Include dependency graph for Engine.cpp:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ade97da457a4a156ca315de633d530383"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#ade97da457a4a156ca315de633d530383">INVALID_I32</a>&#160;&#160;&#160;(0x7FFFFFFF)</td></tr>
-<tr class="separator:ade97da457a4a156ca315de633d530383"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a497883135e16147a29670e304793bef4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a497883135e16147a29670e304793bef4">Z1</a>&#160;&#160;&#160;v1[2]</td></tr>
+<tr class="memitem:a497883135e16147a29670e304793bef4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a497883135e16147a29670e304793bef4">Z1</a>&#160;&#160;&#160;in_v1[2]</td></tr>
 <tr class="separator:a497883135e16147a29670e304793bef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab81b2eb602e38a0261e345affe285d6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#ab81b2eb602e38a0261e345affe285d6d">W1</a>&#160;&#160;&#160;v1[3]</td></tr>
+<tr class="memitem:ab81b2eb602e38a0261e345affe285d6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#ab81b2eb602e38a0261e345affe285d6d">W1</a>&#160;&#160;&#160;in_v1[3]</td></tr>
 <tr class="separator:ab81b2eb602e38a0261e345affe285d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28">Z2</a>&#160;&#160;&#160;v2[2]</td></tr>
+<tr class="memitem:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28">Z2</a>&#160;&#160;&#160;in_v2[2]</td></tr>
 <tr class="separator:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc37ebbafc333229f88a779e89adf602"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#abc37ebbafc333229f88a779e89adf602">W2</a>&#160;&#160;&#160;v2[3]</td></tr>
+<tr class="memitem:abc37ebbafc333229f88a779e89adf602"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#abc37ebbafc333229f88a779e89adf602">W2</a>&#160;&#160;&#160;in_v2[3]</td></tr>
 <tr class="separator:abc37ebbafc333229f88a779e89adf602"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a497883135e16147a29670e304793bef4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a497883135e16147a29670e304793bef4">Z1</a>&#160;&#160;&#160;v1[2]</td></tr>
+<tr class="memitem:a497883135e16147a29670e304793bef4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a497883135e16147a29670e304793bef4">Z1</a>&#160;&#160;&#160;in_v1[2]</td></tr>
 <tr class="separator:a497883135e16147a29670e304793bef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab81b2eb602e38a0261e345affe285d6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#ab81b2eb602e38a0261e345affe285d6d">W1</a>&#160;&#160;&#160;v1[3]</td></tr>
+<tr class="memitem:ab81b2eb602e38a0261e345affe285d6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#ab81b2eb602e38a0261e345affe285d6d">W1</a>&#160;&#160;&#160;in_v1[3]</td></tr>
 <tr class="separator:ab81b2eb602e38a0261e345affe285d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28">Z2</a>&#160;&#160;&#160;v3[2]</td></tr>
+<tr class="memitem:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28">Z2</a>&#160;&#160;&#160;in_v3[2]</td></tr>
 <tr class="separator:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc37ebbafc333229f88a779e89adf602"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#abc37ebbafc333229f88a779e89adf602">W2</a>&#160;&#160;&#160;v3[3]</td></tr>
+<tr class="memitem:abc37ebbafc333229f88a779e89adf602"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#abc37ebbafc333229f88a779e89adf602">W2</a>&#160;&#160;&#160;in_v3[3]</td></tr>
 <tr class="separator:abc37ebbafc333229f88a779e89adf602"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a497883135e16147a29670e304793bef4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a497883135e16147a29670e304793bef4">Z1</a>&#160;&#160;&#160;v2[2]</td></tr>
+<tr class="memitem:a497883135e16147a29670e304793bef4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a497883135e16147a29670e304793bef4">Z1</a>&#160;&#160;&#160;in_v2[2]</td></tr>
 <tr class="separator:a497883135e16147a29670e304793bef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab81b2eb602e38a0261e345affe285d6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#ab81b2eb602e38a0261e345affe285d6d">W1</a>&#160;&#160;&#160;v2[3]</td></tr>
+<tr class="memitem:ab81b2eb602e38a0261e345affe285d6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#ab81b2eb602e38a0261e345affe285d6d">W1</a>&#160;&#160;&#160;in_v2[3]</td></tr>
 <tr class="separator:ab81b2eb602e38a0261e345affe285d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28">Z2</a>&#160;&#160;&#160;v3[2]</td></tr>
+<tr class="memitem:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28">Z2</a>&#160;&#160;&#160;in_v3[2]</td></tr>
 <tr class="separator:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc37ebbafc333229f88a779e89adf602"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#abc37ebbafc333229f88a779e89adf602">W2</a>&#160;&#160;&#160;v3[3]</td></tr>
+<tr class="memitem:abc37ebbafc333229f88a779e89adf602"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#abc37ebbafc333229f88a779e89adf602">W2</a>&#160;&#160;&#160;in_v3[3]</td></tr>
 <tr class="separator:abc37ebbafc333229f88a779e89adf602"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a497883135e16147a29670e304793bef4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a497883135e16147a29670e304793bef4">Z1</a>&#160;&#160;&#160;v1[2]</td></tr>
+<tr class="memitem:a497883135e16147a29670e304793bef4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a497883135e16147a29670e304793bef4">Z1</a>&#160;&#160;&#160;in_v1[2]</td></tr>
 <tr class="separator:a497883135e16147a29670e304793bef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab81b2eb602e38a0261e345affe285d6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#ab81b2eb602e38a0261e345affe285d6d">W1</a>&#160;&#160;&#160;v1[3]</td></tr>
+<tr class="memitem:ab81b2eb602e38a0261e345affe285d6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#ab81b2eb602e38a0261e345affe285d6d">W1</a>&#160;&#160;&#160;in_v1[3]</td></tr>
 <tr class="separator:ab81b2eb602e38a0261e345affe285d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28">Z2</a>&#160;&#160;&#160;v3[2]</td></tr>
+<tr class="memitem:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28">Z2</a>&#160;&#160;&#160;in_v3[2]</td></tr>
 <tr class="separator:a3550f7bd3eb3a1d5d589bcd8482a1e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc37ebbafc333229f88a779e89adf602"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#abc37ebbafc333229f88a779e89adf602">W2</a>&#160;&#160;&#160;v3[3]</td></tr>
+<tr class="memitem:abc37ebbafc333229f88a779e89adf602"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#abc37ebbafc333229f88a779e89adf602">W2</a>&#160;&#160;&#160;in_v3[3]</td></tr>
 <tr class="separator:abc37ebbafc333229f88a779e89adf602"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aeb2dbc024a9912a52859c23827c9bdac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#aeb2dbc024a9912a52859c23827c9bdac">pushClippedTriangle1</a> (<a class="el" href="classgrog_1_1Engine.html">grog::Engine</a> *engine, int32_t *v1, int32_t *v2, int32_t *v3, const Gamebuino_Meta::ColorIndex &amp;color)</td></tr>
-<tr class="separator:aeb2dbc024a9912a52859c23827c9bdac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05b688b68f09c93019e0ac60a73074df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a05b688b68f09c93019e0ac60a73074df">pushClippedTriangle2</a> (<a class="el" href="classgrog_1_1Engine.html">grog::Engine</a> *engine, int32_t *v1, int32_t *v2, int32_t *v3, const Gamebuino_Meta::ColorIndex &amp;color)</td></tr>
-<tr class="separator:a05b688b68f09c93019e0ac60a73074df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4431c82faaebc2c94629c8db2c28628a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a4431c82faaebc2c94629c8db2c28628a">pushUnclippedTriangle</a> (<a class="el" href="classgrog_1_1Engine.html">grog::Engine</a> *engine, int32_t *v1, int32_t *v2, int32_t *v3, const Gamebuino_Meta::ColorIndex &amp;color)</td></tr>
-<tr class="separator:a4431c82faaebc2c94629c8db2c28628a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a413812051d67fcaec3c0f31377097dbc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a413812051d67fcaec3c0f31377097dbc">displayable</a> (const <a class="el" href="classgrog_1_1Triangle.html">Triangle</a> &amp;in) noexcept</td></tr>
-<tr class="separator:a413812051d67fcaec3c0f31377097dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d9f399dc9168da211118907346e1327"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a8d9f399dc9168da211118907346e1327">pushClippedTriangle1</a> (<a class="el" href="classgrog_1_1Engine.html">grog::Engine</a> *in_engine, int32_t *in_v1, int32_t *in_v2, int32_t *in_v3, const Gamebuino_Meta::ColorIndex &amp;in_color)</td></tr>
+<tr class="memdesc:a8d9f399dc9168da211118907346e1327"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes and pushes the triangle in the clipping area (farther than the near plane), when only 1 vertex of the input triangle is within the clipping area.  <a href="Engine_8cpp.html#a8d9f399dc9168da211118907346e1327">More...</a><br /></td></tr>
+<tr class="separator:a8d9f399dc9168da211118907346e1327"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4d1eefaa7db1c58149e174db3d0ec3d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#ab4d1eefaa7db1c58149e174db3d0ec3d">pushClippedTriangle2</a> (<a class="el" href="classgrog_1_1Engine.html">grog::Engine</a> *in_engine, int32_t *in_v1, int32_t *in_v2, int32_t *in_v3, const Gamebuino_Meta::ColorIndex &amp;in_color)</td></tr>
+<tr class="memdesc:ab4d1eefaa7db1c58149e174db3d0ec3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes and pushes the triangls in the clipping area (farther than the near plane), when only 2 vertices of the input triangle is within the clipping area.  <a href="Engine_8cpp.html#ab4d1eefaa7db1c58149e174db3d0ec3d">More...</a><br /></td></tr>
+<tr class="separator:ab4d1eefaa7db1c58149e174db3d0ec3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5d4e60842d07174ae1f16a655c60bee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#ab5d4e60842d07174ae1f16a655c60bee">pushUnclippedTriangle</a> (<a class="el" href="classgrog_1_1Engine.html">grog::Engine</a> *in_engine, int32_t *in_v1, int32_t *in_v2, int32_t *in_v3, const Gamebuino_Meta::ColorIndex &amp;in_color)</td></tr>
+<tr class="memdesc:ab5d4e60842d07174ae1f16a655c60bee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a triangle with all vertices farther than the near plane (no clipping).  <a href="Engine_8cpp.html#ab5d4e60842d07174ae1f16a655c60bee">More...</a><br /></td></tr>
+<tr class="separator:ab5d4e60842d07174ae1f16a655c60bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18a306150caafe8c1ab47aabcce25cc4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Engine_8cpp.html#a18a306150caafe8c1ab47aabcce25cc4">displayable</a> (const <a class="el" href="classgrog_1_1Triangle.html">Triangle</a> &amp;in_triangle) noexcept</td></tr>
+<tr class="memdesc:a18a306150caafe8c1ab47aabcce25cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells whether a triangle is likely to be displayed. Fast and rough test giving false positives, but no false negative.  <a href="Engine_8cpp.html#a18a306150caafe8c1ab47aabcce25cc4">More...</a><br /></td></tr>
+<tr class="separator:a18a306150caafe8c1ab47aabcce25cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="ade97da457a4a156ca315de633d530383"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade97da457a4a156ca315de633d530383">&#9670;&nbsp;</a></span>INVALID_I32</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define INVALID_I32&#160;&#160;&#160;(0x7FFFFFFF)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00011">11</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
-
-</div>
-</div>
 <a id="ab81b2eb602e38a0261e345affe285d6d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab81b2eb602e38a0261e345affe285d6d">&#9670;&nbsp;</a></span>W1 <span class="overload">[1/4]</span></h2>
 
@@ -172,7 +156,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define W1&#160;&#160;&#160;v1[3]</td>
+          <td class="memname">#define W1&#160;&#160;&#160;in_v1[3]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -186,7 +170,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define W1&#160;&#160;&#160;v1[3]</td>
+          <td class="memname">#define W1&#160;&#160;&#160;in_v1[3]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -200,7 +184,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define W1&#160;&#160;&#160;v2[3]</td>
+          <td class="memname">#define W1&#160;&#160;&#160;in_v2[3]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -214,7 +198,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define W1&#160;&#160;&#160;v1[3]</td>
+          <td class="memname">#define W1&#160;&#160;&#160;in_v1[3]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -228,7 +212,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define W2&#160;&#160;&#160;v2[3]</td>
+          <td class="memname">#define W2&#160;&#160;&#160;in_v2[3]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -242,7 +226,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define W2&#160;&#160;&#160;v3[3]</td>
+          <td class="memname">#define W2&#160;&#160;&#160;in_v3[3]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -256,7 +240,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define W2&#160;&#160;&#160;v3[3]</td>
+          <td class="memname">#define W2&#160;&#160;&#160;in_v3[3]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -270,7 +254,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define W2&#160;&#160;&#160;v3[3]</td>
+          <td class="memname">#define W2&#160;&#160;&#160;in_v3[3]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -284,7 +268,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define Z1&#160;&#160;&#160;v1[2]</td>
+          <td class="memname">#define Z1&#160;&#160;&#160;in_v1[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -298,7 +282,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define Z1&#160;&#160;&#160;v1[2]</td>
+          <td class="memname">#define Z1&#160;&#160;&#160;in_v1[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -312,7 +296,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define Z1&#160;&#160;&#160;v2[2]</td>
+          <td class="memname">#define Z1&#160;&#160;&#160;in_v2[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -326,7 +310,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define Z1&#160;&#160;&#160;v1[2]</td>
+          <td class="memname">#define Z1&#160;&#160;&#160;in_v1[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -340,7 +324,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define Z2&#160;&#160;&#160;v2[2]</td>
+          <td class="memname">#define Z2&#160;&#160;&#160;in_v2[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -354,7 +338,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define Z2&#160;&#160;&#160;v3[2]</td>
+          <td class="memname">#define Z2&#160;&#160;&#160;in_v3[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -368,7 +352,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define Z2&#160;&#160;&#160;v3[2]</td>
+          <td class="memname">#define Z2&#160;&#160;&#160;in_v3[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -382,7 +366,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define Z2&#160;&#160;&#160;v3[2]</td>
+          <td class="memname">#define Z2&#160;&#160;&#160;in_v3[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -390,8 +374,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a413812051d67fcaec3c0f31377097dbc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a413812051d67fcaec3c0f31377097dbc">&#9670;&nbsp;</a></span>displayable()</h2>
+<a id="a18a306150caafe8c1ab47aabcce25cc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18a306150caafe8c1ab47aabcce25cc4">&#9670;&nbsp;</a></span>displayable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -403,7 +387,7 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> bool displayable </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1Triangle.html">Triangle</a> &amp;&#160;</td>
-          <td class="paramname"><em>in</em></td><td>)</td>
+          <td class="paramname"><em>in_triangle</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -414,12 +398,21 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00498">498</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Tells whether a triangle is likely to be displayed. Fast and rough test giving false positives, but no false negative. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_triangle</td><td>The triangle to test. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether to bother trying to display this triangle. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00446">446</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aeb2dbc024a9912a52859c23827c9bdac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb2dbc024a9912a52859c23827c9bdac">&#9670;&nbsp;</a></span>pushClippedTriangle1()</h2>
+<a id="a8d9f399dc9168da211118907346e1327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d9f399dc9168da211118907346e1327">&#9670;&nbsp;</a></span>pushClippedTriangle1()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -428,31 +421,31 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> void pushClippedTriangle1 </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classgrog_1_1Engine.html">grog::Engine</a> *&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
+          <td class="paramname"><em>in_engine</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t *&#160;</td>
-          <td class="paramname"><em>v1</em>, </td>
+          <td class="paramname"><em>in_v1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t *&#160;</td>
-          <td class="paramname"><em>v2</em>, </td>
+          <td class="paramname"><em>in_v2</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t *&#160;</td>
-          <td class="paramname"><em>v3</em>, </td>
+          <td class="paramname"><em>in_v3</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Gamebuino_Meta::ColorIndex &amp;&#160;</td>
-          <td class="paramname"><em>color</em>&#160;</td>
+          <td class="paramname"><em>in_color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -462,12 +455,24 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00059">59</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Computes and pushes the triangle in the clipping area (farther than the near plane), when only 1 vertex of the input triangle is within the clipping area. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in_engine</td><td>The engine. </td></tr>
+    <tr><td class="paramname">in_v1</td><td>The MVP-transformed vertex in homogenous coordinates that is within the clipping area (farther than the near plane). </td></tr>
+    <tr><td class="paramname">in_v2</td><td>An MVP-transformed vertex in homogenous coordinates that is outside the clipping area (closer than the near plane, or behind camera). </td></tr>
+    <tr><td class="paramname">in_v3</td><td>An MVP-transformed vertex in homogenous coordinates that is outside the clipping area (closer than the near plane, or behind camera). </td></tr>
+    <tr><td class="paramname">in_color</td><td>The triangle color. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00058">58</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a05b688b68f09c93019e0ac60a73074df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05b688b68f09c93019e0ac60a73074df">&#9670;&nbsp;</a></span>pushClippedTriangle2()</h2>
+<a id="ab4d1eefaa7db1c58149e174db3d0ec3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4d1eefaa7db1c58149e174db3d0ec3d">&#9670;&nbsp;</a></span>pushClippedTriangle2()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -476,31 +481,31 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> void pushClippedTriangle2 </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classgrog_1_1Engine.html">grog::Engine</a> *&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
+          <td class="paramname"><em>in_engine</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t *&#160;</td>
-          <td class="paramname"><em>v1</em>, </td>
+          <td class="paramname"><em>in_v1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t *&#160;</td>
-          <td class="paramname"><em>v2</em>, </td>
+          <td class="paramname"><em>in_v2</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t *&#160;</td>
-          <td class="paramname"><em>v3</em>, </td>
+          <td class="paramname"><em>in_v3</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Gamebuino_Meta::ColorIndex &amp;&#160;</td>
-          <td class="paramname"><em>color</em>&#160;</td>
+          <td class="paramname"><em>in_color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -510,12 +515,24 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00128">128</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Computes and pushes the triangls in the clipping area (farther than the near plane), when only 2 vertices of the input triangle is within the clipping area. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in_engine</td><td>The engine. </td></tr>
+    <tr><td class="paramname">in_v1</td><td>An MVP-transformed vertex in homogenous coordinates that is within the clipping area (farther than the near plane). </td></tr>
+    <tr><td class="paramname">in_v2</td><td>An MVP-transformed vertex in homogenous coordinates that is within the clipping area (farther than the near plane). </td></tr>
+    <tr><td class="paramname">in_v3</td><td>The MVP-transformed vertex in homogenous coordinates that is outside the clipping area (closer than the near plane, or behind camera). </td></tr>
+    <tr><td class="paramname">in_color</td><td>The triangle color. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00139">139</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a4431c82faaebc2c94629c8db2c28628a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4431c82faaebc2c94629c8db2c28628a">&#9670;&nbsp;</a></span>pushUnclippedTriangle()</h2>
+<a id="ab5d4e60842d07174ae1f16a655c60bee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5d4e60842d07174ae1f16a655c60bee">&#9670;&nbsp;</a></span>pushUnclippedTriangle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -524,31 +541,31 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="grog_8h.html#a9d98c51861545ecf972e14ad6705348d">GROG_INLINE</a> void pushUnclippedTriangle </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classgrog_1_1Engine.html">grog::Engine</a> *&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
+          <td class="paramname"><em>in_engine</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t *&#160;</td>
-          <td class="paramname"><em>v1</em>, </td>
+          <td class="paramname"><em>in_v1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t *&#160;</td>
-          <td class="paramname"><em>v2</em>, </td>
+          <td class="paramname"><em>in_v2</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t *&#160;</td>
-          <td class="paramname"><em>v3</em>, </td>
+          <td class="paramname"><em>in_v3</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Gamebuino_Meta::ColorIndex &amp;&#160;</td>
-          <td class="paramname"><em>color</em>&#160;</td>
+          <td class="paramname"><em>in_color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -558,7 +575,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00207">207</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p>Pushes a triangle with all vertices farther than the near plane (no clipping). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_engine</td><td>The engine. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_v1</td><td>An MVP-transformed vertex in homogenous coordinates. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_v2</td><td>An MVP-transformed vertex in homogenous coordinates. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_v3</td><td>An MVP-transformed vertex in homogenous coordinates. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_color</td><td>The triangle color. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00230">230</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
