@@ -22,4 +22,21 @@ GROG  was  written  as  a  personal  challenge  to  implement  a  complete  3D  
 
 # Graphics Pipeline
 
+The pipeline itself is fairly simple.
+* At construction, the **Engine** allocates a buffer of **Triangles** in which the triangles to be displayed (**rasterized**) will be stored, furthest first, closest last. Drawing them in order allows for proper occlusions (painter's algorithm). We cannot go with a depth-buffered algorithm for lack of RAM.
+* A **render pass** consists in transforming a triangular-faced geometry provided as a hierarchy of **SceneNode**s (**Mesh**es + transformations), and **project**ing the triangles relatively to a **view**. The triangles are inserted and sorted in the Engine's triangle buffer. If overflowing, this buffer drops the furthest triangles.
+  * When the hierarchy is processed, the triangles are **rasterized** in the **FrameBuffer**.
+* Multiple **render pass**es can be done before calling gb.update(). Multiple layers of drawing are done, which allows having a shorter triangle buffer.
+
 # API usage
+
+## Create your scene
+Inherit grog::SceneNode to create your scene items, pointing to buffers in Flash memory. Check demo::Car or demo::Road for examples. Transformations in the form of grog::TransformMatrix can be provided, and changed at runtime to make the scene dynamic.
+## Init the Engine
+Instantiate a grog::Engine, and grog::Engine::init() it with the number of triangles you want to buffer for display, and the maximum number of vertices you will draw at one node of your scene.
+## Draw!
+### What are you looking at?!
+Tell the grog::Engine where you are and what you are looking at: check grog::Engine::setView() and grog::TransformMatrix::View(). And tell the grog::Engine how you are looking: through a zoom? Through a wide angle lens? Far away? Close? Check grog::Engine::setProjection() and grog::Matrix::Projection().
+These calls can be done in any order, at any frame, or can be persisted accross frames.
+### Run the pipeline
+For each of your render passes, just run grog::Engine::projectScene(), and you're done.

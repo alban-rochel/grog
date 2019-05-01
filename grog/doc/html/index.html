@@ -99,8 +99,30 @@ Design choices</h1>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Graphics Pipeline</h1>
+<p>The pipeline itself is fairly simple.</p><ul>
+<li>At construction, the <b>Engine</b> allocates a buffer of <b>Triangles</b> in which the triangles to be displayed (<b>rasterized</b>) will be stored, furthest first, closest last. Drawing them in order allows for proper occlusions (painter's algorithm). We cannot go with a depth-buffered algorithm for lack of RAM.</li>
+<li>A <b>render pass</b> consists in transforming a triangular-faced geometry provided as a hierarchy of <b>SceneNode**s (**Mesh**es + transformations), and **project**ing the triangles relatively to a **view</b>. The triangles are inserted and sorted in the Engine's triangle buffer. If overflowing, this buffer drops the furthest triangles.<ul>
+<li>When the hierarchy is processed, the triangles are <b>rasterized</b> in the <b>FrameBuffer</b>.</li>
+</ul>
+</li>
+<li>Multiple **render pass**es can be done before calling gb.update(). Multiple layers of drawing are done, which allows having a shorter triangle buffer.</li>
+</ul>
 <h1><a class="anchor" id="autotoc_md3"></a>
 API usage</h1>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Create your scene</h2>
+<p>Inherit <a class="el" href="classgrog_1_1SceneNode.html" title="The SceneNode describes a node in the hierarchy of meshes. Each SceneNode contains a (possibly empty)...">grog::SceneNode</a> to create your scene items, pointing to buffers in Flash memory. Check <a class="el" href="classdemo_1_1Car.html" title="The Car class is a scene node containing the full description of a car. It contains pointers to the m...">demo::Car</a> or <a class="el" href="classdemo_1_1Road.html" title="The Road class is a scene node containing the full description of a road segment. It contains pointer...">demo::Road</a> for examples. Transformations in the form of <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">grog::TransformMatrix</a> can be provided, and changed at runtime to make the scene dynamic. </p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Init the Engine</h2>
+<p>Instantiate a <a class="el" href="classgrog_1_1Engine.html" title="The Engine is the entry point to manage the various stages of the rendering process.">grog::Engine</a>, and <a class="el" href="classgrog_1_1Engine.html#a5569d4f7acffb2849abec635a66b41e1" title="Sets up the engine by allocating the memory segments it will use.">grog::Engine::init()</a> it with the number of triangles you want to buffer for display, and the maximum number of vertices you will draw at one node of your scene. </p>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Draw!</h2>
+<h3><a class="anchor" id="autotoc_md7"></a>
+What are you looking at?!</h3>
+<p>Tell the <a class="el" href="classgrog_1_1Engine.html" title="The Engine is the entry point to manage the various stages of the rendering process.">grog::Engine</a> where you are and what you are looking at: check <a class="el" href="classgrog_1_1Engine.html#ab144fd7c9940fdea8beeaf0850a02a41" title="Sets the view transformation for the next rendering passes.">grog::Engine::setView()</a> and <a class="el" href="classgrog_1_1TransformMatrix.html#ad855d7693ab097b112a5f2ee6a0ee4c8" title="Creates a View TransformMatrix, which transforms the world coordinates in a projectable coordinates s...">grog::TransformMatrix::View()</a>. And tell the <a class="el" href="classgrog_1_1Engine.html" title="The Engine is the entry point to manage the various stages of the rendering process.">grog::Engine</a> how you are looking: through a zoom? Through a wide angle lens? Far away? Close? Check <a class="el" href="classgrog_1_1Engine.html#ad4bc5af4cd0bc84039467941cd2adc46" title="Sets the projection for the next rendering passes.">grog::Engine::setProjection()</a> and <a class="el" href="classgrog_1_1Matrix.html#aa4362dcd3c2e8e192255acbd072f1ea5" title="Creates a perspective projection Matrix. Check http://www.songho.ca/opengl/gl_projectionmatrix....">grog::Matrix::Projection()</a>. These calls can be done in any order, at any frame, or can be persisted accross frames. </p>
+<h3><a class="anchor" id="autotoc_md8"></a>
+Run the pipeline</h3>
+<p>For each of your render passes, just run <a class="el" href="classgrog_1_1Engine.html#a5bb3a4c5f498011974698a2c10c292d3" title="Renders a node and its children to the frame buffer, if they are the provided pass.">grog::Engine::projectScene()</a>, and you're done. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
