@@ -3,6 +3,7 @@
 #include "SceneNode.h"
 #ifdef __linux
 #include "Display.h"
+#include "Triangle.h"
 #include <QPixmap>
 #endif
 

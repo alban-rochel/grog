@@ -1,6 +1,6 @@
 #pragma once
 
-namespace grog
+namespace demo
 {
 	static const int32_t car_vertices[] {
 		-679,	52,	-9,

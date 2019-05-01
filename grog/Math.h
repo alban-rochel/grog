@@ -42,13 +42,32 @@ namespace grog
   static constexpr int32_t Pi = 512;
   static constexpr int32_t Pi_2 = 256;
 
-  GROG_INLINE int32_t Cos(int32_t angle) noexcept
+  class Math
   {
-    return cosines[angle & 0x3FF];
-  }
+    public:
+      GROG_INLINE static int32_t Cos(int32_t angle) noexcept
+      {
+        return cosines[angle & 0x3FF];
+      }
 
-  GROG_INLINE int32_t Sin(int32_t angle) noexcept
-  {
-    return -cosines[(angle + Pi_2) & 0x3FF];
-  }
+      GROG_INLINE static int32_t Sin(int32_t angle) noexcept
+      {
+        return -cosines[(angle + Pi_2) & 0x3FF];
+      }
+
+      GROG_INLINE static int32_t Orient2d( const int32_t& p1x, const int32_t& p1y,
+                                           const int32_t& p2x, const int32_t& p2y,
+                                           const int32_t& p3x, const int32_t& p3y) noexcept
+      {
+          return (p2x-p1x)*(p3y-p1y) - (p2y-p1y)*(p3x-p1x);
+      }
+
+      static void Normalize(int32_t* io) noexcept;
+
+      static void CrossProd(int32_t* left,
+                            int32_t* right,
+                            int32_t* out,
+                            bool normalize) noexcept;
+  };
+
 }

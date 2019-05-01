@@ -2,9 +2,9 @@
 
 #include "SceneNode.h"
 
-namespace grog
+namespace demo
 {
-  class Car: public SceneNode
+  class Car: public grog::SceneNode
   {
     public:
       explicit Car(bool mainCar);

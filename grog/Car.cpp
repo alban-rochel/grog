@@ -1,23 +1,23 @@
 #include "Car.h"
 #include "asset_car.h"
 
-using namespace grog;
+using namespace demo;
 
 Car::Car(bool mainCar):
-  SceneNode()
+  grog::SceneNode()
 {
   renderPass = 0x02;
-  mesh.vertexBuffer = grog::car_vertices;
-  mesh.vertexCount = grog::car_vertexCount;
-  mesh.faces = grog::car_faces;
-  mesh.faceCount = grog::car_faceCount;
+  mesh.vertexBuffer = demo::car_vertices;
+  mesh.vertexCount = demo::car_vertexCount;
+  mesh.faces = demo::car_faces;
+  mesh.faceCount = demo::car_faceCount;
   if(mainCar)
   {
-    mesh.colors = grog::car_colors_main;
+    mesh.colors = demo::car_colors_main;
   }
   else
   {
-    mesh.colors = grog::car_colors_other;
+    mesh.colors = demo::car_colors_other;
   }
 
   childCount = 4;
@@ -26,11 +26,11 @@ Car::Car(bool mainCar):
   for(uint32_t childIndex = 0; childIndex < childCount; ++childIndex)
   {
     children[childIndex] = new grog::SceneNode;
-    children[childIndex]->mesh.vertexBuffer = grog::wheel_vertices;
-    children[childIndex]->mesh.vertexCount = grog::wheel_vertexCount;
-    children[childIndex]->mesh.faces = grog::wheel_faces;
-    children[childIndex]->mesh.faceCount = grog::wheel_faceCount;
-    children[childIndex]->mesh.colors = grog::wheel_colors;
+    children[childIndex]->mesh.vertexBuffer = demo::wheel_vertices;
+    children[childIndex]->mesh.vertexCount = demo::wheel_vertexCount;
+    children[childIndex]->mesh.faces = demo::wheel_faces;
+    children[childIndex]->mesh.faceCount = demo::wheel_faceCount;
+    children[childIndex]->mesh.colors = demo::wheel_colors;
     children[childIndex]->renderPass = 0x02;
   }
 

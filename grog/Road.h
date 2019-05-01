@@ -2,9 +2,9 @@
 
 #include "SceneNode.h"
 
-namespace grog
+namespace demo
 {
-  class Road: public SceneNode
+  class Road: public grog::SceneNode
   {
     public:
       Road();

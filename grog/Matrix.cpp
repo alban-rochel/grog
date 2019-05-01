@@ -1,5 +1,5 @@
 #include "Matrix.h"
-#include "trigo.h"
+#include "Math.h"
 #include <cstring>
 
 #ifdef __linux__
@@ -32,8 +32,8 @@ TransformMatrix& TransformMatrix::identity() noexcept
 
 TransformMatrix& TransformMatrix::rotateX(int32_t theta) noexcept
 {
-  int32_t c(Cos(theta)),
-          s(Sin(theta));
+  int32_t c(Math::Cos(theta)),
+          s(Math::Sin(theta));
 
   int32_t data_4  (data[4]),  data_5  (data[5]),
           data_6  (data[6]),  data_7  (data[7]),
@@ -55,8 +55,8 @@ TransformMatrix& TransformMatrix::rotateX(int32_t theta) noexcept
 
 TransformMatrix& TransformMatrix::rotateY(int32_t theta) noexcept
 {
-  int32_t c(Cos(theta)),
-          s(Sin(theta));
+  int32_t c(Math::Cos(theta)),
+          s(Math::Sin(theta));
 
   int32_t data_0  (data[0]),  data_1  (data[1]),
           data_2  (data[2]),  data_3  (data[3]),
@@ -78,8 +78,8 @@ TransformMatrix& TransformMatrix::rotateY(int32_t theta) noexcept
 
 TransformMatrix& TransformMatrix::rotateZ(int32_t theta) noexcept
 {
-  int32_t c(Cos(theta)),
-          s(Sin(theta));
+  int32_t c(Math::Cos(theta)),
+          s(Math::Sin(theta));
 
   int32_t data_0(data[0]), data_1(data[1]),
           data_2(data[2]), data_3(data[3]),
@@ -189,11 +189,11 @@ TransformMatrix TransformMatrix::View(int32_t eyeX, int32_t eyeY, int32_t eyeZ,
   res.data[9] = eyeY - centerY;
   res.data[10] = eyeZ - centerZ;
 
-  normalize(res.data + 8);
+  Math::Normalize(res.data + 8);
   // z is normalized
 
   // x = y(up) cross z
-  crossProd(res.data + 4 /*y*/,
+  Math::CrossProd(res.data + 4 /*y*/,
             res.data + 8 /*z*/,
             res.data /*x*/,
             true);
@@ -201,7 +201,7 @@ TransformMatrix TransformMatrix::View(int32_t eyeX, int32_t eyeY, int32_t eyeZ,
 
   //recompute up = z cross x
 
-  crossProd(res.data + 8 /*z*/,
+  Math::CrossProd(res.data + 8 /*z*/,
             res.data /*x*/,
             res.data + 4 /*y*/,
             false /* no need to normalize */);

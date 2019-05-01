@@ -2,7 +2,7 @@
 
 #  Motivation
 
-GROG  was  written  as  an  personal  challenge  to  implement  a  complete  3D  rendering  library  for  the  ARM  Cortex-M0+  chip,  i.e.  limited  to  32kB  of  RAM,  and  leave  enough  resources  (memory,  CPU)  for  integration  in  a  Gamebuino  Meta  game.
+GROG  was  written  as  a  personal  challenge  to  implement  a  complete  3D  rendering  library  for  the  ARM  Cortex-M0+  chip,  i.e.  limited  to  32kB  of  RAM,  and  leave  enough  resources  (memory,  CPU)  for  integration  in  a  Gamebuino  Meta  game.
 
 #  Design choices
 

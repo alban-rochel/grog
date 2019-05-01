@@ -4,6 +4,7 @@
 #else
 #include <Gamebuino-Meta.h>
 #endif
+#include "Math.h"
 
 using namespace grog;
 
@@ -589,9 +590,9 @@ void Engine::render() noexcept
   while(GROG_LIKELY(currentTriangle != nullptr))
   {
 #ifdef __linux
-    rasterizeTriangle(*currentTriangle, display.buffer);
+    currentTriangle->rasterize(display.buffer);
 #else
-    rasterizeTriangle(*currentTriangle, (uint8_t*)gb.display._buffer);
+    currentTriangle->rasterize((uint8_t*)gb.display._buffer);
 #endif
     currentTriangle = currentTriangle->next;
   }
@@ -688,7 +689,7 @@ void Engine::pushTriangle(Triangle& in) noexcept
 //                    << in.p2x/1024. << ", " << in.p2y/1024. << ") ("
 //                    << in.p3x/1024. << ", " << in.p3y/1024. << ")\n";
 
-if(grog::orient2d(in.p1x, in.p1y, in.p2x, in.p2y, in.p3x, in.p3y) <= 0)
+if(Math::Orient2d(in.p1x, in.p1y, in.p2x, in.p2y, in.p3x, in.p3y) <= 0)
 {
   return;
 }

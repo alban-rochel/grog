@@ -1,6 +1,6 @@
 #pragma once
 
-namespace grog
+namespace demo
 {
   static const int32_t tree1_vertices[] {
     0,	0,	-311,
