@@ -1,10 +1,11 @@
 #pragma once
 
+#include "grog.h"
 #include "SceneNode.h"
-#ifdef __linux
-#include "Display.h"
 #include "Triangle.h"
+#ifdef __linux
 #include <QPixmap>
+#include "Display.h"
 #endif
 
 namespace grog
@@ -40,10 +41,6 @@ namespace grog
     protected:
 
       void render() noexcept;
-
-      void projectSceneOld(const SceneNode* node,
-                        const Matrix& parentMvp,
-                        uint32_t pass) noexcept;
 
       void projectScene(const SceneNode* node,
                         const Matrix& parentMvp,

@@ -1,11 +1,10 @@
 <map id="SceneNode.cpp" name="SceneNode.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="189,5,303,32"/>
-<area shape="rect" id="node2" href="$SceneNode_8h.html" title=" " alt="" coords="196,80,296,107"/>
-<area shape="rect" id="node3" href="$Mesh_8h.html" title=" " alt="" coords="179,155,244,181"/>
-<area shape="rect" id="node7" href="$Matrix_8h.html" title=" " alt="" coords="247,304,317,331"/>
-<area shape="rect" id="node4" href="$grog_8h.html" title=" " alt="" coords="182,229,241,256"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,304,137,331"/>
-<area shape="rect" id="node6" title=" " alt="" coords="162,304,223,331"/>
-<area shape="rect" id="node8" href="$common_8h.html" title=" " alt="" coords="193,379,275,405"/>
-<area shape="rect" id="node9" title=" " alt="" coords="299,379,358,405"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,120,32"/>
+<area shape="rect" id="node2" href="$SceneNode_8h.html" title=" " alt="" coords="13,80,113,107"/>
+<area shape="rect" id="node3" href="$grog_8h.html" title=" " alt="" coords="69,304,128,331"/>
+<area shape="rect" id="node6" href="$Mesh_8h.html" title=" " alt="" coords="31,229,97,256"/>
+<area shape="rect" id="node7" href="$Matrix_8h.html" title=" " alt="" coords="100,155,169,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="8,379,69,405"/>
+<area shape="rect" id="node5" title=" " alt="" coords="94,379,226,405"/>
+<area shape="rect" id="node8" href="$TransformMatrix_8h.html" title=" " alt="" coords="172,229,300,256"/>
 </map>

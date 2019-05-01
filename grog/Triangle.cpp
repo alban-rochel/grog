@@ -28,7 +28,7 @@ namespace grog
 
 }
 
-void Triangle::rasterize(bufferType *frameBuffer) const noexcept
+void Triangle::rasterize(uint8_t *frameBuffer) const noexcept
 {
   // Compute bounding boxes
 
@@ -41,8 +41,8 @@ void Triangle::rasterize(bufferType *frameBuffer) const noexcept
 
   minX = Max2(minX, 0);
   minY = Max2(minY, 0);
-  maxX = Min2(maxX, screenWidth - 1);
-  maxY = Min2(maxY, screenHeight - 1);
+  maxX = Min2(maxX, DisplayWidth - 1);
+  maxY = Min2(maxY, DisplayHeight - 1);
 
   // Rasterize
 
@@ -56,14 +56,14 @@ void Triangle::rasterize(bufferType *frameBuffer) const noexcept
   int w3_row = Math::Orient2d(p1x, p1y, p2x, p2y, minX, minY);
 
   int w1(0), w2(0), w3(0);
-  bufferType* lineStart = frameBuffer + (minY * screenWidth + minX) / 2;
-  bool upperNibbleStart = (minY * screenWidth + minX) & 0x1;
+  uint8_t* lineStart = frameBuffer + (minY * DisplayWidth + minX) / 2;
+  bool upperNibbleStart = (minY * DisplayWidth + minX) & 0x1;
   const uint8_t& colorLower = (uint8_t)(color) & 0x0F;
   uint8_t colorUpper = colorLower << 4;
 
-  for(int y = maxY - minY + 1; y; --y, lineStart += screenWidth/2, w1_row += _B23, w2_row += _B31, w3_row += _B12)
+  for(int y = maxY - minY + 1; y; --y, lineStart += DisplayWidth/2, w1_row += _B23, w2_row += _B31, w3_row += _B12)
   {
-    bufferType* tmp = lineStart;
+    uint8_t* tmp = lineStart;
     bool upperNibble = upperNibbleStart;
 
     w1 = w1_row;

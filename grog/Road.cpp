@@ -7,15 +7,19 @@ using namespace demo;
 Road::Road():
   grog::SceneNode()
 {
-  /** Coucou
-   */
+  // The road segments are rendered in first pass.
+  // Objects rendered in subsequent passes will be rasterized over the road, no matter the actual visibility.
+  // But this saves memory.
   renderPass = 0x01;
-  mesh.vertexBuffer = demo::road_vertices;
-  mesh.vertexCount = demo::road_vertexCount;
-  mesh.faces = demo::road_faces;
-  mesh.faceCount = demo::road_faceCount;
-  mesh.colors = demo::road_colors;
 
+  // The main node is the road itself.
+  mesh.vertexBuffer = demo::road_vertices;
+  mesh.vertexCount  = demo::road_vertexCount;
+  mesh.faces        = demo::road_faces;
+  mesh.faceCount    = demo::road_faceCount;
+  mesh.colors       = demo::road_colors;
+
+  // The children are tree on the side
   children = new grog::SceneNode*[8];
   childCount = 8;
 
@@ -23,15 +27,14 @@ Road::Road():
   {
     children[ii] = new grog::SceneNode;
     children[ii]->mesh.vertexBuffer = (ii < 4 ? demo::tree1_vertices : demo::tree2_vertices);
-    children[ii]->mesh.vertexCount = demo::tree_vertexCount;
-    children[ii]->mesh.faces = demo::tree_faces;
-    children[ii]->mesh.faceCount = demo::tree_faceCount;
-    children[ii]->mesh.colors = demo::tree_colors;
-    children[ii]->renderPass = 0x02;
+    children[ii]->mesh.vertexCount  = demo::tree_vertexCount;
+    children[ii]->mesh.faces        = demo::tree_faces;
+    children[ii]->mesh.faceCount    = demo::tree_faceCount;
+    children[ii]->mesh.colors       = demo::tree_colors;
+    children[ii]->renderPass        = 0x02; // Trees are rendered in pass 2
   }
-/**
-  pouet
-  */
+
+  // Positioning trees.
   children[0]->transform.identity().translate(6000, 0, -6000);
   children[1]->transform.identity().translate(-5000, 0, 5500);
   children[2]->transform.identity().translate(3000, 0, -6000);

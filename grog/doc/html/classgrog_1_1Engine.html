@@ -88,9 +88,9 @@ Collaboration diagram for grog::Engine:</div>
 <div class="center"><img src="classgrog_1_1Engine__coll__graph.png" border="0" usemap="#grog_1_1Engine_coll__map" alt="Collaboration graph"/></div>
 <map name="grog_1_1Engine_coll__map" id="grog_1_1Engine_coll__map">
 <area shape="rect" title=" " alt="" coords="179,109,273,136"/>
-<area shape="rect" href="$classgrog_1_1TransformMatrix.html" title=" " alt="" coords="5,5,156,32"/>
-<area shape="rect" href="$classgrog_1_1Matrix.html" title=" " alt="" coords="181,5,271,32"/>
-<area shape="rect" href="$structgrog_1_1Triangle.html" title=" " alt="" coords="295,5,397,32"/>
+<area shape="rect" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ..." alt="" coords="5,5,156,32"/>
+<area shape="rect" href="classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row&#45;major order." alt="" coords="181,5,271,32"/>
+<area shape="rect" href="classgrog_1_1Triangle.html" title=" " alt="" coords="295,5,397,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -108,15 +108,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9e74b0d6b16eb459fd6786879fcd1ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33a534cefbfb5cfc6230b4c89b68ebbe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a33a534cefbfb5cfc6230b4c89b68ebbe">setView</a> (const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;<a class="el" href="classgrog_1_1Engine.html#af9e6c3cd0ae84538a6d5e339e0546d0c">view</a>) noexcept</td></tr>
 <tr class="separator:a33a534cefbfb5cfc6230b4c89b68ebbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65295d8576ea74b59df6075898f8d849"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a65295d8576ea74b59df6075898f8d849">pushTriangle</a> (<a class="el" href="structgrog_1_1Triangle.html">Triangle</a> &amp;in) noexcept</td></tr>
+<tr class="memitem:a65295d8576ea74b59df6075898f8d849"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a65295d8576ea74b59df6075898f8d849">pushTriangle</a> (<a class="el" href="classgrog_1_1Triangle.html">Triangle</a> &amp;in) noexcept</td></tr>
 <tr class="separator:a65295d8576ea74b59df6075898f8d849"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:adc9cbf671a5d0b48201b14ad017aa63b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#adc9cbf671a5d0b48201b14ad017aa63b">render</a> () noexcept</td></tr>
 <tr class="separator:adc9cbf671a5d0b48201b14ad017aa63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc4270051e4e256065df726cfedb755d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#abc4270051e4e256065df726cfedb755d">projectSceneOld</a> (const <a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a> *node, const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;parentMvp, uint32_t pass) noexcept</td></tr>
-<tr class="separator:abc4270051e4e256065df726cfedb755d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a56eb2d15895144e7d79667b3c4687a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a0a56eb2d15895144e7d79667b3c4687a">projectScene</a> (const <a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a> *node, const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;parentMvp, uint32_t pass) noexcept</td></tr>
 <tr class="separator:a0a56eb2d15895144e7d79667b3c4687a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c0d5cf50163418d04f9ca3c37493ccf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a8c0d5cf50163418d04f9ca3c37493ccf">passDone</a> () noexcept</td></tr>
@@ -130,9 +128,9 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a46ba3dbaaba2d01440cf45cf8e1ea901"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9e6c3cd0ae84538a6d5e339e0546d0c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#af9e6c3cd0ae84538a6d5e339e0546d0c">view</a></td></tr>
 <tr class="separator:af9e6c3cd0ae84538a6d5e339e0546d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8545a55d8a24d606febc9d3fe7147a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgrog_1_1Triangle.html">Triangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#af8545a55d8a24d606febc9d3fe7147a7">triangleStack</a> {nullptr}</td></tr>
+<tr class="memitem:af8545a55d8a24d606febc9d3fe7147a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#af8545a55d8a24d606febc9d3fe7147a7">triangleStack</a> {nullptr}</td></tr>
 <tr class="separator:af8545a55d8a24d606febc9d3fe7147a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06fd51693a05309fad8acc02ba2dbf1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgrog_1_1Triangle.html">Triangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a06fd51693a05309fad8acc02ba2dbf1a">triangleStackHead</a> {nullptr}</td></tr>
+<tr class="memitem:a06fd51693a05309fad8acc02ba2dbf1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a06fd51693a05309fad8acc02ba2dbf1a">triangleStackHead</a> {nullptr}</td></tr>
 <tr class="separator:a06fd51693a05309fad8acc02ba2dbf1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77fe0e2fdb2ed28108c8a914b5fe13ab"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Engine.html#a77fe0e2fdb2ed28108c8a914b5fe13ab">triangleCount</a> {0}</td></tr>
 <tr class="separator:a77fe0e2fdb2ed28108c8a914b5fe13ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,7 +141,7 @@ Protected Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00011">11</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00013">13</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a41e6241f80cc43271d73c319dd24c967"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41e6241f80cc43271d73c319dd24c967">&#9670;&nbsp;</a></span>Engine()</h2>
@@ -168,7 +166,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00019">19</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00020">20</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -195,7 +193,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00024">24</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00025">25</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -234,7 +232,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00033">33</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00034">34</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -261,7 +259,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00777">777</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00601">601</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -305,7 +303,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00247">247</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00248">248</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -343,51 +341,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00576">576</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abc4270051e4e256065df726cfedb755d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc4270051e4e256065df726cfedb755d">&#9670;&nbsp;</a></span>projectSceneOld()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Engine::projectSceneOld </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgrog_1_1SceneNode.html">SceneNode</a> *&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>parentMvp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>pass</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00398">398</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00400">400</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -403,7 +357,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Engine::pushTriangle </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structgrog_1_1Triangle.html">Triangle</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a> &amp;&#160;</td>
           <td class="paramname"><em>in</em></td><td>)</td>
           <td></td>
         </tr>
@@ -415,7 +369,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00682">682</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00506">506</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -442,7 +396,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00586">586</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00410">410</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -486,7 +440,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00610">610</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00434">434</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -514,7 +468,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00616">616</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8cpp_source.html#l00440">440</a> of file <a class="el" href="Engine_8cpp_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
@@ -539,7 +493,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00069">69</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00067">67</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
@@ -563,7 +517,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00071">71</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00069">69</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
@@ -587,7 +541,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00059">59</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00057">57</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
@@ -611,7 +565,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00057">57</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00055">55</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
@@ -635,7 +589,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00068">68</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00066">66</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
@@ -649,7 +603,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structgrog_1_1Triangle.html">Triangle</a>* grog::Engine::triangleStack {nullptr}</td>
+          <td class="memname"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a>* grog::Engine::triangleStack {nullptr}</td>
         </tr>
       </table>
   </td>
@@ -659,7 +613,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00066">66</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00064">64</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
@@ -673,7 +627,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structgrog_1_1Triangle.html">Triangle</a>* grog::Engine::triangleStackHead {nullptr}</td>
+          <td class="memname"><a class="el" href="classgrog_1_1Triangle.html">Triangle</a>* grog::Engine::triangleStackHead {nullptr}</td>
         </tr>
       </table>
   </td>
@@ -683,7 +637,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00067">67</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00065">65</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>
@@ -707,7 +661,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00060">60</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Engine_8h_source.html#l00058">58</a> of file <a class="el" href="Engine_8h_source.html">Engine.h</a>.</p>
 
 </div>
 </div>

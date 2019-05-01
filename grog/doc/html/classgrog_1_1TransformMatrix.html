@@ -81,44 +81,60 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Matrix_8h_source.html">Matrix.h</a>&gt;</code></p>
+<p>4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values of the 4th row set to 0. We use this particularity to save memory and CPU cycles. Stored as row-major order.  
+ <a href="classgrog_1_1TransformMatrix.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="TransformMatrix_8h_source.html">TransformMatrix.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5026a59f17c4d5d4ea85c0b9e3da6149"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a5026a59f17c4d5d4ea85c0b9e3da6149">TransformMatrix</a> () noexcept</td></tr>
+<tr class="memdesc:a5026a59f17c4d5d4ea85c0b9e3da6149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor, creates an identity matrix.  <a href="classgrog_1_1TransformMatrix.html#a5026a59f17c4d5d4ea85c0b9e3da6149">More...</a><br /></td></tr>
 <tr class="separator:a5026a59f17c4d5d4ea85c0b9e3da6149"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a113c58099aa8f799950bccf30e80965a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a113c58099aa8f799950bccf30e80965a">TransformMatrix</a> (const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;other) noexcept</td></tr>
-<tr class="separator:a113c58099aa8f799950bccf30e80965a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a236f7a07c2333fb9aca330238e2edd9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a236f7a07c2333fb9aca330238e2edd9f">operator=</a> (const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;other) noexcept</td></tr>
-<tr class="separator:a236f7a07c2333fb9aca330238e2edd9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac46eca538305921ef383cd0b3085d9ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#ac46eca538305921ef383cd0b3085d9ac">TransformMatrix</a> (const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;in_other) noexcept</td></tr>
+<tr class="memdesc:ac46eca538305921ef383cd0b3085d9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="classgrog_1_1TransformMatrix.html#ac46eca538305921ef383cd0b3085d9ac">More...</a><br /></td></tr>
+<tr class="separator:ac46eca538305921ef383cd0b3085d9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73027988c0f2e1b4a73c764d58d4f899"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a73027988c0f2e1b4a73c764d58d4f899">operator=</a> (const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;in_other) noexcept</td></tr>
+<tr class="memdesc:a73027988c0f2e1b4a73c764d58d4f899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator.  <a href="classgrog_1_1TransformMatrix.html#a73027988c0f2e1b4a73c764d58d4f899">More...</a><br /></td></tr>
+<tr class="separator:a73027988c0f2e1b4a73c764d58d4f899"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a826eb8026638fbf1103aa66e707cbe8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a826eb8026638fbf1103aa66e707cbe8f">identity</a> () noexcept</td></tr>
+<tr class="memdesc:a826eb8026638fbf1103aa66e707cbe8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets as the identity matrix.  <a href="classgrog_1_1TransformMatrix.html#a826eb8026638fbf1103aa66e707cbe8f">More...</a><br /></td></tr>
 <tr class="separator:a826eb8026638fbf1103aa66e707cbe8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52420e0026c8626b42f9ca27e3ecda10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a52420e0026c8626b42f9ca27e3ecda10">rotateX</a> (int32_t theta) noexcept</td></tr>
-<tr class="separator:a52420e0026c8626b42f9ca27e3ecda10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53c49597ff5eb49830803b51c8bedf02"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a53c49597ff5eb49830803b51c8bedf02">rotateY</a> (int32_t theta) noexcept</td></tr>
-<tr class="separator:a53c49597ff5eb49830803b51c8bedf02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45932c604d0b3cc214f564c607d8b069"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a45932c604d0b3cc214f564c607d8b069">rotateZ</a> (int32_t theta) noexcept</td></tr>
-<tr class="separator:a45932c604d0b3cc214f564c607d8b069"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a7a3c740f3142eb7d383fbd5d05c1c1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a4a7a3c740f3142eb7d383fbd5d05c1c1">translate</a> (int32_t dx, int32_t dy, int32_t dz) noexcept</td></tr>
-<tr class="separator:a4a7a3c740f3142eb7d383fbd5d05c1c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12fb9f421496e30db23e6728df0e80fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a12fb9f421496e30db23e6728df0e80fe">scale</a> (int32_t sx, int32_t sy, int32_t sz) noexcept</td></tr>
-<tr class="separator:a12fb9f421496e30db23e6728df0e80fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaa54b056d7a7eb94862027a4463b628"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#acaa54b056d7a7eb94862027a4463b628">rotateX</a> (int32_t in_theta) noexcept</td></tr>
+<tr class="memdesc:acaa54b056d7a7eb94862027a4463b628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates around the X axis.  <a href="classgrog_1_1TransformMatrix.html#acaa54b056d7a7eb94862027a4463b628">More...</a><br /></td></tr>
+<tr class="separator:acaa54b056d7a7eb94862027a4463b628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1ac3554125356e14df6a39dc39713ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#ad1ac3554125356e14df6a39dc39713ae">rotateY</a> (int32_t in_theta) noexcept</td></tr>
+<tr class="memdesc:ad1ac3554125356e14df6a39dc39713ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates around the Y axis.  <a href="classgrog_1_1TransformMatrix.html#ad1ac3554125356e14df6a39dc39713ae">More...</a><br /></td></tr>
+<tr class="separator:ad1ac3554125356e14df6a39dc39713ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaef2613c7299b796a9eda4c5dab5c2f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#aaef2613c7299b796a9eda4c5dab5c2f7">rotateZ</a> (int32_t in_theta) noexcept</td></tr>
+<tr class="memdesc:aaef2613c7299b796a9eda4c5dab5c2f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates around the Z axis.  <a href="classgrog_1_1TransformMatrix.html#aaef2613c7299b796a9eda4c5dab5c2f7">More...</a><br /></td></tr>
+<tr class="separator:aaef2613c7299b796a9eda4c5dab5c2f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8fb3dfcf4092811f7362a87ccf9dca4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#ac8fb3dfcf4092811f7362a87ccf9dca4">translate</a> (int32_t in_dx, int32_t in_dy, int32_t in_dz) noexcept</td></tr>
+<tr class="memdesc:ac8fb3dfcf4092811f7362a87ccf9dca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translates the transformation.  <a href="classgrog_1_1TransformMatrix.html#ac8fb3dfcf4092811f7362a87ccf9dca4">More...</a><br /></td></tr>
+<tr class="separator:ac8fb3dfcf4092811f7362a87ccf9dca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a885941309d894577e23c893c631f7cf2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a885941309d894577e23c893c631f7cf2">scale</a> (int32_t in_sx, int32_t in_sy, int32_t in_sz) noexcept</td></tr>
+<tr class="memdesc:a885941309d894577e23c893c631f7cf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scales the transformation.  <a href="classgrog_1_1TransformMatrix.html#a885941309d894577e23c893c631f7cf2">More...</a><br /></td></tr>
+<tr class="separator:a885941309d894577e23c893c631f7cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a978826b454f93d90f5f229856463e69b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a978826b454f93d90f5f229856463e69b">Product</a> (const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;left, const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;right, <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;out) noexcept</td></tr>
-<tr class="separator:a978826b454f93d90f5f229856463e69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0296a2338184cfc4880756486afe9d1f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#a0296a2338184cfc4880756486afe9d1f">View</a> (int32_t eyeX, int32_t eyeY, int32_t eyeZ, int32_t centerX, int32_t centerY, int32_t centerZ, int32_t upX, int32_t upY, int32_t upZ) noexcept</td></tr>
-<tr class="separator:a0296a2338184cfc4880756486afe9d1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacab3ebe5935ff9ea9a7e4f5f3c5e672"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#aacab3ebe5935ff9ea9a7e4f5f3c5e672">Product</a> (const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;in_left, const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;in_right, <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;out_res) noexcept</td></tr>
+<tr class="memdesc:aacab3ebe5935ff9ea9a7e4f5f3c5e672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Product of two TransformMatrices.  <a href="classgrog_1_1TransformMatrix.html#aacab3ebe5935ff9ea9a7e4f5f3c5e672">More...</a><br /></td></tr>
+<tr class="separator:aacab3ebe5935ff9ea9a7e4f5f3c5e672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad855d7693ab097b112a5f2ee6a0ee4c8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#ad855d7693ab097b112a5f2ee6a0ee4c8">View</a> (int32_t in_eyeX, int32_t in_eyeY, int32_t in_eyeZ, int32_t in_centerX, int32_t in_centerY, int32_t in_centerZ, int32_t in_upX, int32_t in_upY, int32_t in_upZ) noexcept</td></tr>
+<tr class="memdesc:ad855d7693ab097b112a5f2ee6a0ee4c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a View <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">TransformMatrix</a>, which transforms the world coordinates in a projectable coordinates system.  <a href="classgrog_1_1TransformMatrix.html#ad855d7693ab097b112a5f2ee6a0ee4c8">More...</a><br /></td></tr>
+<tr class="separator:ad855d7693ab097b112a5f2ee6a0ee4c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ad25423be2bcbf009e2060e3b5964ddfb"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#ad25423be2bcbf009e2060e3b5964ddfb">data</a> [13]</td></tr>
-<tr class="separator:ad25423be2bcbf009e2060e3b5964ddfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5a92bbbeb560f945f33b3bb1323daec"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1TransformMatrix.html#ad5a92bbbeb560f945f33b3bb1323daec">m_data</a> [13]</td></tr>
+<tr class="memdesc:ad5a92bbbeb560f945f33b3bb1323daec"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual content, initialized as the identity matrix.  <a href="classgrog_1_1TransformMatrix.html#ad5a92bbbeb560f945f33b3bb1323daec">More...</a><br /></td></tr>
+<tr class="separator:ad5a92bbbeb560f945f33b3bb1323daec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Matrix_8h_source.html#l00008">8</a> of file <a class="el" href="Matrix_8h_source.html">Matrix.h</a>.</p>
+<div class="textblock"><p>4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values of the 4th row set to 0. We use this particularity to save memory and CPU cycles. Stored as row-major order. </p>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8h_source.html#l00013">13</a> of file <a class="el" href="TransformMatrix_8h_source.html">TransformMatrix.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5026a59f17c4d5d4ea85c0b9e3da6149"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5026a59f17c4d5d4ea85c0b9e3da6149">&#9670;&nbsp;</a></span>TransformMatrix() <span class="overload">[1/2]</span></h2>
@@ -143,12 +159,14 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00011">11</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Constructor, creates an identity matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8cpp_source.html#l00012">12</a> of file <a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a113c58099aa8f799950bccf30e80965a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a113c58099aa8f799950bccf30e80965a">&#9670;&nbsp;</a></span>TransformMatrix() <span class="overload">[2/2]</span></h2>
+<a id="ac46eca538305921ef383cd0b3085d9ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac46eca538305921ef383cd0b3085d9ac">&#9670;&nbsp;</a></span>TransformMatrix() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,7 +178,7 @@ Public Attributes</h2></td></tr>
           <td class="memname">TransformMatrix::TransformMatrix </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
+          <td class="paramname"><em>in_other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -171,7 +189,15 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00014">14</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Copy constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_other</td><td>The <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">TransformMatrix</a> to copy. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8cpp_source.html#l00015">15</a> of file <a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a>.</p>
 
 </div>
 </div>
@@ -199,12 +225,15 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00025">25</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Sets as the identity matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>Self. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8cpp_source.html#l00026">26</a> of file <a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a236f7a07c2333fb9aca330238e2edd9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a236f7a07c2333fb9aca330238e2edd9f">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a73027988c0f2e1b4a73c764d58d4f899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73027988c0f2e1b4a73c764d58d4f899">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,7 +245,7 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp; TransformMatrix::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
+          <td class="paramname"><em>in_other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -227,12 +256,22 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00019">19</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Assignment operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_other</td><td>The <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">TransformMatrix</a> to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Self. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>No self-assignment. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8cpp_source.html#l00020">20</a> of file <a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a978826b454f93d90f5f229856463e69b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a978826b454f93d90f5f229856463e69b">&#9670;&nbsp;</a></span>Product()</h2>
+<a id="aacab3ebe5935ff9ea9a7e4f5f3c5e672"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacab3ebe5935ff9ea9a7e4f5f3c5e672">&#9670;&nbsp;</a></span>Product()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,19 +283,19 @@ Public Attributes</h2></td></tr>
           <td class="memname">void TransformMatrix::Product </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>left</em>, </td>
+          <td class="paramname"><em>in_left</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>right</em>, </td>
+          <td class="paramname"><em>in_right</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>out</em>&#160;</td>
+          <td class="paramname"><em>out_res</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -271,12 +310,22 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00126">126</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Product of two TransformMatrices. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_left</td><td>The left <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">TransformMatrix</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_right</td><td>The right <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">TransformMatrix</a>. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_res</td><td>The result, as a <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">TransformMatrix</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8cpp_source.html#l00121">121</a> of file <a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a52420e0026c8626b42f9ca27e3ecda10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52420e0026c8626b42f9ca27e3ecda10">&#9670;&nbsp;</a></span>rotateX()</h2>
+<a id="acaa54b056d7a7eb94862027a4463b628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaa54b056d7a7eb94862027a4463b628">&#9670;&nbsp;</a></span>rotateX()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,7 +337,7 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp; TransformMatrix::rotateX </td>
           <td>(</td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>theta</em></td><td>)</td>
+          <td class="paramname"><em>in_theta</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -299,12 +348,21 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00033">33</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Rotates around the X axis. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_theta</td><td>The angle, as 1024th of \(2*\pi\). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Self. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8cpp_source.html#l00034">34</a> of file <a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a53c49597ff5eb49830803b51c8bedf02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53c49597ff5eb49830803b51c8bedf02">&#9670;&nbsp;</a></span>rotateY()</h2>
+<a id="ad1ac3554125356e14df6a39dc39713ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1ac3554125356e14df6a39dc39713ae">&#9670;&nbsp;</a></span>rotateY()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -316,7 +374,7 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp; TransformMatrix::rotateY </td>
           <td>(</td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>theta</em></td><td>)</td>
+          <td class="paramname"><em>in_theta</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -327,12 +385,21 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00056">56</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Rotates around the Y axis. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_theta</td><td>The angle, as 1024th of \(2*\pi\). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Self. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8cpp_source.html#l00057">57</a> of file <a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a45932c604d0b3cc214f564c607d8b069"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45932c604d0b3cc214f564c607d8b069">&#9670;&nbsp;</a></span>rotateZ()</h2>
+<a id="aaef2613c7299b796a9eda4c5dab5c2f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaef2613c7299b796a9eda4c5dab5c2f7">&#9670;&nbsp;</a></span>rotateZ()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -344,7 +411,7 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp; TransformMatrix::rotateZ </td>
           <td>(</td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>theta</em></td><td>)</td>
+          <td class="paramname"><em>in_theta</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -355,12 +422,21 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00079">79</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Rotates around the Z axis. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_theta</td><td>The angle, as 1024th of \(2*\pi\). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Self. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8cpp_source.html#l00080">80</a> of file <a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a12fb9f421496e30db23e6728df0e80fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12fb9f421496e30db23e6728df0e80fe">&#9670;&nbsp;</a></span>scale()</h2>
+<a id="a885941309d894577e23c893c631f7cf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a885941309d894577e23c893c631f7cf2">&#9670;&nbsp;</a></span>scale()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -372,19 +448,19 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp; TransformMatrix::scale </td>
           <td>(</td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>sx</em>, </td>
+          <td class="paramname"><em>in_sx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>sy</em>, </td>
+          <td class="paramname"><em>in_sy</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>sz</em>&#160;</td>
+          <td class="paramname"><em>in_sz</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -399,12 +475,23 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00111">111</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Scales the transformation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in_sx</td><td>The X scale factor. </td></tr>
+    <tr><td class="paramname">in_sy</td><td>The Y scale factor. </td></tr>
+    <tr><td class="paramname">in_sz</td><td>The Z scale factor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8cpp_source.html#l00112">112</a> of file <a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a4a7a3c740f3142eb7d383fbd5d05c1c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a7a3c740f3142eb7d383fbd5d05c1c1">&#9670;&nbsp;</a></span>translate()</h2>
+<a id="ac8fb3dfcf4092811f7362a87ccf9dca4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8fb3dfcf4092811f7362a87ccf9dca4">&#9670;&nbsp;</a></span>translate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -416,19 +503,19 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp; TransformMatrix::translate </td>
           <td>(</td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>dx</em>, </td>
+          <td class="paramname"><em>in_dx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>dy</em>, </td>
+          <td class="paramname"><em>in_dy</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>dz</em>&#160;</td>
+          <td class="paramname"><em>in_dz</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -443,12 +530,23 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00102">102</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Translates the transformation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in_dx</td><td>The X offset. </td></tr>
+    <tr><td class="paramname">in_dy</td><td>The Y offset. </td></tr>
+    <tr><td class="paramname">in_dz</td><td>The Z offset. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8cpp_source.html#l00103">103</a> of file <a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0296a2338184cfc4880756486afe9d1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0296a2338184cfc4880756486afe9d1f">&#9670;&nbsp;</a></span>View()</h2>
+<a id="ad855d7693ab097b112a5f2ee6a0ee4c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad855d7693ab097b112a5f2ee6a0ee4c8">&#9670;&nbsp;</a></span>View()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -460,55 +558,55 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> TransformMatrix::View </td>
           <td>(</td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>eyeX</em>, </td>
+          <td class="paramname"><em>in_eyeX</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>eyeY</em>, </td>
+          <td class="paramname"><em>in_eyeY</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>eyeZ</em>, </td>
+          <td class="paramname"><em>in_eyeZ</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>centerX</em>, </td>
+          <td class="paramname"><em>in_centerX</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>centerY</em>, </td>
+          <td class="paramname"><em>in_centerY</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>centerZ</em>, </td>
+          <td class="paramname"><em>in_centerZ</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>upX</em>, </td>
+          <td class="paramname"><em>in_upX</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>upY</em>, </td>
+          <td class="paramname"><em>in_upY</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>upZ</em>&#160;</td>
+          <td class="paramname"><em>in_upZ</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -523,30 +621,49 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00155">155</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Creates a View <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">TransformMatrix</a>, which transforms the world coordinates in a projectable coordinates system. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_eyeX</td><td>The camera X position. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_eyeY</td><td>The camera Y position. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_eyeZ</td><td>The camera Z position. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_centerX</td><td>The X coordinate of the point targetted by the camera. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_centerY</td><td>The Y coordinate of the point targetted by the camera. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_centerZ</td><td>The Z coordinate of the point targetted by the camera. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_upX</td><td>The X coordinates of the Up vector. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_upY</td><td>The Y coordinates of the Up vector. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_upZ</td><td>The Z coordinates of the Up vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A View <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">TransformMatrix</a>. Implementation based on glm::lookat (<a href="https://glm.g-truc.net/0.9.4/api/a00151.html#gae2dca3785b6d5796e876114af58a60a1">https://glm.g-truc.net/0.9.4/api/a00151.html#gae2dca3785b6d5796e876114af58a60a1</a>). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8cpp_source.html#l00150">150</a> of file <a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ad25423be2bcbf009e2060e3b5964ddfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad25423be2bcbf009e2060e3b5964ddfb">&#9670;&nbsp;</a></span>data</h2>
+<a id="ad5a92bbbeb560f945f33b3bb1323daec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5a92bbbeb560f945f33b3bb1323daec">&#9670;&nbsp;</a></span>m_data</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int32_t grog::TransformMatrix::data[13]</td>
+          <td class="memname">int32_t grog::TransformMatrix::m_data[13]</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{1 &lt;&lt; 10, 0, 0, 0,</div><div class="line">                        0, 1 &lt;&lt; 10, 0, 0,</div><div class="line">                        0, 0, 1 &lt;&lt; 10, 0,</div><div class="line">                        1 &lt;&lt; 10}</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="Matrix_8h_source.html#l00016">16</a> of file <a class="el" href="Matrix_8h_source.html">Matrix.h</a>.</p>
+<b>Initial value:</b><div class="fragment"><div class="line">{1 &lt;&lt; 10,  0,        0,        0,</div><div class="line">                          0,        1 &lt;&lt; 10,  0,        0,</div><div class="line">                          0,        0,        1 &lt;&lt; 10,  0,</div><div class="line">                                                        1 &lt;&lt; 10}</div></div><!-- fragment -->
+<p>The actual content, initialized as the identity matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="TransformMatrix_8h_source.html#l00024">24</a> of file <a class="el" href="TransformMatrix_8h_source.html">TransformMatrix.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="Matrix_8h_source.html">Matrix.h</a></li>
-<li><a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a></li>
+<li><a class="el" href="TransformMatrix_8h_source.html">TransformMatrix.h</a></li>
+<li><a class="el" href="TransformMatrix_8cpp_source.html">TransformMatrix.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

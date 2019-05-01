@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QTimer>
-#include "grog.h"
+#include "SceneNode.h"
 #include "Engine.h"
 
 namespace Ui {
@@ -17,8 +17,6 @@ class MainWindow : public QMainWindow
   public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
-    void generateTrigo();
 
   protected slots:
 

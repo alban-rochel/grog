@@ -1,9 +1,6 @@
 <map id="Mesh.h" name="Mesh.h">
-<area shape="rect" id="node1" title=" " alt="" coords="204,5,269,32"/>
-<area shape="rect" id="node2" href="$grog_8h.html" title=" " alt="" coords="207,80,266,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,155,137,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="162,155,223,181"/>
-<area shape="rect" id="node5" href="$Matrix_8h.html" title=" " alt="" coords="247,155,317,181"/>
-<area shape="rect" id="node6" href="$common_8h.html" title=" " alt="" coords="193,229,275,256"/>
-<area shape="rect" id="node7" title=" " alt="" coords="299,229,358,256"/>
+<area shape="rect" id="node1" title=" " alt="" coords="63,5,129,32"/>
+<area shape="rect" id="node2" href="$grog_8h.html" title=" " alt="" coords="67,80,125,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,155,67,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="91,155,223,181"/>
 </map>

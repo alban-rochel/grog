@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "trigo.h"
+#include "Math.h"
 #include "Car.h"
 #include "Road.h"
 
@@ -28,18 +28,18 @@ MainWindow::MainWindow(QWidget *parent) :
   scene.children = new grog::SceneNode*[7];
   scene.childCount = 7;
 
-  scene.children[0] = new grog::Car(true);
-  scene.children[1] = new grog::Car(false);
+  scene.children[0] = new demo::Car(true);
+  scene.children[1] = new demo::Car(false);
   scene.children[1]->transform.identity().translate(1500,0, 1000);
 
-  scene.children[2] = new grog::Road();
-  scene.children[3] = new grog::Road();
+  scene.children[2] = new demo::Road();
+  scene.children[3] = new demo::Road();
   scene.children[3]->transform.identity().translate(48000, 0, 0);
-  scene.children[4] = new grog::Road();
+  scene.children[4] = new demo::Road();
   scene.children[4]->transform.identity().translate(16000, 0, 0);
-  scene.children[5] = new grog::Road();
+  scene.children[5] = new demo::Road();
   scene.children[5]->transform.identity().translate(-16000, 0, 0);
-  scene.children[6] = new grog::Road();
+  scene.children[6] = new demo::Road();
   scene.children[6]->transform.identity().translate(-48000, 0, 0);
 
 
@@ -101,26 +101,6 @@ void MainWindow::step()
   }
 
   draw();
-}
-
-void MainWindow::generateTrigo()
-{
-  std::cout << "static constexpr int32_t cosines[] = {" << std::endl;
-
-  uint32_t index = 0;
-  for(unsigned int line = 0; line < 32; ++line)
-  {
-    for(unsigned int col = 0; col < 32; ++col, ++index)
-    {
-      std::cout << (int32_t)(cos((index * 2 * M_PI)/1024.) * 1024 + 0.5);
-      if(!(col == 31 && line == 31))
-      {
-          std::cout << ",\t";
-      }
-    }
-    std::cout << "\n";
-  }
-  std::cout << "};" << std::endl;
 }
 
 void MainWindow::eyeXChanged(double val)
@@ -199,9 +179,9 @@ void MainWindow::draw()
 {
   engine.setProjection(fov, near, far);
 
-  engine.setView(grog::TransformMatrix::View(grog::floatToFixed(eyeX), grog::floatToFixed(eyeY), grog::floatToFixed(eyeZ),
-                                             grog::floatToFixed(targetX), grog::floatToFixed(targetY), grog::floatToFixed(targetZ),
-                                             grog::floatToFixed(upX), grog::floatToFixed(upY), grog::floatToFixed(upZ)));
+  engine.setView(grog::TransformMatrix::View(grog::Math::FloatToFixed(eyeX),    grog::Math::FloatToFixed(eyeY),     grog::Math::FloatToFixed(eyeZ),
+                                             grog::Math::FloatToFixed(targetX), grog::Math::FloatToFixed(targetY),  grog::Math::FloatToFixed(targetZ),
+                                             grog::Math::FloatToFixed(upX),     grog::Math::FloatToFixed(upY),      grog::Math::FloatToFixed(upZ)));
 
   engine.projectScene(&scene, 0x01);
   engine.projectScene(&scene, 0x02);
@@ -244,11 +224,11 @@ void MainWindow::convertObj()
     if(sl.size() == 4 && sl[0] == "v")
     {
       float vertexCoord = atof(sl[1].toStdString().data());
-      vertices.push_back(grog::floatToFixed(vertexCoord));
+      vertices.push_back(grog::Math::FloatToFixed(vertexCoord));
       vertexCoord = atof(sl[2].toStdString().data());
-      vertices.push_back(grog::floatToFixed(vertexCoord));
+      vertices.push_back(grog::Math::FloatToFixed(vertexCoord));
       vertexCoord = atof(sl[3].toStdString().data());
-      vertices.push_back(grog::floatToFixed(vertexCoord));
+      vertices.push_back(grog::Math::FloatToFixed(vertexCoord));
     }
     else if(sl.size() == 4 && sl[0] == "f")
     {

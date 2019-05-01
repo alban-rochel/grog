@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['near',['near',['../classgrog_1_1Engine.html#a8fb707492839458b0984e44086070c98',1,'grog::Engine']]],
-  ['next',['next',['../structgrog_1_1Triangle.html#a1a466a36547ebb8cd8463462207d788e',1,'grog::Triangle']]],
-  ['normalize',['normalize',['../namespacegrog.html#a287545868ce818b47f446560b64a03f5',1,'grog']]]
+  ['operator_3d',['operator=',['../classgrog_1_1Matrix.html#aacb210bd2e0070a6bc19f8178035523b',1,'grog::Matrix::operator=()'],['../classgrog_1_1TransformMatrix.html#a73027988c0f2e1b4a73c764d58d4f899',1,'grog::TransformMatrix::operator=()']]],
+  ['orient2d',['Orient2d',['../classgrog_1_1Math.html#a3960c5e634258006c8ac8ae5abe805c8',1,'grog::Math']]],
+  ['out',['OUT',['../Matrix_8cpp.html#a9cc7bb1d8e2d3c623c61dcbec002f143',1,'OUT():&#160;Matrix.cpp'],['../TransformMatrix_8cpp.html#a9cc7bb1d8e2d3c623c61dcbec002f143',1,'OUT():&#160;TransformMatrix.cpp']]]
 ];

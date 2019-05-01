@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['operator_3d',['operator=',['../classgrog_1_1TransformMatrix.html#a236f7a07c2333fb9aca330238e2edd9f',1,'grog::TransformMatrix::operator=()'],['../classgrog_1_1Matrix.html#a2834183e6a09de74242db0e480c2bfa4',1,'grog::Matrix::operator=()']]],
-  ['orient2d',['orient2d',['../namespacegrog.html#a16f98715c69af342705b478ddc9fe242',1,'grog']]]
+  ['operator_3d',['operator=',['../classgrog_1_1Matrix.html#aacb210bd2e0070a6bc19f8178035523b',1,'grog::Matrix::operator=()'],['../classgrog_1_1TransformMatrix.html#a73027988c0f2e1b4a73c764d58d4f899',1,'grog::TransformMatrix::operator=()']]],
+  ['orient2d',['Orient2d',['../classgrog_1_1Math.html#a3960c5e634258006c8ac8ae5abe805c8',1,'grog::Math']]]
 ];

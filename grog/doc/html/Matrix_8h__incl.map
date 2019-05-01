@@ -1,8 +1,7 @@
 <map id="Matrix.h" name="Matrix.h">
-<area shape="rect" id="node1" title=" " alt="" coords="107,5,176,32"/>
-<area shape="rect" id="node2" href="$common_8h.html" title=" " alt="" coords="5,80,88,107"/>
-<area shape="rect" id="node3" href="$grog_8h.html" title=" " alt="" coords="112,80,171,107"/>
-<area shape="rect" id="node6" title=" " alt="" coords="195,80,253,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="14,155,146,181"/>
-<area shape="rect" id="node5" title=" " alt="" coords="171,155,232,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="61,5,131,32"/>
+<area shape="rect" id="node2" href="$grog_8h.html" title=" " alt="" coords="67,155,125,181"/>
+<area shape="rect" id="node5" href="$TransformMatrix_8h.html" title=" " alt="" coords="83,80,211,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,229,67,256"/>
+<area shape="rect" id="node4" title=" " alt="" coords="91,229,223,256"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['floattofixed',['floatToFixed',['../namespacegrog.html#a343ca79abee03e514c1e710f7202b6fb',1,'grog']]]
+  ['floattofixed',['FloatToFixed',['../classgrog_1_1Math.html#a3e5d850e058267e75beff324c41e7dd9',1,'grog::Math']]]
 ];

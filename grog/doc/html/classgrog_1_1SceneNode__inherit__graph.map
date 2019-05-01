@@ -1,5 +1,5 @@
 <map id="grog::SceneNode" name="grog::SceneNode">
-<area shape="rect" id="node1" title="The SceneNode class The distance between &#160;and &#160;is ." alt="" coords="33,5,156,32"/>
-<area shape="rect" id="node2" href="$classgrog_1_1Car.html" title=" " alt="" coords="5,80,80,107"/>
-<area shape="rect" id="node3" href="$classgrog_1_1Road.html" title=" " alt="" coords="104,80,189,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="41,5,164,32"/>
+<area shape="rect" id="node2" href="$classdemo_1_1Car.html" title="The Car class is a scene node containing the full description of a car. It contains pointers to the m..." alt="" coords="5,80,88,107"/>
+<area shape="rect" id="node3" href="$classdemo_1_1Road.html" title="The Road class is a scene node containing the full description of a road segment. It contains pointer..." alt="" coords="113,80,205,107"/>
 </map>

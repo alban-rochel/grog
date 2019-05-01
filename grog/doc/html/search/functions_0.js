@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['car',['Car',['../classgrog_1_1Car.html#aa3c0d85af7e3f807a0cbf743ec67cf43',1,'grog::Car']]],
-  ['cos',['Cos',['../namespacegrog.html#a0e0b53121f1be38fff5bcfda18daa4da',1,'grog']]],
-  ['crossprod',['crossProd',['../namespacegrog.html#a88203d79964b6d180ce16d39dc6a04ca',1,'grog']]]
+  ['car',['Car',['../classdemo_1_1Car.html#adc2f6dfb0a8fa385b75cfd0b4c0412be',1,'demo::Car']]],
+  ['cos',['Cos',['../classgrog_1_1Math.html#a864888e283891cc9cc6c77fc539e374b',1,'grog::Math']]],
+  ['crossprod',['CrossProd',['../classgrog_1_1Math.html#a3ee8d52b517fadce0a5f9474da435a67',1,'grog::Math']]]
 ];

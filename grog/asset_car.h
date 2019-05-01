@@ -2,6 +2,10 @@
 
 namespace demo
 {
+	/**
+	 * @brief Vertices of a car, as (x, y, z), in Q21.10 fixed point.
+	 * Stored in Flash memory.
+	 */
 	static const int32_t car_vertices[] {
 		-679,	52,	-9,
 		-686,	52,	226,
@@ -44,6 +48,10 @@ namespace demo
 		690,	250,	110,
 	};
 
+	/**
+	 * @brief Faces (triangles) of a car, as (vertex_index_1, vertex_index_2, vertex_index_3).
+	 * Stored in Flash memory.
+	 */
 	static const uint32_t car_faces[] {
 		3,	4,	0,
 		5,	0,	6,
@@ -86,6 +94,10 @@ namespace demo
 		37,	38,	35,
 	};
 
+	/**
+	 * @brief Colors for each face of the red car.
+	 * Stored in Flash memory.
+	 */
 	static const Gamebuino_Meta::ColorIndex car_colors_main[] {
 	Gamebuino_Meta::ColorIndex::white, // Nez
 	Gamebuino_Meta::ColorIndex::white, // Nez
@@ -128,6 +140,10 @@ namespace demo
 	Gamebuino_Meta::ColorIndex::white,
 	};
 
+	/**
+	 * @brief Colors for each face of the blue car.
+	 * Stored in Flash memory.
+	 */
 	static const Gamebuino_Meta::ColorIndex car_colors_other[] {
 	Gamebuino_Meta::ColorIndex::white, // Nez
 	Gamebuino_Meta::ColorIndex::white, // Nez
@@ -170,9 +186,13 @@ namespace demo
 	Gamebuino_Meta::ColorIndex::white,
 	};
 
-	static const uint32_t car_vertexCount {39};
-	static const uint32_t car_faceCount {39};
+	static const uint32_t car_vertexCount {39}; ///< Number of vertices for a car.
+	static const uint32_t car_faceCount {39};		///< Number of faces for a car.
 
+	/**
+	 * @brief Vertices of a wheel, as (x, y, z), in Q21.10 fixed point.
+	 * Stored in Flash memory.
+	 */
 	static const int32_t wheel_vertices[] {
 		2,	-89,	58,
 		2,	-89,	-56,
@@ -188,6 +208,10 @@ namespace demo
 		-75,	-44,	-56,
 	};
 
+	/**
+	 * @brief Faces (triangles) of a wheel, as (vertex_index_1, vertex_index_2, vertex_index_3).
+	 * Stored in Flash memory.
+	 */
 	static const uint32_t wheel_faces[] {
 		1,	2,	0,
 		3,	4,	2,
@@ -211,6 +235,10 @@ namespace demo
 		2,	4,	6,
 	};
 
+	/**
+	 * @brief Colors for each face of the wheel.
+	 * Stored in Flash memory.
+	 */
 	static const Gamebuino_Meta::ColorIndex wheel_colors[] {
 	Gamebuino_Meta::ColorIndex::gray, // Bande 1
 	Gamebuino_Meta::ColorIndex::darkgray, // Bande 2
@@ -234,6 +262,6 @@ namespace demo
 	Gamebuino_Meta::ColorIndex::black,// Cote 2
 	};
 
-	static const uint32_t wheel_vertexCount {12};
-	static const uint32_t wheel_faceCount {20};
+	static const uint32_t wheel_vertexCount {12};	///< Number of vertices for a wheel.
+	static const uint32_t wheel_faceCount {20};  	///< Number of faces for a wheel.
 }

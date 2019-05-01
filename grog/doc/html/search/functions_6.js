@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['normalize',['normalize',['../namespacegrog.html#a287545868ce818b47f446560b64a03f5',1,'grog']]]
+  ['normalize',['Normalize',['../classgrog_1_1Math.html#ac8e78def71f82610807ccad67ec1098d',1,'grog::Math']]]
 ];

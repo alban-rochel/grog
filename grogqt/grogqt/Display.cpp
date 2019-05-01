@@ -2,28 +2,12 @@
 
 #ifdef __linux
 #include <QPainter>
-#else
-#include <Gamebuino-Meta.h>
-#endif
 
 using namespace grog;
 
-#ifndef __linux
-namespace Gamebuino_Meta
-{
-  extern volatile uint32_t dma_desc_free_count;
-  static SPISettings tftSPISettings = SPISettings(24000000, MSBFIRST, SPI_MODE0);
-}
-#endif
 
 namespace grog
 {
-  constexpr uint32_t ScreenWidth =  160;
-  constexpr uint32_t ScreenHeight =  128;
-  constexpr uint32_t StripHeight = 8;
-  constexpr uint32_t StripSizePix = ScreenWidth * StripHeight;
-  constexpr uint32_t StripSizeBytes = StripSizePix * 2;
-
   const uint16_t Palette[] = {  		/*black		*/  0x0000,
                                     /*darkblue */	0x0210,
                                     /*purple	*/	0x9008,
@@ -45,20 +29,14 @@ namespace grog
 
 
 Display::Display() noexcept:
-  buffer(new uint8_t[ScreenWidth * ScreenHeight / 8]),
-  strip1(new uint16_t[StripSizePix]),
-  strip2(new uint16_t[StripSizePix])
+  buffer(new uint8_t[DisplayWidth * DisplayHeight/2])
 {
-#ifdef __linux
-    memset(buffer, 0x0, 80*64/2);
-#endif
+    memset(buffer, 0x0, DisplayWidth*DisplayHeight/2);
 }
 
 Display::~Display() noexcept
 {
   delete[] buffer;
-  delete[] strip1;
-  delete[] strip2;
 }
 
 void Display::draw() noexcept
@@ -67,7 +45,7 @@ void Display::draw() noexcept
 
   uint8_t* currentBuffer = buffer;
 
-  for(unsigned int y = 0; y < 64; ++y)
+  for(unsigned int y = 0; y < DisplayWidth; ++y)
   {
       for(unsigned int x = 0; x < 80; x+=2)
       {
@@ -87,21 +65,10 @@ void Display::draw() noexcept
         painter.drawPoint(x, y);
       }
   }
-  memset(buffer, 0x0, 80*64/2);
+  memset(buffer, 0x0, DisplayWidth*DisplayHeight/2);
 }
 
-uint16_t* Display::startFrame() noexcept
-{
-    return nullptr;
-}
 
-void Display::endFrame() noexcept
-{
-}
-
-uint16_t* Display::commitStrip(/*GraphicsManager::TaskSet* taskSet*/) noexcept
-{
-  return nullptr;
-}
+#endif
 
 

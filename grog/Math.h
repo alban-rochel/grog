@@ -4,6 +4,9 @@
 
 namespace grog
 {
+  /**
+   * @brief These are the Q21.10 fixed point cosines corresponding to the decomposition of the unit circle into 1024 angles.
+   */
   static constexpr int32_t cosines[] = {
   1024,	1024,	1024,	1024,	1024,	1024,	1023,	1023,	1023,	1022,	1022,	1022,	1021,	1021,	1020,	1020,	1019,	1018,	1018,	1017,	1016,	1016,	1015,	1014,	1013,	1012,	1011,	1010,	1009,	1008,	1007,	1006,
   1004,	1003,	1002,	1000,	999,	998,	996,	995,	993,	992,	990,	989,	987,	985,	983,	982,	980,	978,	976,	974,	972,	970,	968,	966,	964,	962,	960,	958,	955,	953,	951,	948,
@@ -39,22 +42,46 @@ namespace grog
   1004,	1006,	1007,	1008,	1009,	1010,	1011,	1012,	1013,	1014,	1015,	1016,	1016,	1017,	1018,	1018,	1019,	1020,	1020,	1021,	1021,	1022,	1022,	1022,	1023,	1023,	1023,	1024,	1024,	1024,	1024,	1024
   };
 
-  static constexpr int32_t Pi = 512;
-  static constexpr int32_t Pi_2 = 256;
+  static constexpr int32_t Pi = 511;    ///< \f$\pi\f$ corresponds to index 511.
+  static constexpr int32_t Pi_2 = 255;  ///< \f$\frac{\pi}{2}\f$ corresponds to index 255.
 
+  /**
+   * @brief The Math class is a math utility class, providing the tools necessary to work in the GROG units.
+   */
   class Math
   {
     public:
-      GROG_INLINE static int32_t Cos(int32_t angle) noexcept
+      /**
+       * @brief Cosine function.
+       * @param[in] in_angle The angle, as 1024th of \f$2*\pi\f$.
+       * @return The cosine value, in Q21.10 fixed point.
+       */
+      GROG_INLINE static int32_t Cos(int32_t in_angle) noexcept
       {
-        return cosines[angle & 0x3FF];
+        return cosines[in_angle & 0x3FF];
       }
 
-      GROG_INLINE static int32_t Sin(int32_t angle) noexcept
+      /**
+       * @brief Sine function.
+       * @param[in] in_angle The angle, as 1024th of \f$2*\pi\f$.
+       * @return The sine value, in Q21.10 fixed point.
+       */
+      GROG_INLINE static int32_t Sin(int32_t in_angle) noexcept
       {
-        return -cosines[(angle + Pi_2) & 0x3FF];
+        return -cosines[(in_angle + Pi_2) & 0x3FF];
       }
 
+      /**
+       * @brief Orient2d provides info on triangle p1p2p3 orientation, returning a cross-product of sides p2p1 and p3p1.
+       * Named after the similar function presented in https://fgiesen.wordpress.com/2013/02/10/optimizing-the-basic-rasterizer/.
+       * @param[in] in_p1x X coordinate of p1.
+       * @param[in] in_p1y Y coordinate of p1.
+       * @param[in] in_p2x X coordinate of p2.
+       * @param[in] in_p2y Y coordinate of p2.
+       * @param[in] in_p3x X coordinate of p3.
+       * @param[in] in_p3y Y coordinate of p3.
+       * @return The cross product of p2p1 and p3p1. Its sign provides indication on triangle orientation, and thus visibility.
+       */
       GROG_INLINE static int32_t Orient2d( const int32_t& p1x, const int32_t& p1y,
                                            const int32_t& p2x, const int32_t& p2y,
                                            const int32_t& p3x, const int32_t& p3y) noexcept
@@ -62,12 +89,34 @@ namespace grog
           return (p2x-p1x)*(p3y-p1y) - (p2y-p1y)*(p3x-p1x);
       }
 
-      static void Normalize(int32_t* io) noexcept;
+      /**
+       * @brief Normalizes a vector of 3 Q21.10 values provided.
+       * @param[in,out] io_vect The vector's base address.
+       * @warning This is not a cheap function to call, as it switchs back and forth to/from float, and calls sqrtf.
+       */
+      static void Normalize(int32_t* io_vect) noexcept;
 
-      static void CrossProd(int32_t* left,
-                            int32_t* right,
-                            int32_t* out,
-                            bool normalize) noexcept;
+      /**
+       * @brief Computes the cross product of 2 Q21.10 vectors of 3 values.
+       * @param[in] in_left The left term of the product.
+       * @param[in] in_right The right term of the product.
+       * @param[out] out_vect The result.
+       * @param[in] in_normalize Whether the result should be normalized.
+       */
+      static void CrossProd(int32_t* in_left,
+                            int32_t* in_right,
+                            int32_t* out_vect,
+                            bool in_normalize) noexcept;
+
+      /**
+       * @brief Utility function to convert a floating point value to Q21.10 fixed point.
+       * @param[in] in_val The floating point value to convert.
+       * @return The converted value
+       */
+      GROG_INLINE static int32_t FloatToFixed(float in_val) noexcept
+      {
+        return (int32_t)(in_val * 1024.f + 0.5f);
+      }
   };
 
 }

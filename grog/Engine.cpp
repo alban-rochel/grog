@@ -273,31 +273,31 @@ void Engine::projectScene(const SceneNode *node, const Matrix &parentMvp, uint32
 
 
         {
-          outZ =  mvp.data[8] * inX +
-                  mvp.data[9] * inY +
-                  mvp.data[10] * inZ +
-                  mvp.data[11] * 1024;
+          outZ =  mvp.m_data[8] * inX +
+                  mvp.m_data[9] * inY +
+                  mvp.m_data[10] * inZ +
+                  mvp.m_data[11] * 1024;
 
             // X_ndc * 1024
-            (*outTransformedVertexBuffer++) =    mvp.data[0] * inX
-                                              +  mvp.data[1] * inY
-                                              +  mvp.data[2] * inZ
-                                              +  mvp.data[3] * 1024;
+            (*outTransformedVertexBuffer++) =    mvp.m_data[0] * inX
+                                              +  mvp.m_data[1] * inY
+                                              +  mvp.m_data[2] * inZ
+                                              +  mvp.m_data[3] * 1024;
 
             // Y_ndc * 1024
-            (*outTransformedVertexBuffer++) =    mvp.data[4] * inX
-                                              +  mvp.data[5] * inY
-                                              +  mvp.data[6] * inZ
-                                              +  mvp.data[7] * 1024;
+            (*outTransformedVertexBuffer++) =    mvp.m_data[4] * inX
+                                              +  mvp.m_data[5] * inY
+                                              +  mvp.m_data[6] * inZ
+                                              +  mvp.m_data[7] * 1024;
 
             // Z_ndc * 1024
             (*outTransformedVertexBuffer++) = outZ;
 
             // W_ndc * 1024
-            (*outTransformedVertexBuffer++) =    mvp.data[12] * inX
-                                              +  mvp.data[13] * inY
-                                              +  mvp.data[14] * inZ
-                                              +  mvp.data[15] * 1024;
+            (*outTransformedVertexBuffer++) =    mvp.m_data[12] * inX
+                                              +  mvp.m_data[13] * inY
+                                              +  mvp.m_data[14] * inZ
+                                              +  mvp.m_data[15] * 1024;
         }
       }
     }
@@ -396,183 +396,6 @@ void Engine::projectScene(const SceneNode *node, const Matrix &parentMvp, uint32
   // end recursive call
 }
 
-void Engine::projectSceneOld(const SceneNode* node,
-                          const Matrix& parentMvp,
-                          uint32_t pass) noexcept
-{
-  if(GROG_UNLIKELY(node == nullptr))
-    return;
-
-  Matrix mvp;
-  Matrix::Transform(parentMvp, node->transform, mvp);
-
-  if(pass & node->renderPass)
-  {
-    const Mesh& mesh = node->mesh;
-
-    // project all the coordinates in transformedVertexBuffer
-    {
-      const int32_t* inVertexBuffer = mesh.vertexBuffer;
-      int32_t* outTransformedVertexBuffer = transformedVertexBuffer;
-      int32_t inX(0), inY(0), inZ(0);
-      //    int pouet(0);
-      for(uint32_t vertexIndex = mesh.vertexCount; vertexIndex; --vertexIndex)
-      {
-        inX = (*inVertexBuffer++);
-        inY = (*inVertexBuffer++);
-        inZ = (*inVertexBuffer++);
-
-        {
-
-          // X_ndc * 1024
-          (*outTransformedVertexBuffer++) =    mvp.data[0] * inX
-                                            +  mvp.data[1] * inY
-                                            +  mvp.data[2] * inZ
-                                            +  mvp.data[3] * 1024;
-
-          // Y_ndc * 1024
-          (*outTransformedVertexBuffer++) =    mvp.data[4] * inX
-                                            +  mvp.data[5] * inY
-                                            +  mvp.data[6] * inZ
-                                            +  mvp.data[7] * 1024;
-
-          // Z_ndc * 1024
-          (*outTransformedVertexBuffer++) =    mvp.data[8] * inX
-                                            +  mvp.data[9] * inY
-                                            +  mvp.data[10] * inZ
-                                            +  mvp.data[11] * 1024;
-
-          // W_ndc * 1024
-          (*outTransformedVertexBuffer++) =    mvp.data[12] * inX
-                                            +  mvp.data[13] * inY
-                                            +  mvp.data[14] * inZ
-                                            +  mvp.data[15] * 1024;
-
-        }
-      }
-    }
-    // end project all the coordinates in transformedVertexBuffer
-
-    // push triangles
-    {
-
-      const uint32_t* faceIter = mesh.faces;
-      const Gamebuino_Meta::ColorIndex* colorIter = mesh.colors;
-      int32_t* v1, *v2, *v3;
-      for(uint32_t faceIndex = mesh.faceCount; faceIndex; --faceIndex)
-      {
-        uint32_t ndcFlag(0);
-        v1 = transformedVertexBuffer + 4 * (*faceIter++);
-        v2 = transformedVertexBuffer + 4 * (*faceIter++);
-        v3 = transformedVertexBuffer + 4 * (*faceIter++);
-
-        if(v1[2] > -v1[3])
-          ndcFlag = 0b001;
-        if(v2[2] > -v2[3])
-          ndcFlag |= 0b010;
-        if(v3[2] > -v3[3])
-          ndcFlag |= 0b100;
-
-        switch(ndcFlag)
-        {
-          case 0b000:
-            ++colorIter;
-            break;
-
-          case 0b001:
-            pushClippedTriangle1(this, v1, v2, v3, (*colorIter++));
-            break;
-
-          case 0b010:
-            pushClippedTriangle1(this, v2, v3, v1, (*colorIter++));
-            break;
-
-          case 0b011:
-            pushClippedTriangle2(this, v1, v2, v3, (*colorIter++));
-            break;
-
-          case 0b100:
-            pushClippedTriangle1(this, v3, v1, v2, (*colorIter++));
-            break;
-
-          case 0b101:
-            pushClippedTriangle2(this, v3, v1, v2, (*colorIter++));
-            break;
-
-          case 0b110:
-            pushClippedTriangle2(this, v2, v3, v1, (*colorIter++));
-            break;
-
-          case 0b111:
-            pushUnclippedTriangle(this, v1, v2, v3, (*colorIter++));
-            break;
-
-          default:
-            break;
-        }
-
-//        int32_t* vertex = transformedVertexBuffer + 4 * (*faceIter++);
-//        projection.p1x = (*vertex++);
-//        projection.p1y = (*vertex++);
-//        int32_t z = (*vertex++);
-//        projection.z = z;
-//        int32_t w = (*vertex++) >> 10;
-//        if(GROG_UNLIKELY(w == 0))
-//          w = 1;
-//        projection.p1x = ((projection.p1x/w) >> 10) + 40;
-//        projection.p1y = ((projection.p1y/w) >> 10) + 32;
-//        if(z > -1024)
-//          ndcFlag = 0b001;
-
-//        vertex = transformedVertexBuffer + 4 * (*faceIter++);
-//        projection.p2x = (*vertex++);
-//        projection.p2y = (*vertex++);
-//        z = (*vertex++);
-//        projection.z += z;
-//        w = (*vertex++) >> 10;
-//        if(GROG_UNLIKELY(w == 0))
-//          w = 1;
-//        projection.p2x = ((projection.p2x/w) >> 10) + 40;
-//        projection.p2y = ((projection.p2y/w) >> 10) + 32;
-//        if(z > -1024)
-//          ndcFlag |= 0b010;
-
-//        vertex = transformedVertexBuffer + 4 * (*faceIter++);
-//        projection.p3x = (*vertex++);
-//        projection.p3y = (*vertex++);
-//        z = (*vertex++);
-//        projection.z += z;
-//        w = (*vertex++) >> 10;
-//        if(GROG_UNLIKELY(w == 0))
-//          w = 1;
-//        projection.p3x = ((projection.p3x/w) >> 10) + 40;
-//        projection.p3y = ((projection.p3y/w) >> 10) + 32;
-//        if(z > -1024)
-//          ndcFlag |= 0b100;
-
-//        projection.color = (*colorIter++);
-//        //      std::cout << "Pushing ";
-//        //      PRINT_TRIANGLE((&projection));
-//        if(ndcFlag == 0b111)
-//          pushTriangle(projection);
-        //      debugTriangleStack();
-      }
-    }
-    // end push triangles
-  } // end if(pass & node->renderPass)
-
-  // recursive call to children
-  {
-    SceneNode** child = node->children;
-    for(uint32_t childIndex = node->childCount;
-        childIndex;
-        --childIndex, ++child)
-    {
-      projectScene(*child, mvp, pass);
-    }
-  }
-  // end recursive call
-}
 
 void Engine::projectScene(const SceneNode *node, uint32_t pass) noexcept
 {
@@ -611,7 +434,7 @@ void Engine::render() noexcept
 void Engine::setProjection(float fov, float near, float far) noexcept
 {
   this->projection = Matrix::Projection(fov, near, far);
-  this->near = grog::floatToFixed(near);
+  this->near = grog::Math::FloatToFixed(near);
 }
 
 void Engine::setView(const TransformMatrix& view) noexcept

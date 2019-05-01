@@ -1,6 +1,6 @@
 #pragma once
+
 #include "grog.h"
-#include <cstdint>
 
 namespace grog
 {
@@ -17,7 +17,7 @@ namespace grog
       Gamebuino_Meta::ColorIndex color{Gamebuino_Meta::ColorIndex::black};
       Triangle* next {nullptr};
 
-      void rasterize(bufferType* __restrict frameBuffer) const noexcept;
+      void rasterize(uint8_t* __restrict frameBuffer) const noexcept;
   } ;
 
 }

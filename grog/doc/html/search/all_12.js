@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['z',['z',['../structgrog_1_1Triangle.html#a8a4bf4de05aff0a549349fe2d3c76d92',1,'grog::Triangle']]],
-  ['z1',['Z1',['../Engine_8cpp.html#a497883135e16147a29670e304793bef4',1,'Z1():&#160;Engine.cpp'],['../Engine_8cpp.html#a497883135e16147a29670e304793bef4',1,'Z1():&#160;Engine.cpp'],['../Engine_8cpp.html#a497883135e16147a29670e304793bef4',1,'Z1():&#160;Engine.cpp'],['../Engine_8cpp.html#a497883135e16147a29670e304793bef4',1,'Z1():&#160;Engine.cpp']]],
-  ['z2',['Z2',['../Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28',1,'Z2():&#160;Engine.cpp'],['../Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28',1,'Z2():&#160;Engine.cpp'],['../Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28',1,'Z2():&#160;Engine.cpp'],['../Engine_8cpp.html#a3550f7bd3eb3a1d5d589bcd8482a1e28',1,'Z2():&#160;Engine.cpp']]]
+  ['_7eengine',['~Engine',['../classgrog_1_1Engine.html#afa1abf70e06fe0463e7a84282077ecc6',1,'grog::Engine']]],
+  ['_7escenenode',['~SceneNode',['../classgrog_1_1SceneNode.html#a5bcec7a2ceba3eb174702ebf9ec7943d',1,'grog::SceneNode']]]
 ];

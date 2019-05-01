@@ -81,32 +81,42 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Generic 4*4 of signed Q21.10 fixed point. Stored as row-major order.  
+ <a href="classgrog_1_1Matrix.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="Matrix_8h_source.html">Matrix.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afaff904b0afc975afa0590baabcf4984"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Matrix.html#afaff904b0afc975afa0590baabcf4984">Matrix</a> () noexcept</td></tr>
+<tr class="memdesc:afaff904b0afc975afa0590baabcf4984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor, creates an identity matrix.  <a href="classgrog_1_1Matrix.html#afaff904b0afc975afa0590baabcf4984">More...</a><br /></td></tr>
 <tr class="separator:afaff904b0afc975afa0590baabcf4984"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa509897cf1681dffcd37ca4eda7e9c78"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Matrix.html#aa509897cf1681dffcd37ca4eda7e9c78">Matrix</a> (const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;other) noexcept</td></tr>
-<tr class="separator:aa509897cf1681dffcd37ca4eda7e9c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2834183e6a09de74242db0e480c2bfa4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Matrix.html#a2834183e6a09de74242db0e480c2bfa4">operator=</a> (const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;other) noexcept</td></tr>
-<tr class="separator:a2834183e6a09de74242db0e480c2bfa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a293f1bf2a8e57f650a785822af4149e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Matrix.html#a293f1bf2a8e57f650a785822af4149e2">Matrix</a> (const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;in_other) noexcept</td></tr>
+<tr class="memdesc:a293f1bf2a8e57f650a785822af4149e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="classgrog_1_1Matrix.html#a293f1bf2a8e57f650a785822af4149e2">More...</a><br /></td></tr>
+<tr class="separator:a293f1bf2a8e57f650a785822af4149e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacb210bd2e0070a6bc19f8178035523b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Matrix.html#aacb210bd2e0070a6bc19f8178035523b">operator=</a> (const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;in_other) noexcept</td></tr>
+<tr class="memdesc:aacb210bd2e0070a6bc19f8178035523b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator.  <a href="classgrog_1_1Matrix.html#aacb210bd2e0070a6bc19f8178035523b">More...</a><br /></td></tr>
+<tr class="separator:aacb210bd2e0070a6bc19f8178035523b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a2ad97e135325c188c6ff143015cbd114"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Matrix.html#a2ad97e135325c188c6ff143015cbd114">Transform</a> (const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;left, const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;right, <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;out) noexcept</td></tr>
-<tr class="separator:a2ad97e135325c188c6ff143015cbd114"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bb0cca36e4684efa424e63178647cfa"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgrog_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Matrix.html#a2bb0cca36e4684efa424e63178647cfa">Projection</a> (float fov, float near, float far) noexcept</td></tr>
-<tr class="separator:a2bb0cca36e4684efa424e63178647cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d5d7958ca6d8e25e9c5f8213b381a09"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Matrix.html#a6d5d7958ca6d8e25e9c5f8213b381a09">Transform</a> (const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;in_left, const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;in_right, <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;out_res) noexcept</td></tr>
+<tr class="memdesc:a6d5d7958ca6d8e25e9c5f8213b381a09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Product of a <a class="el" href="classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row-major order.">Matrix</a> (left) with a <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">TransformMatrix</a> (right).  <a href="classgrog_1_1Matrix.html#a6d5d7958ca6d8e25e9c5f8213b381a09">More...</a><br /></td></tr>
+<tr class="separator:a6d5d7958ca6d8e25e9c5f8213b381a09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4362dcd3c2e8e192255acbd072f1ea5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgrog_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Matrix.html#aa4362dcd3c2e8e192255acbd072f1ea5">Projection</a> (float in_fov, float in_near, float in_far) noexcept</td></tr>
+<tr class="memdesc:aa4362dcd3c2e8e192255acbd072f1ea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a perspective projection <a class="el" href="classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row-major order.">Matrix</a>. Check <a href="http://www.songho.ca/opengl/gl_projectionmatrix.html">http://www.songho.ca/opengl/gl_projectionmatrix.html</a> to better understand how this is constructed.  <a href="classgrog_1_1Matrix.html#aa4362dcd3c2e8e192255acbd072f1ea5">More...</a><br /></td></tr>
+<tr class="separator:aa4362dcd3c2e8e192255acbd072f1ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a3da3981f260ea16b351799bbd0998ba4"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Matrix.html#a3da3981f260ea16b351799bbd0998ba4">data</a> [16]</td></tr>
-<tr class="separator:a3da3981f260ea16b351799bbd0998ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ed75c7eaf37bb5b2012f9620fc88cde"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrog_1_1Matrix.html#a4ed75c7eaf37bb5b2012f9620fc88cde">m_data</a> [16]</td></tr>
+<tr class="memdesc:a4ed75c7eaf37bb5b2012f9620fc88cde"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual content, initialized as the identity matrix.  <a href="classgrog_1_1Matrix.html#a4ed75c7eaf37bb5b2012f9620fc88cde">More...</a><br /></td></tr>
+<tr class="separator:a4ed75c7eaf37bb5b2012f9620fc88cde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Matrix_8h_source.html#l00050">50</a> of file <a class="el" href="Matrix_8h_source.html">Matrix.h</a>.</p>
+<div class="textblock"><p>Generic 4*4 of signed Q21.10 fixed point. Stored as row-major order. </p>
+
+<p class="definition">Definition at line <a class="el" href="Matrix_8h_source.html#l00012">12</a> of file <a class="el" href="Matrix_8h_source.html">Matrix.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afaff904b0afc975afa0590baabcf4984"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afaff904b0afc975afa0590baabcf4984">&#9670;&nbsp;</a></span>Matrix() <span class="overload">[1/2]</span></h2>
@@ -131,12 +141,14 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00235">235</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Constructor, creates an identity matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00012">12</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa509897cf1681dffcd37ca4eda7e9c78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa509897cf1681dffcd37ca4eda7e9c78">&#9670;&nbsp;</a></span>Matrix() <span class="overload">[2/2]</span></h2>
+<a id="a293f1bf2a8e57f650a785822af4149e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a293f1bf2a8e57f650a785822af4149e2">&#9670;&nbsp;</a></span>Matrix() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,7 +160,7 @@ Public Attributes</h2></td></tr>
           <td class="memname">Matrix::Matrix </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
+          <td class="paramname"><em>in_other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -159,13 +171,21 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00238">238</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Copy constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_other</td><td>The <a class="el" href="classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row-major order.">Matrix</a> to copy. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00015">15</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2834183e6a09de74242db0e480c2bfa4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2834183e6a09de74242db0e480c2bfa4">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="aacb210bd2e0070a6bc19f8178035523b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacb210bd2e0070a6bc19f8178035523b">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,7 +197,7 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp; Matrix::operator= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
+          <td class="paramname"><em>in_other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -188,12 +208,22 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00243">243</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Assignment operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_other</td><td>The <a class="el" href="classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row-major order.">Matrix</a> to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Self. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>No self-assignment. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00020">20</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a2bb0cca36e4684efa424e63178647cfa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bb0cca36e4684efa424e63178647cfa">&#9670;&nbsp;</a></span>Projection()</h2>
+<a id="aa4362dcd3c2e8e192255acbd072f1ea5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4362dcd3c2e8e192255acbd072f1ea5">&#9670;&nbsp;</a></span>Projection()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,19 +235,19 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="classgrog_1_1Matrix.html">Matrix</a> Matrix::Projection </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>fov</em>, </td>
+          <td class="paramname"><em>in_fov</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>near</em>, </td>
+          <td class="paramname"><em>in_near</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>far</em>&#160;</td>
+          <td class="paramname"><em>in_far</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -232,12 +262,23 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00281">281</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Creates a perspective projection <a class="el" href="classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row-major order.">Matrix</a>. Check <a href="http://www.songho.ca/opengl/gl_projectionmatrix.html">http://www.songho.ca/opengl/gl_projectionmatrix.html</a> to better understand how this is constructed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_fov</td><td>The horizontal field of view, in radians. The vertical field is inferred knowing the Gamebuino Meta display ratio. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_near</td><td>The distance to the near plane. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_far</td><td>The distance to the far plane. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A perspective projection <a class="el" href="classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row-major order.">Matrix</a>. Implementation based on glm::perspective (<a href="https://glm.g-truc.net/0.9.4/api/a00151.html#ga283629a5ac7fb9037795435daf22560f">https://glm.g-truc.net/0.9.4/api/a00151.html#ga283629a5ac7fb9037795435daf22560f</a>). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00058">58</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a2ad97e135325c188c6ff143015cbd114"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ad97e135325c188c6ff143015cbd114">&#9670;&nbsp;</a></span>Transform()</h2>
+<a id="a6d5d7958ca6d8e25e9c5f8213b381a09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d5d7958ca6d8e25e9c5f8213b381a09">&#9670;&nbsp;</a></span>Transform()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,19 +290,19 @@ Public Attributes</h2></td></tr>
           <td class="memname">void Matrix::Transform </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>left</em>, </td>
+          <td class="paramname"><em>in_left</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classgrog_1_1TransformMatrix.html">TransformMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>right</em>, </td>
+          <td class="paramname"><em>in_right</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classgrog_1_1Matrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>out</em>&#160;</td>
+          <td class="paramname"><em>out_res</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -276,24 +317,36 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00249">249</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
+<p>Product of a <a class="el" href="classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row-major order.">Matrix</a> (left) with a <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">TransformMatrix</a> (right). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_left</td><td>The <a class="el" href="classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row-major order.">Matrix</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_right</td><td>The <a class="el" href="classgrog_1_1TransformMatrix.html" title="4*4 transform matrix of signed Q21.10 fixed point. Transform matrices always have the first 3 values ...">TransformMatrix</a>. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_res</td><td>The result, as a <a class="el" href="classgrog_1_1Matrix.html" title="Generic 4*4 of signed Q21.10 fixed point. Stored as row-major order.">Matrix</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Matrix_8cpp_source.html#l00026">26</a> of file <a class="el" href="Matrix_8cpp_source.html">Matrix.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3da3981f260ea16b351799bbd0998ba4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3da3981f260ea16b351799bbd0998ba4">&#9670;&nbsp;</a></span>data</h2>
+<a id="a4ed75c7eaf37bb5b2012f9620fc88cde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ed75c7eaf37bb5b2012f9620fc88cde">&#9670;&nbsp;</a></span>m_data</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int32_t grog::Matrix::data[16]</td>
+          <td class="memname">int32_t grog::Matrix::m_data[16]</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{1 &lt;&lt; 10, 0, 0, 0,</div><div class="line">                        0, 1 &lt;&lt; 10, 0, 0,</div><div class="line">                        0, 0, 1 &lt;&lt; 10, 0,</div><div class="line">                        0, 0, 0, 1 &lt;&lt; 10}</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="Matrix_8h_source.html#l00053">53</a> of file <a class="el" href="Matrix_8h_source.html">Matrix.h</a>.</p>
+<b>Initial value:</b><div class="fragment"><div class="line">{1 &lt;&lt; 10, 0, 0, 0,</div><div class="line">                          0, 1 &lt;&lt; 10, 0, 0,</div><div class="line">                          0, 0, 1 &lt;&lt; 10, 0,</div><div class="line">                          0, 0, 0, 1 &lt;&lt; 10}</div></div><!-- fragment -->
+<p>The actual content, initialized as the identity matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="Matrix_8h_source.html#l00018">18</a> of file <a class="el" href="Matrix_8h_source.html">Matrix.h</a>.</p>
 
 </div>
 </div>

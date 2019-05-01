@@ -1,72 +1,65 @@
 #pragma once
+
 #include "grog.h"
-#include <cmath>
+#include "TransformMatrix.h"
 
 namespace grog
 {
-  class TransformMatrix
-  {
-    public:
-      /* [0  1  2  3 ]
-       * [4  5  6  7 ]
-       * [8  9  10 11]
-       * [x  x  x  12]
-       */
-      int32_t data[13] {1 << 10, 0, 0, 0,
-                        0, 1 << 10, 0, 0,
-                        0, 0, 1 << 10, 0,
-                        1 << 10};
-
-      TransformMatrix() noexcept;
-      TransformMatrix(const TransformMatrix& other) noexcept;
-
-      //pre: no self-assignment
-      TransformMatrix& operator=(const TransformMatrix& other) noexcept;
-
-      TransformMatrix& identity() noexcept;
-
-      TransformMatrix& rotateX(int32_t theta) noexcept;
-      TransformMatrix& rotateY(int32_t theta) noexcept;
-      TransformMatrix& rotateZ(int32_t theta) noexcept;
-
-      TransformMatrix& translate(int32_t dx, int32_t dy, int32_t dz) noexcept;
-      TransformMatrix& scale(int32_t sx, int32_t sy, int32_t sz) noexcept;
-
-      static void Product(const TransformMatrix& left,
-                          const TransformMatrix& right,
-                          TransformMatrix& out) noexcept;
-
-      static TransformMatrix View(int32_t eyeX, int32_t eyeY, int32_t eyeZ,
-                                  int32_t centerX, int32_t centerY, int32_t centerZ,
-                                  int32_t upX, int32_t upY, int32_t upZ) noexcept;
-
-#ifdef __linux__
-      void print() const noexcept;
-#endif
-
-  };
-
+  /**
+   * @brief Generic 4*4 of signed Q21.10 fixed point.
+   * Stored as row-major order.
+   */
   class Matrix
   {
     public:
-      int32_t data[16] {1 << 10, 0, 0, 0,
-                        0, 1 << 10, 0, 0,
-                        0, 0, 1 << 10, 0,
-                        0, 0, 0, 1 << 10};
+      /**
+       * @brief The actual content, initialized as the identity matrix.
+       */
+      int32_t m_data[16] {1 << 10, 0, 0, 0,
+                          0, 1 << 10, 0, 0,
+                          0, 0, 1 << 10, 0,
+                          0, 0, 0, 1 << 10};
 
+      /**
+       * @brief Constructor, creates an identity matrix.
+       */
       Matrix() noexcept;
-      Matrix(const Matrix& other) noexcept;
+      /**
+       * @brief Copy constructor.
+       * @param[in] in_other The Matrix to copy.
+       */
+      Matrix(const Matrix& in_other) noexcept;
 
-      // pre no self assignment
-      Matrix& operator=(const Matrix& other) noexcept;
+      /**
+       * @brief Assignment operator.
+       * @param[in] in_other The Matrix to copy
+       * @return Self.
+       * @pre No self-assignment.
+       */
+      Matrix& operator=(const Matrix& in_other) noexcept;
 
-      static void Transform(const Matrix& left,
-                            const TransformMatrix& right,
-                            Matrix& out) noexcept;
+      /**
+       * @brief Product of a Matrix (left) with a TransformMatrix (right).
+       * @param[in] in_left The Matrix.
+       * @param[in] in_right The TransformMatrix.
+       * @param[out] out_res The result, as a Matrix.
+       */
+      static void Transform(const Matrix& in_left,
+                            const TransformMatrix& in_right,
+                            Matrix& out_res) noexcept;
 
-      static Matrix Projection(float fov,
-                               float near,
-                               float far) noexcept;
+      /**
+       * @brief Creates a perspective projection Matrix.
+       * Check http://www.songho.ca/opengl/gl_projectionmatrix.html to better understand how this is constructed.
+       * @param[in] in_fov The horizontal field of view, in radians. The vertical field is inferred knowing the Gamebuino Meta display ratio.
+       * @param[in] in_near The distance to the near plane.
+       * @param[in] in_far The distance to the far plane.
+       * @return A perspective projection Matrix.
+       * Implementation based on glm::perspective (https://glm.g-truc.net/0.9.4/api/a00151.html#ga283629a5ac7fb9037795435daf22560f).
+       */
+      static Matrix Projection(float in_fov,
+                               float in_near,
+                               float in_far) noexcept;
 
 #ifdef __linux__
       void print() const noexcept;
