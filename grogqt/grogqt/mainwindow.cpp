@@ -34,13 +34,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
   scene.m_children[2] = new demo::Road();
   scene.m_children[3] = new demo::Road();
-  scene.m_children[3]->m_transform.identity().translate(48000, 0, 0);
+  scene.m_children[3]->m_transform.identity().translate((1 << 14) + (1 << 15), 0, 0);
   scene.m_children[4] = new demo::Road();
-  scene.m_children[4]->m_transform.identity().translate(16000, 0, 0);
+  scene.m_children[4]->m_transform.identity().translate((1 << 14), 0, 5000);
   scene.m_children[5] = new demo::Road();
-  scene.m_children[5]->m_transform.identity().translate(-16000, 0, 0);
+  scene.m_children[5]->m_transform.identity().translate(- (1 << 14), 0, -5000);
   scene.m_children[6] = new demo::Road();
-  scene.m_children[6]->m_transform.identity().translate(-48000, 0, 0);
+  scene.m_children[6]->m_transform.identity().translate(-(1 << 14) - (1 << 15), 0, 0);
 
 
   ui->eyeXSpinBox->setValue(eyeX);
@@ -91,13 +91,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::step()
 {
-  static int32_t shift[] = {-32000, -16000, 0, 16000, 32000};
+  static int32_t shift[] = {-(1<<14)-(1<<15), -(1<<14), 0, 1<<14, (1<<14)+(1<<15)};
   for(uint32_t roadIndex = 0; roadIndex < 5; ++roadIndex)
   {
     scene.m_children[2 + roadIndex]->m_transform.identity().translate(shift[roadIndex], 0, 0);
     shift[roadIndex] += 300;
-    if(shift[roadIndex] >= 48000)
-      shift[roadIndex] -= 80000;
+    if(shift[roadIndex] >= (1<<14)+(1<<15))
+      shift[roadIndex] -= (1<<16) + (1<<14);
   }
 
   draw();

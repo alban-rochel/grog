@@ -29,7 +29,7 @@ void loop()
   scene.m_mesh.m_faces = nullptr;
   scene.m_mesh.m_faceCount = 0;
   scene.m_mesh.m_colors = nullptr;
-  scene.m_children = new grog::SceneNode*[7];
+  scene.m_children = new grog::SceneNode*[5];
   scene.m_childCount = 5;
 
   car1=new demo::Car(true);
@@ -46,7 +46,7 @@ void loop()
 
   int ii = 0;
 
-  int32_t shift[] = {-16000, 0, 16000};
+  int32_t shift[] = {-(1<<14), 0, (1<<14)};
 
   int32_t azimut = 60;
   int32_t tilt = 50;
@@ -95,12 +95,12 @@ void loop()
                                                grog::Math::FloatToFixed(0.f), grog::Math::FloatToFixed(-1.f), 0));
 
 
-  for(uint32_t roadIndex = 0; roadIndex < 5; ++roadIndex)
+  for(uint32_t roadIndex = 0; roadIndex < 3; ++roadIndex)
   {
     scene.m_children[2 + roadIndex]->m_transform.identity().translate(shift[roadIndex], 0, 0);
     shift[roadIndex] += 300;
-    if(shift[roadIndex] >= 32000)
-      shift[roadIndex] -= 48000;
+    if(shift[roadIndex] >= (1<<15))
+      shift[roadIndex] -= (1<<15)+(1<<14);
   }
   car1->setWheelRotation(ii << 6);
   car2->setWheelRotation(ii << 6);

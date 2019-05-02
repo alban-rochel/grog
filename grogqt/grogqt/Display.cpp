@@ -41,6 +41,9 @@ Display::~Display() noexcept
 
 void Display::draw() noexcept
 {
+  if(!pixmap)
+    return;
+
   QPainter painter(pixmap);
 
   uint8_t* currentBuffer = buffer;

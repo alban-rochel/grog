@@ -28,31 +28,33 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    ../../grog/grog.cpp \
     ../../grog/SceneNode.cpp \
-    ../../grog/Mesh.cpp \
     ../../grog/Engine.cpp \
     ../../grog/Car.cpp \
     ../../grog/Road.cpp \
     Display.cpp \
-    ../../grog/Matrix.cpp
+    ../../grog/Matrix.cpp \
+    ../../grog/Triangle.cpp \
+    ../../grog/Math.cpp \
+    ../../grog/TransformMatrix.cpp
 
 HEADERS += \
         mainwindow.h \
     ../../grog/grog.h \
-    ../../grog/common.h \
     ../../grog/SceneNode.h \
     ../../grog/Mesh.h \
     ../../grog/Engine.h \
     ../../grog/Matrix.h \
-    ../../grog/trigo.h \
     ../../grog/asset_car.h \
     ../../grog/asset_road.h \
     ../../grog/Car.h \
     ../../grog/Road.h \
     ../../grog/asset_tree.h \
     Gamebuino-Meta-stuff.h \
-    Display.h
+    Display.h \
+    ../../grog/Math.h \
+    ../../grog/Triangle.h \
+    ../../grog/TransformMatrix.h
 
 FORMS += \
         mainwindow.ui
@@ -66,4 +68,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    ../../grog/projection.md
+    ../../grog/Doxyfile \
+    ../../grog/doc_main.md
